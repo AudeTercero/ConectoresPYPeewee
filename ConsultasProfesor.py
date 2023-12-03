@@ -1,12 +1,37 @@
 import pymysql
 from ConexionBBDD import conect
-from ConexionBBDD import conexion
-
-def consAlta():
-    cursor = conect().cursor()
 
 
+def consAlta(dni, nombre, direccion, telefono):
+    try:
+        cursor = conect.cursor()
+        cursor.execute(
+            f"INSERT INTO profesor (dni,nombre,direccion,telefono) VALUES ('{dni}','{nombre}','{direccion}','{telefono}')")
+        conect.commit()
+        cursor.close()
+        print("Profesor guardado correctamente")
+    except pymysql.Error as err:
+        print(err)
 
-print(conect)
-print(conect)
-print(conect)
+
+def consBusqueda(dni):
+    resultados = None
+    try:
+        cursor = conect.cursor()
+        cursor.execute(f"SELECT * FROM profesor WHERE dni = '{dni}' ")
+        resultados = cursor.fetchall()
+        cursor.close()
+        return resultados
+    except pymysql.Error as err:
+        print(err)
+
+def mostrarTabla():
+    resultados = None
+    try:
+        cursor = conect.cursor()
+        cursor.execute("SELECT * FROM profesor")
+        resultados = cursor.fetchall()
+        cursor.close()
+        return resultados
+    except pymysql.Error as err:
+        print(err)
