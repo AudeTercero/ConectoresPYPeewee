@@ -42,6 +42,8 @@ def conexion():
             if(comando.strip()):
                 cursor.execute(comando)
     con.commit()
+    cursor.close()
+    con.close()
 
 
 
