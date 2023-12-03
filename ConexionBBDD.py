@@ -42,8 +42,19 @@ def conexion():
             if(comando.strip()):
                 cursor.execute(comando)
     con.commit()
-    cursor.close()
-    con.close()
+    return con
+#def conect():
+#    try:
+#        con = pymysql.connect(
+#            host='localhost',
+#            user='root',
+#            password='alumno',
+#            database='Marcos_Javier_Iker',
+#            port=3307
+#        )
+#        return con
+#
+#    except pymysql.Error as err:
+#        print(f"Error de conexión a la base de datos: {err}")
 
-
-
+conect = conexion()

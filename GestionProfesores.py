@@ -27,3 +27,4 @@ def menu():
             print("Entrada no valida")
 
 def alta():
+    print()
