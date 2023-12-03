@@ -15,7 +15,6 @@ def consAlta(dni, nombre, direccion, telefono):
 
 
 def consBusqueda(dni):
-    resultados = None
     try:
         cursor = conect.cursor()
         cursor.execute(f"SELECT * FROM profesor WHERE dni = '{dni}' ")
@@ -26,7 +25,6 @@ def consBusqueda(dni):
         print(err)
 
 def mostrarTabla():
-    resultados = None
     try:
         cursor = conect.cursor()
         cursor.execute("SELECT * FROM profesor")

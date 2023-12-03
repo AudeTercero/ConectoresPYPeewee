@@ -38,7 +38,7 @@ def alta():
     intentos = 0
     opcSalir = None
     salir = False
-    while (intentos < 3 and salir is False):
+    while (intentos < 5 and salir is False):
         try:
             if (dni is None and opcSalir != '0'):
                 aux = input('Introduce el dni del profesor o 0 para salir:\n')
@@ -75,7 +75,7 @@ def alta():
             intentos += 1
             print(err)
 
-    if (intentos < 3 and opcSalir != '0'):
+    if (intentos < 5 and opcSalir != '0'):
         ConsultasProfesor.consAlta(dni, nombre, direccion, telefono)
     elif (opcSalir == '0'):
         print("Saliendo")
@@ -105,11 +105,7 @@ def consultar():
             profesor = ConsultasProfesor.consBusqueda(dni)
             for tupla in profesor:
                 print(f'''---Profesor---
-Id: {tupla[0]}
-DNI: {tupla[1]}
-Nombre: {tupla[2]}
-Direccion: {tupla[3]}
-Telefono: {tupla[4]}''')
+Id: {tupla[0]}, DNI: {tupla[1]}, Nombre: {tupla[2]}, Direccion: {tupla[3]}, Telefono: {tupla[4]}''')
         elif(fallos == 5):
             print("Has superado el maximos de fallos permitidos que son 5")
         else:
