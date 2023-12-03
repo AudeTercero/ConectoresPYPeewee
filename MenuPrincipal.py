@@ -2,10 +2,11 @@ from GestionAlumnos import menu as menuAlumnos
 from GestionProfesores import menu as menuProfesores
 from GestionCursos import menu as menuCursos
 from GestionInscripciones import menu as menuInscripciones
+from ConexionBBDD import conexion
 
 
 print("Inicio Practica Conectores")
-
+conexion()
 finMenuPrincipal = False
 while not finMenuPrincipal:
     opcion = input("\n\n[==== MENU PRINCIPAL ====>\n"

@@ -1,3 +1,4 @@
+
 def menu():
     finMenuProfesores = False
     while not finMenuProfesores:
@@ -24,3 +25,5 @@ def menu():
             finMenuProfesores = True
         else:
             print("Entrada no valida")
+
+def alta():
