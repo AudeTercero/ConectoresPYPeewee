@@ -1,7 +1,7 @@
 def menu():
     finMenuCursos = False
     while not finMenuCursos:
-        opcion = input("\n\n\t[==== MENU PROFESORES ====>\n"
+        opcion = input("\n\n\t[==== MENU CURSOS ====>\n"
                        "\t[1. Alta\n"
                        "\t[2. Baja\n"
                        "\t[3. Modificar\n"
