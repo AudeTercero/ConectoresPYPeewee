@@ -1,3 +1,9 @@
+from GestionAlumnos import menu as menuAlumnos
+from GestionProfesores import menu as menuProfesores
+from GestionCursos import menu as menuCursos
+from GestionInscripciones import menu as menuInscripciones
+
+
 print("Inicio Practica Conectores")
 
 finMenuPrincipal = False
@@ -10,13 +16,13 @@ while not finMenuPrincipal:
                    "[0. Gestion Alumnos\n"
                    "[===== Opcion: ")
     if opcion == "1":
-        print("Gestion Alumnos")
+        menuAlumnos()
     elif opcion == "2":
-        print("Gestion Profesores")
+        menuProfesores()
     elif opcion == "3":
-        print("Gestion Cursos")
+        menuCursos()
     elif opcion == "4":
-        print("Inscripciones")
+        menuInscripciones()
     elif opcion == "0":
         print("Saliendo...")
         finMenuPrincipal = True
