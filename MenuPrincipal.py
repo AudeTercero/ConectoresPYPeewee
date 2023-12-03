@@ -14,7 +14,7 @@ while not finMenuPrincipal:
                    "[2. Gestion Profesores\n"
                    "[3. Gestion Cursos\n"
                    "[4. Inscripciones\n"
-                   "[0. Gestion Alumnos\n"
+                   "[0. Salir\n"
                    "[===== Opcion: ")
     if opcion == "1":
         menuAlumnos()
