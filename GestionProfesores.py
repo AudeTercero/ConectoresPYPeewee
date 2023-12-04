@@ -3,6 +3,10 @@ import ConsultasProfesor
 
 
 def menu():
+    """
+    Funcion de menu de gestion de Profesor
+    :return:
+    """
     finMenuProfesores = False
     while not finMenuProfesores:
         opcion = input("\n\n\t[==== MENU PROFESORES ====>\n"
@@ -31,6 +35,10 @@ def menu():
 
 
 def alta():
+    """
+    Funcion de alta que agrega un profesor
+    :return:
+    """
     dni = None
     nombre = None
     direccion = None
@@ -45,6 +53,7 @@ def alta():
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.dniFormat(aux)
+                    VerificationExceptions.existDni(aux)
                     dni = aux
                     intentos = 0
             if (nombre is None and opcSalir != '0'):
@@ -84,6 +93,10 @@ def alta():
 
 
 def baja():
+    """
+    Funcion que da de baja un profesor
+    :return:
+    """
     dni = None
     opcSalir = None
     fallos = 0
@@ -93,6 +106,7 @@ def baja():
             opcSalir = aux
             if (opcSalir != 0):
                 VerificationExceptions.dniFormat(aux)
+                VerificationExceptions.noExistDni(aux)
                 dni = aux
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
@@ -143,6 +157,10 @@ Id: {tupla[0]}, DNI: {tupla[1]}, Nombre: {tupla[2]}, Direccion: {tupla[3]}, Tele
 
 
 def modificar():
+    """
+    Funcion que mustra un menu para que elijas que quieres modificar y modificarlo
+    :return:
+    """
     dni = None
     opcSalir = None
     fallos = 0
@@ -152,6 +170,7 @@ def modificar():
             opcSalir = aux
             if (opcSalir != 0):
                 VerificationExceptions.dniFormat(aux)
+                VerificationExceptions.noExistDni(aux)
                 dni = aux
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
@@ -168,7 +187,37 @@ def modificar():
                     ''')
         if opc == '1':
             nuevoDni = None
-            ConsultasProfesor.consModificar(dni, 'dni', nuevoDni)
+            fallos = 0
+            opcSalir = None
+            while (fallos < 5 and nuevoDni is None and opcSalir != '0'):
+                try:
+                    aux = input('Escriba el nuevo dni:')
+                    if(opcSalir != '0'):
+                        VerificationExceptions.dniFormat(aux)
+                        ConsultasProfesor.existDni(aux)
+                        nuevoDni = aux
+                except VerificationExceptions.MisExceptions as err:
+                    print(err)
+                    fallos += 1
+            if (fallos < 5 and opcSalir != '0'):
+                while not salir:
+                    op = input("Seguro que quiere modificar el dni del profesor?[S/N]").lower()
+                    if op == "s":
+                        ConsultasProfesor.consModificar(dni, 'dni', nuevoDni)
+                        print("Modificacion realizada correctamente")
+                        dni = nuevoDni
+                        salir = True
+                    elif op == "n":
+                        salir = True;
+                        print("Saliendo sin guardar...")
+                    else:
+                        print("Entrada no valida.")
+            elif (fallos == 5):
+                print("No puedes fallar mas de 5 veces")
+
+            else:
+                print("Saliendo...")
+
         elif opc == '2':
             nuevoNombre = None
             ConsultasProfesor.consModificar(dni, 'nombre', nuevoNombre)
@@ -190,6 +239,10 @@ def modificar():
 
 
 def mostrarTodos():
+    """
+    Funcion que muestra todos los profesores
+    :return:
+    """
     tabla = ConsultasProfesor.mostrarTabla()
     print(type(tabla))
     for tupla in tabla:

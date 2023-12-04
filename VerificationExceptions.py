@@ -1,4 +1,5 @@
 from datetime import datetime
+from ConsultasProfesor import existProfesor
 
 
 class MisExceptions(Exception):
@@ -42,3 +43,13 @@ def formatoFecha(fecha):
         datetime.strptime(fecha, formato)
     except ValueError:
         raise MisExceptions('Formato de la fecha incorrecto. Formato esperado yyyy-mm-dd')
+
+
+def existDni(dni):
+    if (existProfesor(dni)):
+        raise MisExceptions('Ya existe un profesor con ese dni')
+
+
+def noExistDni(dni):
+    if (not existProfesor(dni)):
+        raise MisExceptions('No se ha encontrado un profesor con ese dni')

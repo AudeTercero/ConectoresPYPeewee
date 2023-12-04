@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS profesor (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    dni CHAR(9) NOT NULL CHECK (dni REGEXP '^[0-9]{8}[A-Za-z]$'),
+    dni CHAR(9) NOT NULL UNIQUE CHECK (dni REGEXP '^[0-9]{8}[A-Za-z]$'),
     nombre VARCHAR(20) NOT NULL,
     direccion VARCHAR(35) NOT NULL,
     telefono CHAR(9) NOT NULL CHECK (telefono REGEXP '^[0-9]{9}$')
