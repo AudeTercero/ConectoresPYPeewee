@@ -149,7 +149,7 @@ def consultar():
             profesor = ConsultasProfesor.consBusqueda(dni)
             for tupla in profesor:
                 print(f'''---Profesor---
-Id: {tupla[0]}, DNI: {tupla[1]}, Nombre: {tupla[2]}, Direccion: {tupla[3]}, Telefono: {tupla[4]}''')
+Id: {tupla[0]}, DNI: {tupla[1]}, Nombre: {tupla[2]}, Direccion: {tupla[3]}, Telefono: {tupla[4]}, Cursos: {tupla[5]}''')
         elif (fallos == 5):
             print("Has superado el maximos de fallos permitidos que son 5")
         else:
@@ -209,7 +209,7 @@ def modificar():
                         print("Modificacion realizada correctamente")
                         dni = nuevoDni
                     elif op == "n":
-                        salir = True;
+                        salir = True
                         print("Saliendo sin guardar...")
                     else:
                         print("Entrada no valida.")
@@ -336,4 +336,5 @@ Id: {tupla[0]}
 DNI: {tupla[1]}
 Nombre: {tupla[2]}
 Direccion: {tupla[3]}
-Telefono: {tupla[4]}''')
+Telefono: {tupla[4]}
+Cursos: {tupla[5]}''')

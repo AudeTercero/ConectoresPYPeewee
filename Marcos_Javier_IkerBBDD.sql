@@ -11,12 +11,13 @@ CREATE TABLE IF NOT EXISTS alumno(
     apellidos VARCHAR(35) NOT NULL,
     telefono CHAR(9) NOT NULL CHECK (telefono REGEXP '^[0-9]{9}$'),
     direccion VARCHAR(35) NOT NULL,
-    fecha_nac DATE CHECK (fecha_nac IS NULL OR STR_TO_DATE(fecha_nac, '%Y-%m-%d') IS NOT NULL)
+    fecha_nac DATE CHECK (fecha_nac IS NULL OR STR_TO_DATE(fecha_nac, '%Y-%m-%d') IS NOT NULL),
+    CONSTRAINT uk_nombre_apellidos UNIQUE (nombre, apellidos)
 );
 CREATE TABLE IF NOT EXISTS curso(
     cod_curso INT AUTO_INCREMENT PRIMARY KEY,
     id_profesor INT,
-    nombre VARCHAR(20) NOT NULL,
+    nombre VARCHAR(20) NOT NULL UNIQUE,
     descripcion VARCHAR(50) NOT NULL,
     CONSTRAINT fk_curso_profesor FOREIGN KEY (id_profesor) REFERENCES profesor(id) ON DELETE CASCADE
 );

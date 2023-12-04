@@ -38,7 +38,7 @@ def consBaja(dni):
 def consBusqueda(dni):
     try:
         cursor = conect.cursor()
-        cursor.execute(f"SELECT * FROM profesor WHERE dni = '{dni}' ")
+        cursor.execute(f"SELECT p.*, c.nombre AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor WHERE dni = '{dni}'")
         resultados = cursor.fetchall()
         cursor.close()
         return resultados
@@ -61,7 +61,7 @@ def consModificar(dni, columna, nuevoCampo):
 def mostrarTabla():
     try:
         cursor = conect.cursor()
-        cursor.execute("SELECT * FROM profesor")
+        cursor.execute("SELECT p.*, c.nombre AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor")
         resultados = cursor.fetchall()
         cursor.close()
         return resultados
@@ -72,7 +72,7 @@ def mostrarTabla():
 def existProfesor(dni):
     try:
         cursor = conect.cursor()
-        cursor.execute(f"SELECT dni FROM profesor WHERE dni = '{dni}' ")
+        cursor.execute(f"SELECT dni FROM profesor WHERE dni = '{dni}'")
         resultados = cursor.fetchall()
         cursor.close()
         if (len(resultados) and resultados[0][0] == dni):
