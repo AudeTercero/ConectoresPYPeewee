@@ -84,7 +84,37 @@ def alta():
 
 
 def baja():
-    print()
+    dni = None
+    opcSalir = None
+    fallos = 0
+    while (opcSalir != '0' and fallos < 5):
+        try:
+            aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:")
+            opcSalir = aux
+            if (opcSalir != 0):
+                VerificationExceptions.dniFormat(aux)
+                dni = aux
+        except VerificationExceptions.MisExceptions as err:
+            fallos += 1
+            print(err)
+        if (fallos < 5 and opcSalir != 0):
+            salir = False
+            while not salir:
+                op = input("Seguro que quiere dar de baja al profesor?[S/N]").lower()
+
+                if op == "s":
+                    ConsultasProfesor.consBaja(dni)
+                    salir = True
+                elif op == "n":
+                    salir = True;
+                    print("Saliendo sin guardar...")
+                else:
+                    print("Entrada no valida.")
+
+        elif (fallos == 5):
+            print("Has superado el maximos de fallos permitidos que son 5")
+        else:
+            print("Saliendo...")
 
 
 def consultar():

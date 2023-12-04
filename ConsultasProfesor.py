@@ -13,6 +13,16 @@ def consAlta(dni, nombre, direccion, telefono):
     except pymysql.Error as err:
         print(err)
 
+def consBaja(dni):
+    try:
+        cursor = conect.cursor()
+        cursor.execute(
+            f"DELETE FROM profesor WHERE dni = '{dni}'")
+        conect.commit()
+        cursor.close()
+        print("Profesor dado de baja correctamente")
+    except pymysql.Error as err:
+        print(err)
 
 def consBusqueda(dni):
     try:
