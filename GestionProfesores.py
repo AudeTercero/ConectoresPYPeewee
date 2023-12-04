@@ -176,7 +176,7 @@ def modificar():
             fallos += 1
             print(err)
     salir = False
-    while(fallos < 5 and not salir ):
+    while (fallos < 5 and not salir):
         opc = input(''' 
                     ******* MODIFICACION PROFESOR *******
                     1.DNI
@@ -191,8 +191,8 @@ def modificar():
             opcSalir = None
             while (fallos < 5 and nuevoDni is None and opcSalir != '0'):
                 try:
-                    aux = input('Escriba el nuevo dni:')
-                    if(opcSalir != '0'):
+                    aux = input('Escriba el nuevo dni o pulse 0 para salir:')
+                    if (opcSalir != '0'):
                         VerificationExceptions.dniFormat(aux)
                         ConsultasProfesor.existDni(aux)
                         nuevoDni = aux
@@ -220,22 +220,102 @@ def modificar():
 
         elif opc == '2':
             nuevoNombre = None
-            ConsultasProfesor.consModificar(dni, 'nombre', nuevoNombre)
+            fallos = 0
+            opcSalir = None
+            while (fallos < 5 and nuevoNombre is None and opcSalir != '0'):
+                try:
+                    aux = input('Escriba el nuevo nombre o pulse 0 para salir:')
+                    if (opcSalir != '0'):
+                        VerificationExceptions.hayAlgo(aux)
+                        nuevoNombre = aux
+                except VerificationExceptions.MisExceptions as err:
+                    print(err)
+                    fallos += 1
+            if (fallos < 5 and opcSalir != '0'):
+                while not salir:
+                    op = input("Seguro que quiere modificar el nombre del profesor?[S/N]").lower()
+                    if op == "s":
+                        ConsultasProfesor.consModificar(dni, 'nombre', nuevoNombre)
+                        print("Modificacion realizada correctamente")
+                        salir = True
+                    elif op == "n":
+                        salir = True;
+                        print("Saliendo sin guardar...")
+                    else:
+                        print("Entrada no valida.")
+            elif (fallos == 5):
+                print("No puedes fallar mas de 5 veces")
+
+            else:
+                print("Saliendo...")
+
         elif opc == '3':
             nuevoDirec = None
-            ConsultasProfesor.consModificar(dni, 'direccion', nuevoDirec)
+            fallos = 0
+            opcSalir = None
+            while (fallos < 5 and nuevoDirec is None and opcSalir != '0'):
+                try:
+                    aux = input('Escriba la nueva direccion o pulse 0 para salir:')
+                    if (opcSalir != '0'):
+                        VerificationExceptions.hayAlgo(aux)
+                        nuevoDirec = aux
+                except VerificationExceptions.MisExceptions as err:
+                    print(err)
+                    fallos += 1
+            if (fallos < 5 and opcSalir != '0'):
+                while not salir:
+                    op = input("Seguro que quiere modificar la direccion del profesor?[S/N]").lower()
+                    if op == "s":
+                        ConsultasProfesor.consModificar(dni, 'direccion', nuevoDirec)
+                        print("Modificacion realizada correctamente")
+                        salir = True
+                    elif op == "n":
+                        salir = True;
+                        print("Saliendo sin guardar...")
+                    else:
+                        print("Entrada no valida.")
+            elif (fallos == 5):
+                print("No puedes fallar mas de 5 veces")
+
+            else:
+                print("Saliendo...")
+
         elif opc == '4':
             nuevoTel = None
-            ConsultasProfesor.consModificar(dni, 'telefono', nuevoTel)
+            fallos = 0
+            opcSalir = None
+            while (fallos < 5 and nuevoTel is None and opcSalir != '0'):
+                try:
+                    aux = input('Escriba el nuevo telefono o pulse 0 para salir:')
+                    if (opcSalir != '0'):
+                        VerificationExceptions.validar_telefono(aux)
+                        nuevoTel = aux
+                except VerificationExceptions.MisExceptions as err:
+                    print(err)
+                    fallos += 1
+            if (fallos < 5 and opcSalir != '0'):
+                while not salir:
+                    op = input("Seguro que quiere modificar el telefono del profesor?[S/N]").lower()
+                    if op == "s":
+                        ConsultasProfesor.consModificar(dni, 'telefono', nuevoTel)
+                        print("Modificacion realizada correctamente")
+                        salir = True
+                    elif op == "n":
+                        salir = True;
+                        print("Saliendo sin guardar...")
+                    else:
+                        print("Entrada no valida.")
+            elif (fallos == 5):
+                print("No puedes fallar mas de 5 veces")
+
+            else:
+                print("Saliendo...")
+
         elif opc == '0':
             print("Saliendo...")
             salir = True
         else:
             print("No hay esa opcion")
-
-
-
-
 
 
 def mostrarTodos():

@@ -1,6 +1,6 @@
 import pymysql
 from ConexionBBDD import conect
-from VerificationExceptions import MisExceptions
+
 
 
 def consAlta(dni, nombre, direccion, telefono):

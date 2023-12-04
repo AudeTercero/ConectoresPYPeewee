@@ -1,5 +1,5 @@
 from datetime import datetime
-from ConsultasProfesor import existProfesor
+import ConsultasProfesor
 
 
 class MisExceptions(Exception):
@@ -46,10 +46,10 @@ def formatoFecha(fecha):
 
 
 def existDni(dni):
-    if (existProfesor(dni)):
+    if (ConsultasProfesor.existProfesor(dni)):
         raise MisExceptions('Ya existe un profesor con ese dni')
 
 
 def noExistDni(dni):
-    if (not existProfesor(dni)):
+    if (not ConsultasProfesor.existProfesor(dni)):
         raise MisExceptions('No se ha encontrado un profesor con ese dni')
