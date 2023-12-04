@@ -51,6 +51,7 @@ def consModificar(dni, columna, nuevoCampo):
         cursor = conect.cursor()
         cursor.execute(f"UPDATE profesor SET {columna} = '{nuevoCampo}' WHERE dni = '{dni}'")
         resultados = cursor.fetchall()
+        conect.commit()
         cursor.close()
         return resultados
     except pymysql.Error as err:
@@ -74,9 +75,8 @@ def existProfesor(dni):
         cursor.execute(f"SELECT dni FROM profesor WHERE dni = '{dni}' ")
         resultados = cursor.fetchall()
         cursor.close()
-        if (resultados[0] == dni):
+        if (len(resultados) and resultados[0][0] == dni):
             return True
-
     except pymysql.Error as err:
         print(err)
 

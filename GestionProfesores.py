@@ -164,7 +164,7 @@ def modificar():
     dni = None
     opcSalir = None
     fallos = 0
-    while (opcSalir != '0' and fallos < 5):
+    while (dni is None and opcSalir != '0' and fallos < 5):
         try:
             aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:")
             opcSalir = aux
@@ -192,21 +192,22 @@ def modificar():
             while (fallos < 5 and nuevoDni is None and opcSalir != '0'):
                 try:
                     aux = input('Escriba el nuevo dni o pulse 0 para salir:')
+                    opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.dniFormat(aux)
-                        ConsultasProfesor.existDni(aux)
+                        VerificationExceptions.existDni(aux)
                         nuevoDni = aux
                 except VerificationExceptions.MisExceptions as err:
                     print(err)
                     fallos += 1
             if (fallos < 5 and opcSalir != '0'):
-                while not salir:
+                op = None
+                while not salir and op is None:
                     op = input("Seguro que quiere modificar el dni del profesor?[S/N]").lower()
                     if op == "s":
                         ConsultasProfesor.consModificar(dni, 'dni', nuevoDni)
                         print("Modificacion realizada correctamente")
                         dni = nuevoDni
-                        salir = True
                     elif op == "n":
                         salir = True;
                         print("Saliendo sin guardar...")
@@ -218,6 +219,7 @@ def modificar():
             else:
                 print("Saliendo...")
 
+
         elif opc == '2':
             nuevoNombre = None
             fallos = 0
@@ -225,6 +227,7 @@ def modificar():
             while (fallos < 5 and nuevoNombre is None and opcSalir != '0'):
                 try:
                     aux = input('Escriba el nuevo nombre o pulse 0 para salir:')
+                    opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.hayAlgo(aux)
                         nuevoNombre = aux
@@ -232,12 +235,12 @@ def modificar():
                     print(err)
                     fallos += 1
             if (fallos < 5 and opcSalir != '0'):
-                while not salir:
+                op = None
+                while not salir and op is None:
                     op = input("Seguro que quiere modificar el nombre del profesor?[S/N]").lower()
                     if op == "s":
                         ConsultasProfesor.consModificar(dni, 'nombre', nuevoNombre)
                         print("Modificacion realizada correctamente")
-                        salir = True
                     elif op == "n":
                         salir = True;
                         print("Saliendo sin guardar...")
@@ -256,6 +259,7 @@ def modificar():
             while (fallos < 5 and nuevoDirec is None and opcSalir != '0'):
                 try:
                     aux = input('Escriba la nueva direccion o pulse 0 para salir:')
+                    opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.hayAlgo(aux)
                         nuevoDirec = aux
@@ -263,12 +267,12 @@ def modificar():
                     print(err)
                     fallos += 1
             if (fallos < 5 and opcSalir != '0'):
-                while not salir:
+                op = None
+                while not salir and op is None:
                     op = input("Seguro que quiere modificar la direccion del profesor?[S/N]").lower()
                     if op == "s":
                         ConsultasProfesor.consModificar(dni, 'direccion', nuevoDirec)
                         print("Modificacion realizada correctamente")
-                        salir = True
                     elif op == "n":
                         salir = True;
                         print("Saliendo sin guardar...")
@@ -287,6 +291,7 @@ def modificar():
             while (fallos < 5 and nuevoTel is None and opcSalir != '0'):
                 try:
                     aux = input('Escriba el nuevo telefono o pulse 0 para salir:')
+                    opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.validar_telefono(aux)
                         nuevoTel = aux
@@ -294,12 +299,12 @@ def modificar():
                     print(err)
                     fallos += 1
             if (fallos < 5 and opcSalir != '0'):
-                while not salir:
+                op = None
+                while not salir and op is None:
                     op = input("Seguro que quiere modificar el telefono del profesor?[S/N]").lower()
                     if op == "s":
                         ConsultasProfesor.consModificar(dni, 'telefono', nuevoTel)
                         print("Modificacion realizada correctamente")
-                        salir = True
                     elif op == "n":
                         salir = True;
                         print("Saliendo sin guardar...")
