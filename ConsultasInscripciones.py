@@ -2,9 +2,6 @@ import pymysql
 from ConexionBBDD import conect
 
 
-
-
-
 def matAlu(nomCurso, nomAlu, apeAlu):
     try:
         cursor = conect.cursor()
