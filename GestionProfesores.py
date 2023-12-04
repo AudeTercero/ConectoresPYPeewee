@@ -125,28 +125,68 @@ def consultar():
         try:
             aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:")
             opcSalir = aux
-            if(opcSalir !=0):
+            if (opcSalir != 0):
                 VerificationExceptions.dniFormat(aux)
                 dni = aux
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-        if(fallos <5 and opcSalir != 0):
+        if (fallos < 5 and opcSalir != 0):
             profesor = ConsultasProfesor.consBusqueda(dni)
             for tupla in profesor:
                 print(f'''---Profesor---
 Id: {tupla[0]}, DNI: {tupla[1]}, Nombre: {tupla[2]}, Direccion: {tupla[3]}, Telefono: {tupla[4]}''')
-        elif(fallos == 5):
+        elif (fallos == 5):
             print("Has superado el maximos de fallos permitidos que son 5")
         else:
             print("Saliendo...")
 
 
-
-
-
 def modificar():
-    print()
+    dni = None
+    opcSalir = None
+    fallos = 0
+    while (opcSalir != '0' and fallos < 5):
+        try:
+            aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:")
+            opcSalir = aux
+            if (opcSalir != 0):
+                VerificationExceptions.dniFormat(aux)
+                dni = aux
+        except VerificationExceptions.MisExceptions as err:
+            fallos += 1
+            print(err)
+    salir = False
+    while(fallos < 5 and not salir ):
+        opc = input(''' 
+                    ******* MODIFICACION PROFESOR *******
+                    1.DNI
+                    2.Nombre
+                    3.Direccion
+                    4.Telefono
+                    0.Salir
+                    ''')
+        if opc == '1':
+            nuevoDni = None
+            ConsultasProfesor.consModificar(dni, 'dni', nuevoDni)
+        elif opc == '2':
+            nuevoNombre = None
+            ConsultasProfesor.consModificar(dni, 'nombre', nuevoNombre)
+        elif opc == '3':
+            nuevoDirec = None
+            ConsultasProfesor.consModificar(dni, 'direccion', nuevoDirec)
+        elif opc == '4':
+            nuevoTel = None
+            ConsultasProfesor.consModificar(dni, 'telefono', nuevoTel)
+        elif opc == '0':
+            print("Saliendo...")
+            salir = True
+        else:
+            print("No hay esa opcion")
+
+
+
+
 
 
 def mostrarTodos():

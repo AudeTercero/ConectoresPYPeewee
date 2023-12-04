@@ -33,7 +33,15 @@ def consBusqueda(dni):
         return resultados
     except pymysql.Error as err:
         print(err)
-
+def consModificar(dni,columna,nuevoCampo):
+    try:
+        cursor = conect.cursor()
+        cursor.execute(f"UPDATE profesor SET {columna} = '{nuevoCampo}' WHERE dni = '{dni}'")
+        resultados = cursor.fetchall()
+        cursor.close()
+        return resultados
+    except pymysql.Error as err:
+        print(err)
 def mostrarTabla():
     try:
         cursor = conect.cursor()
