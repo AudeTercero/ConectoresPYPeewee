@@ -1,6 +1,6 @@
 from datetime import datetime
-import ConsultasInscripciones
 import ConsultasProfesor
+import ConsultasCurso
 
 
 class MisExceptions(Exception):
@@ -56,11 +56,11 @@ def noExistDni(dni):
         raise MisExceptions('No se ha encontrado un profesor con ese dni')
 
 
-def existNombreCur(dni):
-    if (ConsultasProfesor.existProfesor(dni)):
+def existNombreCur(nombre):
+    if ConsultasCurso.existeCurso(nombre):
         raise MisExceptions('Ya existe un curso con ese nombre')
 
 
 def noExistNombreCur(nombre):
-    if (not ConsultasInscripciones.existeCurso(nombre)):
+    if not ConsultasCurso.existeCurso(nombre):
         raise MisExceptions('No se ha encontrado un curso con ese nombre')
