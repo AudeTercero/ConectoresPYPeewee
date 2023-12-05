@@ -120,7 +120,7 @@ def baja():
                     ConsultasProfesor.consBaja(dni)
                     salir = True
                 elif op == "n":
-                    salir = True;
+                    salir = True
                     print("Saliendo sin guardar...")
                 else:
                     print("Entrada no valida.")
@@ -141,6 +141,7 @@ def consultar():
             opcSalir = aux
             if (opcSalir != 0):
                 VerificationExceptions.dniFormat(aux)
+                VerificationExceptions.noExistDni(aux)
                 dni = aux
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
