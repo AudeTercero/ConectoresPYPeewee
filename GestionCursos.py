@@ -32,7 +32,7 @@ def menu():
 
 def alta():
     """
-    Funcion de alta que agrega un profesor
+    Funcion de alta que agrega un curso
     :return:
     """
     nombre = None
@@ -50,6 +50,7 @@ def alta():
                     VerificationExceptions.existNombreCur(aux)
                     nombre = aux
                     intentos = 0
+                    print("Nombre correcto")
             if descripcion is None and opcSalir != '0':
                 aux = input('Introduce la descripcion del curso o 0 para salir:\n')
                 opcSalir = aux
@@ -58,6 +59,7 @@ def alta():
                     descripcion = aux
                     intentos = 0
                     salir = True
+                    print("Descripcion Correcta")
             if opcSalir == '0':
                 salir = True
         except VerificationExceptions.MisExceptions as err:
@@ -66,6 +68,7 @@ def alta():
 
     if intentos < 5 and opcSalir != '0':
         ConsultasCurso.consAlta(nombre, descripcion)
+        print("Alta realizada")
     elif opcSalir == '0':
         print("Saliendo")
     else:
@@ -74,7 +77,7 @@ def alta():
 
 def baja():
     """
-    Funcion que da de baja un profesor
+    Funcion que da de baja un curso
     :return:
     """
     nombre = None
@@ -101,6 +104,7 @@ def baja():
 
             if op == "s":
                 ConsultasCurso.consBaja(nombre)
+                print("Baja realizada con exito")
                 salir = True
             elif op == "n":
                 salir = True
@@ -115,6 +119,10 @@ def baja():
 
 
 def consultar():
+    """
+    Funcion que permite mostrar el contenido de un curso
+    :return:
+    """
     nombre = None
     opcSalir = None
     fallos = 0
@@ -143,7 +151,7 @@ def consultar():
 
 def modificar():
     """
-    Funcion que muestra un menu para que elijas que quieres modificar y modificarlo
+    Funcion que permite modificar los campos de un curso
     :return:
     """
     nombre = None
@@ -184,6 +192,7 @@ def modificar():
                         VerificationExceptions.existNombreCur(aux)
                         nuevoNombre = aux
                         salirNombre = True
+                        print("Nombre correcto")
                 except VerificationExceptions.MisExceptions as err:
                     print(err)
                     fallos += 1
@@ -217,6 +226,7 @@ def modificar():
                     if opcSalir != '0':
                         VerificationExceptions.hayAlgo(aux)
                         nuevaDescripcion = aux
+                        print("Descripcion Correcta")
                 except VerificationExceptions.MisExceptions as err:
                     print(err)
                     fallos += 1
@@ -247,7 +257,7 @@ def modificar():
 
 def mostrarTodos():
     """
-    Funcion que muestra todos los profesores
+    Funcion que muestra todos los curso
     :return:
     """
     tabla = ConsultasCurso.mostrarTabla()
