@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import ConsultasAlumnos
+import ConsultasInscripciones
 import ConsultasProfesor
 import ConsultasCurso
 
@@ -72,6 +73,27 @@ def existeAlumno(nombre, apellidos):
     if ConsultasAlumnos.existeAlumno(nombre, apellidos):
         raise MisExceptions('Ya existe un alumno con ese nombre y apellidos')
 
+
 def noExisteAlumno(nombre, apellidos):
     if not ConsultasAlumnos.existeAlumno(nombre, apellidos):
         raise MisExceptions('No se ha encontrado un alumno con ese nombre y apellidos')
+
+
+def noExisteAlumnoEnAlumnoCurso(idAlumno, idCurso):
+    if not ConsultasInscripciones.existeAluEnAluCurso(idAlumno, idCurso):
+        raise MisExceptions('No se ha encontrado un alumno con ese nombre y apellidos en ese curso')
+
+
+def existeAlumnoEnAlumnoCurso(idAlumno, idCurso):
+    if ConsultasInscripciones.existeAluEnAluCurso(idAlumno, idCurso):
+        raise MisExceptions('Ese alumno ya esta matriculado en ese curso')
+
+
+def noExisteProfesorEnCurso(idProfesor, idCurso):
+    if not ConsultasInscripciones.existeProfEnCurso(idProfesor, idCurso):
+        raise MisExceptions('No se ha encontrado un profesor con ese dni en ese curso')
+
+
+def existeProfesorEnCurso(idProfesor, idCurso):
+    if ConsultasInscripciones.existeProfEnCurso(idProfesor, idCurso):
+        raise MisExceptions('Ese profesor ya esta matriculado en ese curso')

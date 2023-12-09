@@ -127,6 +127,8 @@ def desmatricularAlumno():
     curso = None
     nombre = None
     apellido = None
+    idCurso = None
+    idAlu = None
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
@@ -135,7 +137,8 @@ def desmatricularAlumno():
                 opcSalir = aux
                 if (opcSalir != 0):
                     VerificationExceptions.hayAlgo(aux)
-                    VerificationExceptions.noExistNombreCur(aux)
+                    VerificationExceptions.existNombreCur(aux)
+                    idCurso = ConsultasInscripciones.obtIdCurso(aux)
                     curso = aux
             if (nombre is None and apellido is None):
                 auxNom = input(
@@ -144,11 +147,13 @@ def desmatricularAlumno():
                     f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:")
                 opcSalir = aux
                 if (opcSalir != 0):
-                    VerificationExceptions.hayAlgo(aux)
-
-                    '''Aqui comprobacion de nombre y apellido'''
-
+                    VerificationExceptions.hayAlgo(auxNom)
+                    VerificationExceptions.hayAlgo(auxApe)
+                    VerificationExceptions.existeAlumno(auxNom, auxApe)
+                    idAlu = ConsultasInscripciones.obtIdAlu(auxNom, auxApe)
+                    VerificationExceptions.noExisteAlumnoEnAlumnoCurso(idAlu, idCurso)
                     nombre = aux
+                    apellido = aux
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
@@ -157,10 +162,9 @@ def desmatricularAlumno():
             salir = False
             while not salir and op is None:
                 op = input(
-                    f"Seguro que quiere matricular al alumno {nombre, apellido} en el curso {curso}?[S/N]").lower()
+                    f"Seguro que quiere desmatricular al alumno {nombre, apellido} del curso {curso}?[S/N]").lower()
                 if op == "s":
-                    ConsultasInscripciones.matAlu(curso, nombre, apellido)
-                    print(f"El alumno {nombre, apellido} ha sido matriculado correctamente en el curso {curso}")
+                    ConsultasInscripciones.borrarAluCurso(idAlu, idCurso)
                 elif op == "n":
                     salir = True
                     print("Saliendo sin guardar...")
@@ -176,6 +180,7 @@ def desmatricularAlumno():
 def desasignarProfesro():
     curso = None
     dni = None
+    idCurso = None
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
@@ -184,7 +189,8 @@ def desasignarProfesro():
                 opcSalir = aux
                 if (opcSalir != 0):
                     VerificationExceptions.hayAlgo(aux)
-                    VerificationExceptions.noExistNombreCur(aux)
+                    VerificationExceptions.existNombreCur(aux)
+                    idCurso = ConsultasInscripciones.obtIdCurso(aux)
                     curso = aux
             if (dni is None):
                 aux = input(
