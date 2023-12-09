@@ -43,7 +43,7 @@ def alta():
     while intentos < 5 and salir is False:
         try:
             if nombre is None and opcSalir != '0':
-                aux = input('Introduce el nombre del curso o 0 para salir:\n')
+                aux = input('Introduce el nombre del curso o 0 para salir:\n').lower()
                 opcSalir = aux
                 if opcSalir != '0':
                     VerificationExceptions.hayAlgo(aux)
@@ -86,7 +86,7 @@ def baja():
     finBaja = False
     while not finBaja and opcSalir != '0' and fallos < 5:
         try:
-            aux = input("Introduzca el nombre del curso que quiera buscar o 0 pulsa para salir: ")
+            aux = input("Introduzca el nombre del curso que quiera buscar o 0 pulsa para salir: ").lower()
             opcSalir = aux
             if opcSalir != '0':
                 VerificationExceptions.hayAlgo(aux)
@@ -129,7 +129,7 @@ def consultar():
     finConsulta = False
     while not finConsulta and opcSalir != '0' and fallos < 5:
         try:
-            aux = input("Introduzca el nombre del curso que quiera buscar o 0 pulsa para salir:")
+            aux = input("Introduzca el nombre del curso que quiera buscar o 0 pulsa para salir:").lower()
             opcSalir = aux
             if opcSalir != '0':
                 VerificationExceptions.hayAlgo(aux)
@@ -160,7 +160,7 @@ def modificar():
     salir = False
     while not salir and opcSalir != '0' and fallos < 5:
         try:
-            aux = input("Introduzca el nombre del curso que quiera buscar o 0 pulsa para salir:")
+            aux = input("Introduzca el nombre del curso que quiera buscar o 0 pulsa para salir:").lower()
             opcSalir = aux
             if opcSalir != '0':
                 VerificationExceptions.hayAlgo(aux)
@@ -185,7 +185,7 @@ def modificar():
             salirNombre = False
             while not salirNombre and fallos < 5 and opcSalir != '0':
                 try:
-                    aux = input('Escriba el nuevo nombre o pulse 0 para salir:')
+                    aux = input('Escriba el nuevo nombre o pulse 0 para salir:').lower()
                     opcSalir = aux
                     if opcSalir != '0':
                         VerificationExceptions.hayAlgo(aux)

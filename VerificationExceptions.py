@@ -10,6 +10,7 @@ class MisExceptions(Exception):
     """
     Clase creada para generar nuestras propias excepciones
     """
+
     def __init__(self, message="Error"):
         self.message = message
 
@@ -189,3 +190,13 @@ def existeProfesorEnCurso(idProfesor, idCurso):
     """
     if ConsultasInscripciones.existeProfEnCurso(idProfesor, idCurso):
         raise MisExceptions('Ese profesor ya esta matriculado en ese curso')
+
+
+def equals_ignore_case(str1, str2):
+    """
+    Funcion que verifica si dos cadenas son iguales independientemente de las mayusculas o minusculas
+    :param str1: Recibe una cadena para compararla con la otra
+    :param str2: Recibe la otra cadena para compararla con la primera
+    :return: Retorna si son iguales o no
+    """
+    return str1.lower() == str2.lower()

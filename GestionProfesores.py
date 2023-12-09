@@ -49,7 +49,7 @@ def alta():
     while (intentos < 5 and salir is False):
         try:
             if (dni is None and opcSalir != '0'):
-                aux = input('Introduce el dni del profesor o 0 para salir:\n')
+                aux = input('Introduce el dni del profesor o 0 para salir:\n').upper()
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.dniFormat(aux)
@@ -106,7 +106,7 @@ def baja():
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
-            aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:")
+            aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:").upper()
             opcSalir = aux
             if (opcSalir != 0):
                 VerificationExceptions.dniFormat(aux)
@@ -145,7 +145,7 @@ def consultar():
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
-            aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:")
+            aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:").upper()
             opcSalir = aux
             if (opcSalir != 0):
                 VerificationExceptions.dniFormat(aux)
@@ -175,7 +175,7 @@ def modificar():
     fallos = 0
     while (dni is None and opcSalir != '0' and fallos < 5):
         try:
-            aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:")
+            aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:").upper()
             opcSalir = aux
             if (opcSalir != 0):
                 VerificationExceptions.dniFormat(aux)
@@ -200,7 +200,7 @@ def modificar():
             opcSalir = None
             while (fallos < 5 and nuevoDni is None and opcSalir != '0'):
                 try:
-                    aux = input('Escriba el nuevo dni o pulse 0 para salir:')
+                    aux = input('Escriba el nuevo dni o pulse 0 para salir:').upper()
                     opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.dniFormat(aux)

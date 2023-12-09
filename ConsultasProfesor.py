@@ -51,7 +51,7 @@ def consBusqueda(dni):
     try:
         cursor = con.cursor()
         cursor.execute(
-            f"SELECT p.*, c.nombre AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor WHERE p.dni = '{dni}'")
+            f"SELECT p.*, GROUP_CONCAT(c.nombre) AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor WHERE p.dni = '{dni}' GROUP BY p.id")
         resultados = cursor.fetchall()
         cursor.close()
         return resultados

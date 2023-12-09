@@ -45,7 +45,7 @@ def matricularAlumno():
     while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
-                aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:")
+                aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:").lower()
                 opcSalir = aux
                 if (opcSalir != 0):
                     VerificationExceptions.hayAlgo(aux)
@@ -53,9 +53,9 @@ def matricularAlumno():
                     curso = aux
             if (nombre is None and apellido is None and opcSalir != '0'):
                 auxNom = input(
-                    f"Introduzca el nombre del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:")
+                    f"Introduzca el nombre del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
                 auxApe = input(
-                    f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:")
+                    f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
                 opcSalir = aux
                 if (opcSalir != 0):
                     VerificationExceptions.hayAlgo(auxNom)
@@ -100,7 +100,7 @@ def asignarProfesor():
     while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
-                aux = input("Introduzca el nombre del curso que quiera matricular al profesor o 0 pulsa para salir:")
+                aux = input("Introduzca el nombre del curso que quiera matricular al profesor o 0 pulsa para salir:").lower()
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
@@ -108,7 +108,7 @@ def asignarProfesor():
                     curso = aux
             if (dni is None and opcSalir != '0'):
                 aux = input(
-                    f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:")
+                    f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:").upper()
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.dniFormat(aux)
@@ -154,7 +154,7 @@ def desmatricularAlumno():
     while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
-                aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:")
+                aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:").lower()
                 opcSalir = aux
                 if (opcSalir != 0):
                     VerificationExceptions.hayAlgo(aux)
@@ -163,9 +163,9 @@ def desmatricularAlumno():
                     curso = aux
             if (nombre is None and apellido is None and opcSalir != '0'):
                 auxNom = input(
-                    f"Introduzca el nombre del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:")
+                    f"Introduzca el nombre del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
                 auxApe = input(
-                    f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:")
+                    f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
                 opcSalir = aux
                 if (opcSalir != 0):
                     VerificationExceptions.hayAlgo(auxNom)
@@ -213,7 +213,7 @@ def desasignarProfesro():
     while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
-                aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:")
+                aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:").lower()
                 opcSalir = aux
                 if (opcSalir != 0):
                     VerificationExceptions.hayAlgo(aux)
@@ -222,7 +222,7 @@ def desasignarProfesro():
                     curso = aux
             if (dni is None and opcSalir != '0'):
                 aux = input(
-                    f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:")
+                    f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:").upper()
 
                 opcSalir = aux
                 if (opcSalir != 0):
