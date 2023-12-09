@@ -13,15 +13,15 @@ def conexion():
     con.commit()
 
 
-
 def conect():
+    prop = leerConf()
     try:
         con = pymysql.connect(
-            host='localhost',
-            user='root',
-            password='alumno',
+            host=prop['host'],
+            user=prop['user'],
+            password=prop['password'],
             database='',
-            port=3307
+            port=int(prop['port'])
         )
         cursor = con.cursor()
         cursor.execute("CREATE DATABASE IF NOT EXISTS Marcos_Javier_Iker;")
@@ -30,16 +30,23 @@ def conect():
         con.close()
 
         con = pymysql.connect(
-            host='localhost',
-            user='root',
-            password='alumno',
-            database='Marcos_Javier_Iker',
-            port=3307
+            host=prop['host'],
+            user=prop['user'],
+            password=prop['password'],
+            database=prop['database'],
+            port=int(prop['port'])
         )
         return con
 
     except pymysql.Error as err:
         print(f"Error de conexión a la base de datos: {err}")
+
+
 def leerConf():
-    with open('conf.prop','r') as file:
-        propiedades = file.read()
+    propiedades = {}
+    with open('conf.prop', 'r') as file:
+        for linea in file:
+            key, value = linea.strip().split('=')
+            propiedades[key] = value
+
+    return propiedades

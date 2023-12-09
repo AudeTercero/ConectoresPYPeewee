@@ -330,7 +330,6 @@ def mostrarTodos():
     :return:
     """
     tabla = ConsultasProfesor.mostrarTabla()
-    print(type(tabla))
     for tupla in tabla:
         print(f'''---Profesor---
 Id: {tupla[0]}

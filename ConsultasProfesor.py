@@ -4,6 +4,7 @@ from ConexionBBDD import conect
 
 
 def consAlta(dni, nombre, direccion, telefono):
+    con = conect()
     """
     Funcion que lanza una una insreccion en la tabla de profesor de la base de datos
     :param dni: Recibe el dni para
@@ -13,10 +14,10 @@ def consAlta(dni, nombre, direccion, telefono):
     :return:
     """
     try:
-        cursor = conect.cursor()
+        cursor = con.cursor()
         cursor.execute(
             f"INSERT INTO profesor (dni,nombre,direccion,telefono) VALUES ('{dni}','{nombre}','{direccion}','{telefono}')")
-        conect.commit()
+        con.commit()
         cursor.close()
         print("Profesor guardado correctamente")
     except pymysql.Error as err:
@@ -24,11 +25,12 @@ def consAlta(dni, nombre, direccion, telefono):
 
 
 def consBaja(dni):
+    con = conect()
     try:
-        cursor = conect.cursor()
+        cursor = con.cursor()
         cursor.execute(
             f"DELETE FROM profesor WHERE dni = '{dni}'")
-        conect.commit()
+        con.commit()
         cursor.close()
         print("Profesor dado de baja correctamente")
     except pymysql.Error as err:
@@ -36,8 +38,9 @@ def consBaja(dni):
 
 
 def consBusqueda(dni):
+    con = conect()
     try:
-        cursor = conect.cursor()
+        cursor = con.cursor()
         cursor.execute(f"SELECT p.*, c.nombre AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor WHERE p.dni = '{dni}'")
         resultados = cursor.fetchall()
         cursor.close()
@@ -47,11 +50,12 @@ def consBusqueda(dni):
 
 
 def consModificar(dni, columna, nuevoCampo):
+    con = conect()
     try:
-        cursor = conect.cursor()
+        cursor = con.cursor()
         cursor.execute(f"UPDATE profesor SET {columna} = '{nuevoCampo}' WHERE dni = '{dni}'")
         resultados = cursor.fetchall()
-        conect.commit()
+        con.commit()
         cursor.close()
         return resultados
     except pymysql.Error as err:
@@ -59,8 +63,9 @@ def consModificar(dni, columna, nuevoCampo):
 
 
 def mostrarTabla():
+    con = conect()
     try:
-        cursor = conect.cursor()
+        cursor = con.cursor()
         cursor.execute("SELECT p.*, c.nombre AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor")
         resultados = cursor.fetchall()
         cursor.close()
@@ -70,8 +75,9 @@ def mostrarTabla():
 
 
 def existProfesor(dni):
+    con = conect()
     try:
-        cursor = conect.cursor()
+        cursor = con.cursor()
         cursor.execute(f"SELECT dni FROM profesor WHERE dni = '{dni}'")
         resultados = cursor.fetchall()
         cursor.close()
