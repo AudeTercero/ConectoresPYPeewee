@@ -32,24 +32,24 @@ def consBusqueda(nombre):
     con = conect()
     try:
         cursor = con.cursor()
-        cursor.execute("""
+        cursor.execute(f"""
             SELECT 
                 c.cod_curso,
                 c.nombre AS nombre_curso,
-                a.num_expediente,
+                c.descripcion,
+                p.nombre AS nombre_profesor,
                 a.nombre AS nombre_alumno,
-                a.apellidos,
-                p.nombre AS nombre_profesor
+                a.apellidos
             FROM 
                 curso c
+            LEFT JOIN 
+                profesor p ON c.id_profesor = p.id
             LEFT JOIN 
                 alumno_curso ac ON c.cod_curso = ac.cod_curso
             LEFT JOIN 
                 alumno a ON ac.num_exp_alu = a.num_expediente
-            LEFT JOIN 
-                profesor p ON c.id_profesor = p.id
             WHERE 
-                c.nombre = '{nombre_curso}'
+                c.nombre = '{nombre}'
         """)
         resultados = cursor.fetchall()
         cursor.close()

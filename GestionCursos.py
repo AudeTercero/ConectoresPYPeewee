@@ -80,62 +80,65 @@ def baja():
     nombre = None
     opcSalir = None
     fallos = 0
-    while opcSalir != '0' and fallos < 5:
+    finBaja = False
+    while not finBaja and opcSalir != '0' and fallos < 5:
         try:
             aux = input("Introduzca el nombre del curso que quiera buscar o 0 pulsa para salir: ")
             opcSalir = aux
-            if opcSalir != 0:
+            if opcSalir != '0':
                 VerificationExceptions.hayAlgo(aux)
                 VerificationExceptions.noExistNombreCur(aux)
                 nombre = aux
+                finBaja = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-        if fallos < 5 and opcSalir != 0:
-            salir = False
-            while not salir:
-                op = input("Seguro que quiere dar de baja al curso?[S/N]: ").lower()
 
-                if op == "s":
-                    ConsultasCurso.consBaja(nombre)
-                    salir = True
-                elif op == "n":
-                    salir = True
-                    print("Saliendo sin guardar...")
-                else:
-                    print("Entrada no valida.")
+    if fallos < 5 and opcSalir != '0':
+        salir = False
+        while not salir:
+            op = input("Seguro que quiere dar de baja al curso?[S/N]: ").lower()
 
-        elif fallos == 5:
-            print("Has superado el maximos de fallos permitidos que son 5")
-        else:
-            print("Saliendo...")
+            if op == "s":
+                ConsultasCurso.consBaja(nombre)
+                salir = True
+            elif op == "n":
+                salir = True
+                print("Saliendo sin guardar...")
+            else:
+                print("Entrada no valida.")
+
+    elif fallos == 5:
+        print("Has superado el maximos de fallos permitidos que son 5")
+    else:
+        print("Saliendo...")
 
 
 def consultar():
     nombre = None
     opcSalir = None
     fallos = 0
-    while opcSalir != '0' and fallos < 5:
+    finConsulta = False
+    while not finConsulta and opcSalir != '0' and fallos < 5:
         try:
             aux = input("Introduzca el nombre del curso que quiera buscar o 0 pulsa para salir:")
             opcSalir = aux
-            if opcSalir != 0:
+            if opcSalir != '0':
                 VerificationExceptions.hayAlgo(aux)
                 VerificationExceptions.noExistNombreCur(aux)
                 nombre = aux
+                finConsulta = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-        if fallos < 5 and opcSalir != 0:
-            curso = ConsultasCurso.consBusqueda(nombre)
-            for dato in curso:
-                #                print(f'''---Curso---
-                # Cod: {dato[0]}, ID_Profesor: {dato[1]}, Nombre: {dato[2]}, Descripcion: {dato[3]}, Alumnos: {dato[4]}''')
-                print(dato)
-        elif fallos == 5:
-            print("Has superado el maximos de fallos permitidos que son 5")
-        else:
-            print("Saliendo...")
+    if fallos < 5 and opcSalir != '0':
+        curso = ConsultasCurso.consBusqueda(nombre)
+        for dato in curso:
+            print(dato)
+    elif fallos == 5:
+        print("Has superado el maximos de fallos permitidos que son 5")
+    else:
+        print("Saliendo...")
 
 
 def modificar():
@@ -146,19 +149,21 @@ def modificar():
     nombre = None
     opcSalir = None
     fallos = 0
-    while nombre is None and opcSalir != '0' and fallos < 5:
+    salir = False
+    while not salir and opcSalir != '0' and fallos < 5:
         try:
             aux = input("Introduzca el nombre del curso que quiera buscar o 0 pulsa para salir:")
             opcSalir = aux
-            if opcSalir != 0:
+            if opcSalir != '0':
                 VerificationExceptions.hayAlgo(aux)
                 VerificationExceptions.noExistNombreCur(aux)
                 nombre = aux
+                salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
     salir = False
-    while fallos < 5 and not salir:
+    while fallos < 5 and not salir and opcSalir != '0':
         opc = input(''' 
                     ******* MODIFICACION CURSO *******
                     1.Nombre
@@ -169,7 +174,8 @@ def modificar():
             nuevoNombre = None
             fallos = 0
             opcSalir = None
-            while fallos < 5 and nuevoNombre is None and opcSalir != '0':
+            salirNombre = False
+            while not salirNombre and fallos < 5 and opcSalir != '0':
                 try:
                     aux = input('Escriba el nuevo nombre o pulse 0 para salir:')
                     opcSalir = aux
@@ -177,6 +183,7 @@ def modificar():
                         VerificationExceptions.hayAlgo(aux)
                         VerificationExceptions.existNombreCur(aux)
                         nuevoNombre = aux
+                        salirNombre = True
                 except VerificationExceptions.MisExceptions as err:
                     print(err)
                     fallos += 1
