@@ -16,13 +16,17 @@ def menu():
         if opcion == "1":
             alta()
         elif opcion == "2":
-            baja()
+            if ConsultasCurso.hayCursos():
+                baja()
         elif opcion == "3":
-            modificar()
+            if ConsultasCurso.hayCursos():
+                modificar()
         elif opcion == "4":
-            consultar()
+            if ConsultasCurso.hayCursos():
+                consultar()
         elif opcion == "5":
-            mostrarTodos()
+            if ConsultasCurso.hayCursos():
+                mostrarTodos()
         elif opcion == "0":
             print("Saliendo...")
             finMenuCursos = True
@@ -68,7 +72,6 @@ def alta():
 
     if intentos < 5 and opcSalir != '0':
         ConsultasCurso.consAlta(nombre, descripcion)
-        print("Alta realizada")
     elif opcSalir == '0':
         print("Saliendo")
     else:
@@ -104,7 +107,6 @@ def baja():
 
             if op == "s":
                 ConsultasCurso.consBaja(nombre)
-                print("Baja realizada con exito")
                 salir = True
             elif op == "n":
                 salir = True
