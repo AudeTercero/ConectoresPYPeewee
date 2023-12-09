@@ -1,9 +1,12 @@
+import ConexionBBDD
 from GestionAlumnos import menu as menuAlumnos
 from GestionProfesores import menu as menuProfesores
 from GestionCursos import menu as menuCursos
 from GestionInscripciones import menu as menuInscripciones
 
 
+ConexionBBDD.conexion()
+con = ConexionBBDD.conect()
 
 print("Inicio Practica Conectores")
 finMenuPrincipal = False
@@ -29,3 +32,4 @@ while not finMenuPrincipal:
     else:
         print("Entrada no valida")
 print("Fin Practica Conectores")
+con.close()
