@@ -9,7 +9,7 @@ def menu():
     '''
     finMenuAlumnos = False
     while not finMenuAlumnos:
-        opcion = input("\n\n\t[==== MENU PROFESORES ====>\n"
+        opcion = input("\n\n\t[==== MENU ALUMNOS ====>\n"
                        "\t[1. Alta\n"
                        "\t[2. Baja\n"
                        "\t[3. Modificar\n"
@@ -159,7 +159,7 @@ def alta():
     else:
         try:
             VerificationExceptions.existeAlumno(nombre, apellidos)
-            ConsultasAlumnos.consAlta(nombre, apellidos, direccion, telefono, fecha)
+            ConsultasAlumnos.consAlta(nombre, apellidos, telefono, direccion, fecha)
 
         except VerificationExceptions.MisExceptions as err:
             print(err)

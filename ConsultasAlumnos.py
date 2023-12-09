@@ -6,7 +6,7 @@ def consAlta(nombre, apellidos, telefono, direccion, fecha):
     try:
         cursor = con.cursor()
         cursor.execute(
-            f"INSERT INTO alumno (nombre,apellidos,telefono,direccion,fecha) VALUES ('{nombre}','{apellidos}','{telefono}','{direccion}','{fecha}')")
+            f"INSERT INTO alumno (nombre,apellidos,telefono,direccion,fecha_nac) VALUES ('{nombre}','{apellidos}','{telefono}','{direccion}','{fecha}')")
         con.commit()
         cursor.close()
         print("Alumno guardado correctamente")
