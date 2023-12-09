@@ -1,6 +1,7 @@
 import VerificationExceptions
 import ConsultasAlumnos
 
+
 def menu():
     finMenuAlumnos = False
     while not finMenuAlumnos:
@@ -33,6 +34,7 @@ def alta():
     salir = False
     salir_sin_guardar = False
     cont = 0
+    nombre, apellidos, direccion, telefono, fecha = ""
 
     while not salir and not salir_sin_guardar:
         if not cont == 3:
@@ -118,7 +120,8 @@ def alta():
     while not salir and not salir_sin_guardar:
         if not cont == 3:
             fecha = input("Ingrese la fecha del alumno o pulse 0 para salir: ")
-            if (fecha == "0"):
+
+            if fecha == "0":
                 salir_sin_guardar = True
                 salir = True
             else:
@@ -137,8 +140,12 @@ def alta():
     if salir_sin_guardar:
         print("Saliendo...")
     else:
-        print()
-        ConsultasAlumnos.consAlta(nombre,apellidos,direccion,telefono,fecha)
+        try:
+            VerificationExceptions.existeAlumno(nombre, apellidos)
+            ConsultasAlumnos.consAlta(nombre, apellidos, direccion, telefono, fecha)
+
+        except Exception as err:
+            print(err)
 
 
 def baja():
@@ -186,18 +193,26 @@ def baja():
             print("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
-    if nombre is not None and apellidos is not None:
-        while not salir:
-            op = input("Seguro que quiere dar de baja al alumno?[S/N]").lower()
+    if nombre is not None and apellidos is not None and not salir_sin_guardar:
+        try:
+            VerificationExceptions.noExisteAlumno(nombre, apellidos)
 
-            if op == "s":
-                ConsultasAlumnos.consBaja(nombre, apellidos)
-                salir = True
-            elif op == "n":
-                salir = True;
-                print("Saliendo sin guardar...")
-            else:
-                print("Entrada no valida.")
+            while not salir:
+                op = input("Seguro que quiere dar de baja al alumno?[S/N]").lower()
+
+                if op == "s":
+                    ConsultasAlumnos.consBaja(nombre, apellidos)
+                    salir = True
+                elif op == "n":
+                    salir = True;
+                    print("Saliendo sin guardar...")
+                else:
+                    print("Entrada no valida.")
+
+        except Exception as err:
+            print(err)
+    else:
+        print("Saliendo...")
 
 
 def modificar():
@@ -245,8 +260,11 @@ def modificar():
             print("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
-    if nombre is not None and apellidos is not None:
+    if nombre is not None and apellidos is not None and not salir_sin_guardar:
         resultados = ConsultasAlumnos.consBuscar(nombre, apellidos)
+
+    else:
+        print("Saliendo...")
 
 
 def consultar():
@@ -309,6 +327,7 @@ def consultar():
             print(f"Cursos:{r[6]}")
     else:
         print(f"No se encontro un alumno con ese nombre y esos apellidos")
+
 
 def mostrarTodos():
     tabla = ConsultasAlumnos.consMostrarAlumnos()
