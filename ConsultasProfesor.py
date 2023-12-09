@@ -71,10 +71,8 @@ def consModificar(dni, columna, nuevoCampo):
     try:
         cursor = con.cursor()
         cursor.execute(f"UPDATE profesor SET {columna} = '{nuevoCampo}' WHERE dni = '{dni}'")
-        resultados = cursor.fetchall()
         con.commit()
         cursor.close()
-        return resultados
     except pymysql.Error as err:
         print(err)
 

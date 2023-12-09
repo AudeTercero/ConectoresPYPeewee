@@ -38,6 +38,7 @@ def matricularAlumno():
     curso = None
     nombre = None
     apellido = None
+    opcSalir = None
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
@@ -91,6 +92,7 @@ def asignarProfesor():
     """
     curso = None
     dni = None
+    opcSalir = None
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
@@ -144,6 +146,7 @@ def desmatricularAlumno():
     apellido = None
     idCurso = None
     idAlu = None
+    opcSalir = None
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
@@ -201,6 +204,7 @@ def desasignarProfesro():
     dni = None
     idCurso = None
     idProf = None
+    opcSalir = None
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
