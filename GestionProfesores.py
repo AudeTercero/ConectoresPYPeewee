@@ -112,14 +112,14 @@ def baja():
         try:
             aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:").upper()
             opcSalir = aux
-            if (opcSalir != 0):
+            if (opcSalir != '0'):
                 VerificationExceptions.dniFormat(aux)
                 VerificationExceptions.noExistDni(aux)
                 dni = aux
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-        if (fallos < 5 and opcSalir != 0):
+        if (fallos < 5 and opcSalir != '0'):
             salir = False
             while not salir:
                 op = input("Seguro que quiere dar de baja al profesor?[S/N]").lower()
@@ -181,7 +181,7 @@ def modificar():
         try:
             aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:").upper()
             opcSalir = aux
-            if (opcSalir != 0):
+            if (opcSalir != '0'):
                 VerificationExceptions.dniFormat(aux)
                 VerificationExceptions.noExistDni(aux)
                 dni = aux
