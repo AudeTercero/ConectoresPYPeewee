@@ -48,11 +48,11 @@ def matricularAlumno():
                     f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:")
                 opcSalir = aux
                 if (opcSalir != 0):
-                    VerificationExceptions.hayAlgo(aux)
-
-                    '''Aqui comprobacion de nombre y apellido'''
-
-                    nombre = aux
+                    VerificationExceptions.hayAlgo(auxNom)
+                    VerificationExceptions.hayAlgo(auxApe)
+                    VerificationExceptions.existeAlumno(auxNom, auxApe)
+                    nombre = auxNom
+                    apellido = auxApe
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
@@ -181,6 +181,7 @@ def desasignarProfesro():
     curso = None
     dni = None
     idCurso = None
+    idProf = None
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
@@ -200,6 +201,8 @@ def desasignarProfesro():
                 if (opcSalir != 0):
                     VerificationExceptions.dniFormat(aux)
                     VerificationExceptions.noExistDni(aux)
+                    idProf = ConsultasInscripciones.obtIdProf(aux)
+                    VerificationExceptions.noExisteProfesorEnCurso(idProf, idCurso)
                     dni = aux
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
@@ -211,8 +214,7 @@ def desasignarProfesro():
                 op = input(
                     f"Seguro que quiere matricular al profesor {dni} en el curso {curso}?[S/N]").lower()
                 if op == "s":
-                    ConsultasInscripciones.asigProf(curso, dni)
-                    print(f"El profesro con el dni {dni} ha sido asignado correctamente en el curso {curso}")
+                    ConsultasInscripciones.borrarProfCurso(idProf, idCurso)
                 elif op == "n":
                     salir = True
                     print("Saliendo sin guardar...")
