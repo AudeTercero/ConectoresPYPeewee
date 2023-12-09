@@ -42,7 +42,11 @@ def alta():
     salir = False
     salir_sin_guardar = False
     cont = 0
-    nombre, apellidos, direccion, telefono, fecha = ""
+    nombre = ""
+    apellidos = ""
+    direccion = ""
+    telefono = ""
+    fecha = ""
 
     while not salir and not salir_sin_guardar:
         if not cont == 5:
@@ -310,13 +314,13 @@ def modificar():
 
                     while cont < 5 and nuevoNombre is None and opSalir != '0':
                         try:
-                            aux = input ('Escribe el nuevo nombre o pulsa 0 para salir:')
+                            aux = input('Escribe el nuevo nombre o pulsa 0 para salir:')
                             opSalir = aux
 
-                            if(opSalir != 0):
+                            if (opSalir != 0):
                                 VerificationExceptions.hayAlgo(aux)
                                 print("Nombre valido")
-                                VerificationExceptions.existeAlumno(aux,apellidos)
+                                VerificationExceptions.existeAlumno(aux, apellidos)
 
                         except VerificationExceptions.MisExceptions as err:
                             print(err)
@@ -327,7 +331,7 @@ def modificar():
                         while not salir and op is None:
                             op = input("Seguro que quiere modificar el nombre del alumno?[S/N]").lower()
                             if op == "s":
-                                ConsultasAlumnos.consModificar(nombre, apellidos,'nombre', nuevoNombre)
+                                ConsultasAlumnos.consModificar(nombre, apellidos, 'nombre', nuevoNombre)
                                 print("Modificacion realizada correctamente")
                                 nombre = nuevoNombre
                             elif op == "n":
