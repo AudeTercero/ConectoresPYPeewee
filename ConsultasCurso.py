@@ -3,6 +3,12 @@ from ConexionBBDD import conect
 
 
 def consAlta(nombre, descripcion):
+    """
+    Introduce un curso en la tabla de cursos
+    :param nombre: El nombre del curso
+    :param descripcion: La descripcion del curso
+    :return:
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -16,6 +22,11 @@ def consAlta(nombre, descripcion):
 
 
 def consBaja(nombre):
+    """
+    Da de baja un curso
+    :param nombre: EL curso que se busca
+    :return:
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -29,6 +40,12 @@ def consBaja(nombre):
 
 
 def consBusqueda(nombre):
+    """
+    Consulta un curso concreto y recibe
+    sus datos, su profesor y sus alumnos
+    :param nombre: El nombre que se busca
+    :return: Devuelve los datos de ese curso
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -59,6 +76,10 @@ def consBusqueda(nombre):
 
 
 def mostrarTabla():
+    """
+    Consulta todos los cursos de la tabla alumnos
+    :return: Devuelve todos los cursos
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -71,6 +92,11 @@ def mostrarTabla():
 
 
 def existeCurso(nombre):
+    """
+    Comprueba en la tabla cursos que exista un curso con el nombre recibido
+    :param nombre: El nombre que se busca
+    :return: Devuelve true o false si lo encuentra o no
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -86,13 +112,18 @@ def existeCurso(nombre):
 
 
 def consModificar(nombre, columna, nuevoCampo):
+    """
+    Modifica el valor de un campo concreto en un curso buscado
+    :param nombre: El nombre del curso que se busca
+    :param columna: La columna que se quiere modificar
+    :param nuevoCampo: El nuevo valor que tendra esa columna
+    :return:
+    """
     con = conect()
     try:
         cursor = con.cursor()
         cursor.execute(f"UPDATE curso SET {columna} = '{nuevoCampo}' WHERE nombre = '{nombre}'")
-        resultados = cursor.fetchall()
         con.commit()
         cursor.close()
-        return resultados
     except pymysql.Error as err:
         print(err)
