@@ -1,8 +1,11 @@
 import ConsultasInscripciones
 import VerificationExceptions
 
-
 def menu():
+    """
+    Funcion para el menu para la gestion de inscripciones
+    :return:
+    """
     finMenuInscripciones = False
     while not finMenuInscripciones:
         opcion = input("\n\n\t[==== MENU INSCRIPCIONES ====>\n"
@@ -28,6 +31,10 @@ def menu():
 
 
 def matricularAlumno():
+    """
+    Funcion para matricular un alumno a un curso
+    :return:
+    """
     curso = None
     nombre = None
     apellido = None
@@ -78,6 +85,10 @@ def matricularAlumno():
 
 
 def asignarProfesor():
+    """
+    Funcion para asignar un profesor a un curso
+    :return:
+    """
     curso = None
     dni = None
     fallos = 0
@@ -124,6 +135,10 @@ def asignarProfesor():
 
 
 def desmatricularAlumno():
+    """
+    Funcion que desmatricula un alumno de un curso
+    :return:
+    """
     curso = None
     nombre = None
     apellido = None
@@ -178,6 +193,10 @@ def desmatricularAlumno():
 
 
 def desasignarProfesro():
+    """
+    Funcion que desasigna un profesor de un curso
+    :return:
+    """
     curso = None
     dni = None
     idCurso = None

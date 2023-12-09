@@ -54,6 +54,7 @@ def alta():
                 if (opcSalir != '0'):
                     VerificationExceptions.dniFormat(aux)
                     VerificationExceptions.existDni(aux)
+                    print("DNI introducido correctamente")
                     dni = aux
                     intentos = 0
             if (nombre is None and opcSalir != '0'):
@@ -61,6 +62,7 @@ def alta():
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
+                    print("Nombre introducido correctamente")
                     nombre = aux
                     intentos = 0
             if (direccion is None and opcSalir != '0'):
@@ -68,6 +70,7 @@ def alta():
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
+                    print("Direccion introducida correctamente")
                     direccion = aux
                     intentos = 0
             if (telefono is None and opcSalir != '0'):
@@ -75,6 +78,7 @@ def alta():
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.validar_telefono(aux)
+                    print("Telefono introducido correctamente")
                     telefono = aux
                     intentos = 0
                     salir = True
@@ -132,6 +136,10 @@ def baja():
 
 
 def consultar():
+    """
+    Funcion que pide un dni de un profesor y muestra todos los datos del profesor
+    :return:
+    """
     dni = None
     opcSalir = None
     fallos = 0
@@ -197,6 +205,7 @@ def modificar():
                     if (opcSalir != '0'):
                         VerificationExceptions.dniFormat(aux)
                         VerificationExceptions.existDni(aux)
+                        print("DNI introducido correctamente")
                         nuevoDni = aux
                 except VerificationExceptions.MisExceptions as err:
                     print(err)
@@ -231,6 +240,7 @@ def modificar():
                     opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.hayAlgo(aux)
+                        print("Nombre introducido correctamente")
                         nuevoNombre = aux
                 except VerificationExceptions.MisExceptions as err:
                     print(err)
@@ -263,6 +273,7 @@ def modificar():
                     opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.hayAlgo(aux)
+                        print("Direccion introducida correctamente")
                         nuevoDirec = aux
                 except VerificationExceptions.MisExceptions as err:
                     print(err)
@@ -295,6 +306,7 @@ def modificar():
                     opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.validar_telefono(aux)
+                        print("Telefeno introducido correctamente")
                         nuevoTel = aux
                 except VerificationExceptions.MisExceptions as err:
                     print(err)
