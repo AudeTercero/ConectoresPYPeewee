@@ -40,11 +40,12 @@ def consModificar(nombre, apellidos, columna, nuevoCampo):
 def consBuscar(nombre, apellidos):
     con = conect()
     try:
-        cursor = con.connect()
-        cursor.execute("SELECT a.*,c.nombre AS nombre_curso FROM alumno a "
-                       "JOIN alumno_curso ON a.num_expediente = ac.num_exp_alu "
-                       "JOIN curso c ON ac.cod_curso = c.cod_curso"
-                       f"WHERE a.nombre = '{nombre}' AND a.apellidos = '{apellidos}'")
+        cursor = con.cursor()
+        cursor.execute(f"SELECT a.*,GROUP_CONCAT(c.nombre) AS nombre_curso FROM alumno a "
+                       f"LEFT JOIN alumno_curso ac ON a.num_expediente = ac.num_exp_alu "
+                       f"LEFT JOIN curso c ON ac.cod_curso = c.cod_curso "
+                       f"WHERE a.nombre = '{nombre}' AND a.apellidos = '{apellidos}' "
+                       f"GROUP BY a.num_expediente ")
         resultados = cursor.fetchall()
         cursor.close()
         return resultados
@@ -54,10 +55,11 @@ def consBuscar(nombre, apellidos):
 def consMostrarAlumnos():
     con = conect()
     try:
-        cursor = con.connect()
-        cursor.execute("SELECT a.*,c.nombre AS nombre_curso FROM alumno a "
-                       "JOIN alumno_curso ON a.num_expediente = ac.num_exp_alu "
-                       "JOIN curso c ON ac.cod_curso = c.cod_curso")
+        cursor = con.cursor()
+        cursor.execute("SELECT a.*,GROUP_CONCAT(c.nombre) AS nombre_cursos FROM alumno a "
+                       "LEFT JOIN alumno_curso ac ON a.num_expediente = ac.num_exp_alu "
+                       "LEFT JOIN curso c ON ac.cod_curso = c.cod_curso "
+                       "GROUP BY a.num_expediente")
         resultados = cursor.fetchall()
         cursor.close()
         return resultados

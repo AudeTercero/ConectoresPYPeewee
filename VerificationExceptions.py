@@ -58,7 +58,7 @@ def validar_telefono(telefono):
 
     # Verificamos si el numero de telefono tiene exactamente 9 digitos
     if not telefono.isdigit() or len(telefono) != 9:
-        raise ValueError("El numero de telefono debe tener exactamente 9 digitos.")
+        raise MisExceptions("El numero de telefono debe tener exactamente 9 digitos.")
 
 
 def esNum(num):

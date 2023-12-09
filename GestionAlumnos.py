@@ -50,7 +50,7 @@ def alta():
 
     while not salir and not salir_sin_guardar:
         if not cont == 5:
-            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
+            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ").lower()
             if (nombre == "0"):
                 salir_sin_guardar = True
                 salir = True
@@ -71,7 +71,7 @@ def alta():
     cont = 0
     while not salir and not salir_sin_guardar:
         if not cont == 5:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ")
+            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
             if (apellidos == "0"):
                 salir_sin_guardar = True
                 salir = True
@@ -178,7 +178,7 @@ def baja():
 
     while not salir and not salir_sin_guardar:
         if not cont == 5:
-            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
+            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ").lower()
             if (nombre == "0"):
                 salir_sin_guardar = True
                 salir = True
@@ -199,7 +199,7 @@ def baja():
     cont = 0
     while not salir and not salir_sin_guardar:
         if not cont == 5:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ")
+            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
             if (apellidos == "0"):
                 salir_sin_guardar = True
                 salir = True
@@ -216,6 +216,7 @@ def baja():
             print("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
+    salir = False
     if nombre is not None and apellidos is not None and not salir_sin_guardar:
         try:
             VerificationExceptions.noExisteAlumno(nombre, apellidos)
@@ -251,7 +252,7 @@ def modificar():
 
     while not salir and not salir_sin_guardar:
         if not cont == 5:
-            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
+            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ").lower()
             if (nombre == "0"):
                 salir_sin_guardar = True
                 salir = True
@@ -272,7 +273,7 @@ def modificar():
     cont = 0
     while not salir and not salir_sin_guardar:
         if not cont == 5:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ")
+            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
             if (apellidos == "0"):
                 salir_sin_guardar = True
                 salir = True
@@ -314,13 +315,14 @@ def modificar():
 
                     while cont < 5 and nuevoNombre is None and opSalir != '0':
                         try:
-                            aux = input('Escribe el nuevo nombre o pulsa 0 para salir:')
+                            aux = input('Escribe el nuevo nombre o pulsa 0 para salir:').lower()
                             opSalir = aux
 
                             if (opSalir != 0):
                                 VerificationExceptions.hayAlgo(aux)
                                 print("Nombre valido")
                                 VerificationExceptions.existeAlumno(aux, apellidos)
+                                nuevoNombre = aux
 
                         except VerificationExceptions.MisExceptions as err:
                             print(err)
@@ -352,13 +354,14 @@ def modificar():
 
                     while cont < 5 and nuevoApe is None and opSalir != '0':
                         try:
-                            aux = input('Escribe los nuevos apellidos o pulsa 0 para salir:')
+                            aux = input('Escribe los nuevos apellidos o pulsa 0 para salir:').lower()
                             opSalir = aux
 
                             if (opSalir != 0):
                                 VerificationExceptions.hayAlgo(aux)
                                 print("Apellidos validos")
                                 VerificationExceptions.existeAlumno(nombre, nuevoApe)
+                                nuevoApe = aux
 
                         except VerificationExceptions.MisExceptions as err:
                             print(err)
@@ -494,6 +497,9 @@ def modificar():
                     else:
                         print("Saliendo...")
 
+                elif op == '0':
+                    salir = True
+
         except VerificationExceptions.MisExceptions as err:
             print(err)
     else:
@@ -513,7 +519,7 @@ def consultar():
 
     while not salir and not salir_sin_guardar:
         if not cont == 5:
-            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
+            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ").lower()
             if (nombre == "0"):
                 salir_sin_guardar = True
                 salir = True
@@ -533,7 +539,7 @@ def consultar():
     cont = 0
     while not salir and not salir_sin_guardar:
         if not cont == 3:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ")
+            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
             if (apellidos == "0"):
                 salir_sin_guardar = True
                 salir = True
@@ -575,13 +581,13 @@ def mostrarTodos():
     :return:
     '''
     tabla = ConsultasAlumnos.consMostrarAlumnos()
-    print(type(tabla))
     for tupla in tabla:
-        print("---Alumno---")
-        print(f"ID:{tupla[0]}")
-        print(f"Nombre:{tupla[1]}")
-        print(f"Apellidos:{tupla[2]}")
-        print(f"Telefono:{tupla[3]}")
-        print(f"Direccion:{tupla[4]}")
-        print(f"Fecha de Nacimiento:{tupla[5]}")
-        print(f"Cursos:{tupla[6]}")
+        print(f'''---Alumno---
+        ID: {tupla[0]}
+        Nombre: {tupla[1]}
+        Apellidos: {tupla[2]}
+        Telefono: {tupla[3]}
+        Direccion: {tupla[4]}
+        Fecha de Nacimiento: {tupla[5]}
+        Cursos: {tupla[6]}''')
+
