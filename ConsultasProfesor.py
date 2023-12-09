@@ -112,3 +112,16 @@ def existProfesor(dni):
         print(err)
 
     return False
+def hayProfesores():
+    con = conect()
+    try:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM profesor")
+        resultados = cursor.fetchall()
+        cursor.close()
+        if resultados:
+            return True
+    except pymysql.Error as err:
+        print(err)
+    print('Aun no hay profesores dados de alta')
+    return False

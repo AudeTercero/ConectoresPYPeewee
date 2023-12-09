@@ -20,13 +20,17 @@ def menu():
         if opcion == "1":
             alta()
         elif opcion == "2":
-            baja()
+            if ConsultasProfesor.hayProfesores():
+                baja()
         elif opcion == "3":
-            modificar()
+            if ConsultasProfesor.hayProfesores():
+                modificar()
         elif opcion == "4":
-            consultar()
+            if ConsultasProfesor.hayProfesores():
+                consultar()
         elif opcion == "5":
-            mostrarTodos()
+            if ConsultasProfesor.hayProfesores():
+                mostrarTodos()
         elif opcion == "0":
             print("Saliendo...")
             finMenuProfesores = True
