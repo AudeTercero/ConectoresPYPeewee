@@ -1,5 +1,8 @@
 import ConsultasInscripciones
 import VerificationExceptions
+import ConsultasCurso
+import ConsultasProfesor
+import ConsultasAlumnos
 
 
 def menu():
@@ -17,13 +20,17 @@ def menu():
                        "\t[0. Salir\n"
                        "\t[===== Opcion: ")
         if opcion == "1":
-            matricularAlumno()
+            if ConsultasCurso.hayCursos() and ConsultasAlumnos.hayAlumnos():
+                matricularAlumno()
         elif opcion == "2":
-            asignarProfesor()
+            if ConsultasCurso.hayCursos() and ConsultasProfesor.hayProfesores():
+                asignarProfesor()
         elif opcion == "3":
-            desmatricularAlumno()
+            if ConsultasInscripciones.hayAlumnosMatriculados():
+                desmatricularAlumno()
         elif opcion == "4":
-            desasignarProfesro()
+            if ConsultasInscripciones.hayAlumnosMatriculados():
+                desasignarProfesro()
         elif opcion == "0":
             print("Saliendo...")
             finMenuInscripciones = True

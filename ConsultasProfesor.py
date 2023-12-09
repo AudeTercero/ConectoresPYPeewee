@@ -113,6 +113,10 @@ def existProfesor(dni):
 
     return False
 def hayProfesores():
+    """
+    Funcion que comprueba si hay profesores dados de alta
+    :return: Retorna booleano si lo hay o no
+    """
     con = conect()
     try:
         cursor = con.cursor()

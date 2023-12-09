@@ -186,3 +186,38 @@ def existeProfEnCurso(idProfe, idCurso):
         print(err)
         return False
     return False
+def hayAlumnosMatriculados():
+    """
+    Funcion que comprueba si hay alumnos matriculados en cursos
+    :return: Retorna si lo hay o no
+    """
+    con = conect()
+    try:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM alumno_curso")
+        resultados = cursor.fetchall()
+        cursor.close()
+        if resultados:
+            return True
+    except pymysql.Error as err:
+        print(err)
+    print('Aun no hay alumnos dados de alta en ningun curso')
+    return False
+def hayProfesoresAsignados():
+    """
+        Funcion que comprueba si hay profesores asignados en cursos
+        :return: Retorna si lo hay o no
+        """
+    con = conect()
+    try:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM curso")
+        resultados = cursor.fetchall()
+        cursor.close()
+        for lines in resultados:
+            if(lines[1] is not None):
+                return True
+    except pymysql.Error as err:
+        print(err)
+    print('Aun no hay profesores dados de alta en ningun curso')
+    return False
