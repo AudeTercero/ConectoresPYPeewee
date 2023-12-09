@@ -3,6 +3,13 @@ from ConexionBBDD import conect
 
 
 def matAlu(nomCurso, nomAlu, apeAlu):
+    """
+    Funcion para introducir los datos en la base de datos en la tabla de alumno_curso cuando matriculamos un alumno
+    :param nomCurso: Recibe el nombre del curso
+    :param nomAlu: Recibe el nombre del alumno
+    :param apeAlu: Recibe el apellido del alumno
+    :return:
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -25,6 +32,12 @@ def matAlu(nomCurso, nomAlu, apeAlu):
 
 
 def asigProf(nomCurso, dniProf):
+    """
+    Funcion para introducir la id del profesor en la tabla de curso al que queremos asignarle
+    :param nomCurso: Recibe el nombre del curso
+    :param dniProf: Recibe el dni del profesor
+    :return:
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -44,6 +57,11 @@ def asigProf(nomCurso, dniProf):
 
 
 def obtIdProf(dni):
+    """
+    Funcion para obtener la id del profesor
+    :param dni: Recibe el dni del profesor
+    :return: Retorna la id del profesor
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -58,6 +76,12 @@ def obtIdProf(dni):
 
 
 def obtIdAlu(nomAlu, apeAlu):
+    """
+    Funcino para obtener la id del alumno
+    :param nomAlu: Recibe el nombre del alumno
+    :param apeAlu: Recibe el apellido del alumno
+    :return: Retorna la id del alumno
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -72,6 +96,11 @@ def obtIdAlu(nomAlu, apeAlu):
 
 
 def obtIdCurso(nombre):
+    """
+    Funcion para obtener la id de un curso
+    :param nombre: Recibe el nombre del curso
+    :return: Retorna la id del profesor
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -85,6 +114,12 @@ def obtIdCurso(nombre):
         print(err)
 
 def borrarAluCurso(idAlu, idCurso):
+    """
+    Funcion para borrar un el alumno de la tabla de alumno_curso
+    :param idAlu: Recibe la id del alumno
+    :param idCurso: Recibe la id del curso
+    :return:
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -94,6 +129,12 @@ def borrarAluCurso(idAlu, idCurso):
     except pymysql.Error as err:
         print(err)
 def borrarProfCurso(idProfe, idCurso):
+    """
+    Funcion para actualizar la tabla de curso y eliminar al profesor de ese curso
+    :param idProfe: Recibe la id del profesor
+    :param idCurso: Recibe la id del curso
+    :return:
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -104,6 +145,12 @@ def borrarProfCurso(idProfe, idCurso):
         print(err)
 
 def existeAluEnAluCurso(idAlu, idCurso):
+    """
+    Funcion para comprobar si existe o no el alumno en la tabla alumno_Curso
+    :param idAlu: Recibe la id del alumno
+    :param idCurso: Recibe la id del curso
+    :return: Retorna si existe o no en la tabla
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -120,6 +167,12 @@ def existeAluEnAluCurso(idAlu, idCurso):
 
 
 def existeProfEnCurso(idProfe, idCurso):
+    """
+        Funcion para comprobar si existe o no el profesor en la tabla curso
+        :param idProfe: Recibe la id del profesor
+        :param idCurso: Recibe la id del curso
+        :return: Retorna si existe o no en la tabla
+        """
     con = conect()
     try:
         cursor = con.cursor()

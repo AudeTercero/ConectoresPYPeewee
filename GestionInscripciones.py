@@ -1,8 +1,11 @@
 import ConsultasInscripciones
 import VerificationExceptions
 
-
 def menu():
+    """
+    Funcion para el menu para la gestion de inscripciones
+    :return:
+    """
     finMenuInscripciones = False
     while not finMenuInscripciones:
         opcion = input("\n\n\t[==== MENU INSCRIPCIONES ====>\n"
@@ -28,6 +31,10 @@ def menu():
 
 
 def matricularAlumno():
+    """
+    Funcion para matricular un alumno a un curso
+    :return:
+    """
     curso = None
     nombre = None
     apellido = None
@@ -48,11 +55,11 @@ def matricularAlumno():
                     f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:")
                 opcSalir = aux
                 if (opcSalir != 0):
-                    VerificationExceptions.hayAlgo(aux)
-
-                    '''Aqui comprobacion de nombre y apellido'''
-
-                    nombre = aux
+                    VerificationExceptions.hayAlgo(auxNom)
+                    VerificationExceptions.hayAlgo(auxApe)
+                    VerificationExceptions.existeAlumno(auxNom, auxApe)
+                    nombre = auxNom
+                    apellido = auxApe
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
@@ -78,6 +85,10 @@ def matricularAlumno():
 
 
 def asignarProfesor():
+    """
+    Funcion para asignar un profesor a un curso
+    :return:
+    """
     curso = None
     dni = None
     fallos = 0
@@ -124,6 +135,10 @@ def asignarProfesor():
 
 
 def desmatricularAlumno():
+    """
+    Funcion que desmatricula un alumno de un curso
+    :return:
+    """
     curso = None
     nombre = None
     apellido = None
@@ -178,9 +193,14 @@ def desmatricularAlumno():
 
 
 def desasignarProfesro():
+    """
+    Funcion que desasigna un profesor de un curso
+    :return:
+    """
     curso = None
     dni = None
     idCurso = None
+    idProf = None
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
         try:
@@ -200,6 +220,8 @@ def desasignarProfesro():
                 if (opcSalir != 0):
                     VerificationExceptions.dniFormat(aux)
                     VerificationExceptions.noExistDni(aux)
+                    idProf = ConsultasInscripciones.obtIdProf(aux)
+                    VerificationExceptions.noExisteProfesorEnCurso(idProf, idCurso)
                     dni = aux
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
@@ -211,8 +233,7 @@ def desasignarProfesro():
                 op = input(
                     f"Seguro que quiere matricular al profesor {dni} en el curso {curso}?[S/N]").lower()
                 if op == "s":
-                    ConsultasInscripciones.asigProf(curso, dni)
-                    print(f"El profesro con el dni {dni} ha sido asignado correctamente en el curso {curso}")
+                    ConsultasInscripciones.borrarProfCurso(idProf, idCurso)
                 elif op == "n":
                     salir = True
                     print("Saliendo sin guardar...")

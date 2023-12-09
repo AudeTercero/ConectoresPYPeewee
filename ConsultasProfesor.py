@@ -25,6 +25,11 @@ def consAlta(dni, nombre, direccion, telefono):
 
 
 def consBaja(dni):
+    """
+    Funcion que que borra un profesor de la base de datos
+    :param dni: Recibe el dni del profesor a borrar
+    :return:
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -38,6 +43,11 @@ def consBaja(dni):
 
 
 def consBusqueda(dni):
+    """
+    Funcion para buscar un profesor en la base de datos
+    :param dni: Recibe el dni del profesor a buscar
+    :return: Retorna el resultado del select
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -50,6 +60,13 @@ def consBusqueda(dni):
 
 
 def consModificar(dni, columna, nuevoCampo):
+    """
+    Funcion para modificar un profesor
+    :param dni: Recibe el dni del profesor a modificar
+    :param columna: Recibe la columna del campo que queremos modificar
+    :param nuevoCampo: Recibe el nuevo campo a modificar
+    :return:
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -63,6 +80,10 @@ def consModificar(dni, columna, nuevoCampo):
 
 
 def mostrarTabla():
+    """
+    Funcion que obtiene de la base de datos todos los datos de todos los profesores
+    :return: Retorna todos los resultados para mostrarlos
+    """
     con = conect()
     try:
         cursor = con.cursor()
@@ -75,6 +96,11 @@ def mostrarTabla():
 
 
 def existProfesor(dni):
+    """
+    Funcion para comporobar si existe o no un profesor
+    :param dni: Recibe el dni del profesor
+    :return: Retorna si existe o no
+    """
     con = conect()
     try:
         cursor = con.cursor()

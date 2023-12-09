@@ -3,6 +3,10 @@ import ConsultasAlumnos
 
 
 def menu():
+    '''
+    Metodo cuya funcion es simular un menu para interactuar con los alumnos de la base de datos
+    :return:
+    '''
     finMenuAlumnos = False
     while not finMenuAlumnos:
         opcion = input("\n\n\t[==== MENU PROFESORES ====>\n"
@@ -31,13 +35,21 @@ def menu():
 
 
 def alta():
+    '''
+    Metodo alta cuya funcion es aniadir alumnos a la base de datos
+    :return:
+    '''
     salir = False
     salir_sin_guardar = False
     cont = 0
-    nombre, apellidos, direccion, telefono, fecha = ""
+    nombre = ""
+    apellidos = ""
+    direccion = ""
+    telefono = ""
+    fecha = ""
 
     while not salir and not salir_sin_guardar:
-        if not cont == 3:
+        if not cont == 5:
             nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
             if (nombre == "0"):
                 salir_sin_guardar = True
@@ -45,6 +57,7 @@ def alta():
             else:
                 try:
                     VerificationExceptions.hayAlgo(nombre)
+                    print("Nombre valido")
                     salir = True
 
                 except VerificationExceptions.MisExceptions as err:
@@ -57,7 +70,7 @@ def alta():
     salir = False
     cont = 0
     while not salir and not salir_sin_guardar:
-        if not cont == 3:
+        if not cont == 5:
             apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ")
             if (apellidos == "0"):
                 salir_sin_guardar = True
@@ -65,6 +78,7 @@ def alta():
             else:
                 try:
                     VerificationExceptions.hayAlgo(apellidos)
+                    print("Apellidos validos")
                     salir = True
 
                 except VerificationExceptions.MisExceptions as err:
@@ -77,7 +91,7 @@ def alta():
     salir = False
     cont = 0
     while not salir and not salir_sin_guardar:
-        if not cont == 3:
+        if not cont == 5:
             telefono = input("Ingrese el telefono del alumno o pulse 0 para salir: ")
             if (telefono == "0"):
                 salir_sin_guardar = True
@@ -86,6 +100,7 @@ def alta():
                 try:
                     VerificationExceptions.hayAlgo(telefono)
                     VerificationExceptions.validar_telefono(telefono)
+                    print("Telefono valido")
                     salir = True
 
                 except VerificationExceptions.MisExceptions as err:
@@ -98,7 +113,7 @@ def alta():
     salir = False
     cont = 0
     while not salir and not salir_sin_guardar:
-        if not cont == 3:
+        if not cont == 5:
             direccion = input("Ingrese la direccion del alumno o pulse 0 para salir: ")
             if (direccion == "0"):
                 salir_sin_guardar = True
@@ -106,6 +121,7 @@ def alta():
             else:
                 try:
                     VerificationExceptions.hayAlgo(direccion)
+                    print("Direccion valida")
                     salir = True
 
                 except VerificationExceptions.MisExceptions as err:
@@ -118,7 +134,7 @@ def alta():
     salir = False
     cont = 0
     while not salir and not salir_sin_guardar:
-        if not cont == 3:
+        if not cont == 5:
             fecha = input("Ingrese la fecha del alumno o pulse 0 para salir: ")
 
             if fecha == "0":
@@ -128,6 +144,7 @@ def alta():
                 try:
                     VerificationExceptions.hayAlgo(fecha)
                     VerificationExceptions.formatoFecha(fecha)
+                    print("Fecha valida")
                     salir = True
 
                 except VerificationExceptions.MisExceptions as err:
@@ -144,11 +161,15 @@ def alta():
             VerificationExceptions.existeAlumno(nombre, apellidos)
             ConsultasAlumnos.consAlta(nombre, apellidos, direccion, telefono, fecha)
 
-        except Exception as err:
+        except VerificationExceptions.MisExceptions as err:
             print(err)
 
 
 def baja():
+    '''
+    Metodo cuya funcion es borrar alumnos de la base de datos
+    :return:
+    '''
     salir = False
     salir_sin_guardar = False
     cont = 0
@@ -156,7 +177,342 @@ def baja():
     apellidos = None
 
     while not salir and not salir_sin_guardar:
-        if not cont == 3:
+        if not cont == 5:
+            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
+            if (nombre == "0"):
+                salir_sin_guardar = True
+                salir = True
+            else:
+                try:
+                    VerificationExceptions.hayAlgo(nombre)
+                    print("Nombre valido")
+                    salir = True
+
+                except VerificationExceptions.MisExceptions as err:
+                    cont += 1
+                    print(err)
+        else:
+            print("\nHas llegado al limite de intentos.")
+            salir_sin_guardar = True
+
+    salir = False
+    cont = 0
+    while not salir and not salir_sin_guardar:
+        if not cont == 5:
+            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ")
+            if (apellidos == "0"):
+                salir_sin_guardar = True
+                salir = True
+            else:
+                try:
+                    VerificationExceptions.hayAlgo(apellidos)
+                    print("Apellidos validos")
+                    salir = True
+
+                except VerificationExceptions.MisExceptions as err:
+                    cont += 1
+                    print(err)
+        else:
+            print("\nHas llegado al limite de intentos.")
+            salir_sin_guardar = True
+
+    if nombre is not None and apellidos is not None and not salir_sin_guardar:
+        try:
+            VerificationExceptions.noExisteAlumno(nombre, apellidos)
+
+            while not salir:
+                op = input("Seguro que quiere dar de baja al alumno?[S/N]").lower()
+
+                if op == "s":
+                    ConsultasAlumnos.consBaja(nombre, apellidos)
+                    salir = True
+                elif op == "n":
+                    salir = True;
+                    print("Saliendo sin guardar...")
+                else:
+                    print("Entrada no valida.")
+
+        except VerificationExceptions.MisExceptions as err:
+            print(err)
+    else:
+        print("Saliendo...")
+
+
+def modificar():
+    '''
+    Metodo cuya funcion es modificar los distintos atributos de un usuario
+    :return:
+    '''
+    salir = False
+    salir_sin_guardar = False
+    cont = 0
+    nombre = None
+    apellidos = None
+
+    while not salir and not salir_sin_guardar:
+        if not cont == 5:
+            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
+            if (nombre == "0"):
+                salir_sin_guardar = True
+                salir = True
+            else:
+                try:
+                    VerificationExceptions.hayAlgo(nombre)
+                    print("Nombre valido")
+                    salir = True
+
+                except VerificationExceptions.MisExceptions as err:
+                    cont += 1
+                    print(err)
+        else:
+            print("\nHas llegado al limite de intentos.")
+            salir_sin_guardar = True
+
+    salir = False
+    cont = 0
+    while not salir and not salir_sin_guardar:
+        if not cont == 5:
+            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ")
+            if (apellidos == "0"):
+                salir_sin_guardar = True
+                salir = True
+            else:
+                try:
+                    VerificationExceptions.hayAlgo(apellidos)
+                    print("Apellidos validos")
+                    salir = True
+
+                except VerificationExceptions.MisExceptions as err:
+                    cont += 1
+                    print(err)
+        else:
+            print("\nHas llegado al limite de intentos.")
+            salir_sin_guardar = True
+
+    if nombre is not None and apellidos is not None and not salir_sin_guardar:
+        try:
+            VerificationExceptions.noExisteAlumno(nombre, apellidos)
+
+            salir = False
+            salir_sin_guardar = False
+
+            while cont < 5 and not salir:
+                op = input(''' 
+                            ******* MODIFICACION ALUMNO *******
+                            1.Nombre
+                            2.Apellidos
+                            3.Telefono
+                            4.Direccion
+                            5.Fecha
+                            0.Salir
+                            ''')
+
+                if op == '1':
+                    nuevoNombre = None
+                    cont = 0
+                    opSalir = None
+
+                    while cont < 5 and nuevoNombre is None and opSalir != '0':
+                        try:
+                            aux = input('Escribe el nuevo nombre o pulsa 0 para salir:')
+                            opSalir = aux
+
+                            if (opSalir != 0):
+                                VerificationExceptions.hayAlgo(aux)
+                                print("Nombre valido")
+                                VerificationExceptions.existeAlumno(aux, apellidos)
+
+                        except VerificationExceptions.MisExceptions as err:
+                            print(err)
+                            cont += 1
+
+                    if (cont < 5 and opSalir != '0'):
+                        op = None
+                        while not salir and op is None:
+                            op = input("Seguro que quiere modificar el nombre del alumno?[S/N]").lower()
+                            if op == "s":
+                                ConsultasAlumnos.consModificar(nombre, apellidos, 'nombre', nuevoNombre)
+                                print("Modificacion realizada correctamente")
+                                nombre = nuevoNombre
+                            elif op == "n":
+                                salir = True
+                                print("Saliendo sin guardar...")
+                            else:
+                                print("Entrada no valida.")
+                    elif (cont == 5):
+                        print("No puedes fallar mas de 5 veces")
+
+                    else:
+                        print("Saliendo...")
+
+                elif op == '2':
+                    nuevoApe = None
+                    cont = 0
+                    opSalir = None
+
+                    while cont < 5 and nuevoApe is None and opSalir != '0':
+                        try:
+                            aux = input('Escribe los nuevos apellidos o pulsa 0 para salir:')
+                            opSalir = aux
+
+                            if (opSalir != 0):
+                                VerificationExceptions.hayAlgo(aux)
+                                print("Apellidos validos")
+                                VerificationExceptions.existeAlumno(nombre, nuevoApe)
+
+                        except VerificationExceptions.MisExceptions as err:
+                            print(err)
+                            cont += 1
+
+                    if (cont < 5 and opSalir != '0'):
+                        op = None
+                        while not salir and op is None:
+                            op = input("Seguro que quiere modificar los apellidos del alumno?[S/N]").lower()
+                            if op == "s":
+                                ConsultasAlumnos.consModificar(nombre, apellidos, 'apellidos', nuevoApe)
+                                print("Modificacion realizada correctamente")
+                                apellidos = nuevoApe
+                            elif op == "n":
+                                salir = True
+                                print("Saliendo sin guardar...")
+                            else:
+                                print("Entrada no valida.")
+                    elif (cont == 5):
+                        print("No puedes fallar mas de 5 veces")
+
+                    else:
+                        print("Saliendo...")
+
+                elif op == '3':
+                    nuevoTel = None
+                    cont = 0
+                    opSalir = None
+
+                    while cont < 5 and nuevoTel is None and opSalir != '0':
+                        try:
+                            aux = input('Escribe el nuevo telefono o pulsa 0 para salir:')
+                            opSalir = aux
+
+                            if (opSalir != 0):
+                                VerificationExceptions.validar_telefono(aux)
+                                print("Telefono valido")
+                                nuevoTel = aux
+
+                        except VerificationExceptions.MisExceptions as err:
+                            print(err)
+                            cont += 1
+
+                    if (cont < 5 and opSalir != '0'):
+                        op = None
+                        while not salir and op is None:
+                            op = input("Seguro que quiere modificar el telefono del alumno?[S/N]").lower()
+                            if op == "s":
+                                ConsultasAlumnos.consModificar(nombre, apellidos, 'telefono', nuevoTel)
+                                print("Modificacion realizada correctamente")
+                            elif op == "n":
+                                salir = True
+                                print("Saliendo sin guardar...")
+                            else:
+                                print("Entrada no valida.")
+                    elif (cont == 5):
+                        print("No puedes fallar mas de 5 veces")
+
+                    else:
+                        print("Saliendo...")
+
+                elif op == '4':
+                    nuevaDir = None
+                    cont = 0
+                    opSalir = None
+
+                    while cont < 5 and nuevaDir is None and opSalir != '0':
+                        try:
+                            aux = input('Escribe la nueva direccion o pulsa 0 para salir:')
+                            opSalir = aux
+
+                            if (opSalir != 0):
+                                VerificationExceptions.hayAlgo(aux)
+                                print("Direccion valida")
+                                nuevaDir = aux
+
+                        except VerificationExceptions.MisExceptions as err:
+                            print(err)
+                            cont += 1
+
+                    if (cont < 5 and opSalir != '0'):
+                        op = None
+                        while not salir and op is None:
+                            op = input("Seguro que quiere modificar la direccion del alumno?[S/N]").lower()
+                            if op == "s":
+                                ConsultasAlumnos.consModificar(nombre, apellidos, 'direccion', nuevaDir)
+                                print("Modificacion realizada correctamente")
+                            elif op == "n":
+                                salir = True
+                                print("Saliendo sin guardar...")
+                            else:
+                                print("Entrada no valida.")
+                    elif (cont == 5):
+                        print("No puedes fallar mas de 5 veces")
+
+                    else:
+                        print("Saliendo...")
+
+                elif op == '4':
+                    nuevaFech = None
+                    cont = 0
+                    opSalir = None
+
+                    while cont < 5 and nuevaFech is None and opSalir != '0':
+                        try:
+                            aux = input('Escribe la nueva fecha de nacimiento o pulsa 0 para salir:')
+                            opSalir = aux
+
+                            if (opSalir != 0):
+                                VerificationExceptions.formatoFecha(aux)
+                                print("Fecha valida")
+                                nuevaFech = aux
+
+                        except VerificationExceptions.MisExceptions as err:
+                            print(err)
+                            cont += 1
+
+                    if (cont < 5 and opSalir != '0'):
+                        op = None
+                        while not salir and op is None:
+                            op = input("Seguro que quiere modificar la fecha de nacimiento del alumno?[S/N]").lower()
+                            if op == "s":
+                                ConsultasAlumnos.consModificar(nombre, apellidos, 'fecha_nac', nuevaFech)
+                                print("Modificacion realizada correctamente")
+                            elif op == "n":
+                                salir = True
+                                print("Saliendo sin guardar...")
+                            else:
+                                print("Entrada no valida.")
+                    elif (cont == 5):
+                        print("No puedes fallar mas de 5 veces")
+
+                    else:
+                        print("Saliendo...")
+
+        except VerificationExceptions.MisExceptions as err:
+            print(err)
+    else:
+        print("Saliendo...")
+
+
+def consultar():
+    '''
+    Metodo cuya funcion es mostrar los atributos de un alumno en especifico
+    :return:
+    '''
+    salir = False
+    salir_sin_guardar = False
+    cont = 0
+    nombre = None
+    apellidos = None
+
+    while not salir and not salir_sin_guardar:
+        if not cont == 5:
             nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
             if (nombre == "0"):
                 salir_sin_guardar = True
@@ -196,140 +552,28 @@ def baja():
     if nombre is not None and apellidos is not None and not salir_sin_guardar:
         try:
             VerificationExceptions.noExisteAlumno(nombre, apellidos)
+            resultados = ConsultasAlumnos.consBuscar(nombre, apellidos)
 
-            while not salir:
-                op = input("Seguro que quiere dar de baja al alumno?[S/N]").lower()
+            if resultados is not None:
+                for r in resultados:
+                    print("---Alumno---")
+                    print(f"ID:{r[0]}")
+                    print(f"Nombre:{r[1]}")
+                    print(f"Apellidos:{r[2]}")
+                    print(f"Telefono:{r[3]}")
+                    print(f"Direccion:{r[4]}")
+                    print(f"Fecha de Nacimiento:{r[5]}")
+                    print(f"Cursos:{r[6]}")
 
-                if op == "s":
-                    ConsultasAlumnos.consBaja(nombre, apellidos)
-                    salir = True
-                elif op == "n":
-                    salir = True;
-                    print("Saliendo sin guardar...")
-                else:
-                    print("Entrada no valida.")
-
-        except Exception as err:
+        except VerificationExceptions.MisExceptions as err:
             print(err)
-    else:
-        print("Saliendo...")
-
-
-def modificar():
-    salir = False
-    salir_sin_guardar = False
-    cont = 0
-    nombre = None
-    apellidos = None
-
-    while not salir and not salir_sin_guardar:
-        if not cont == 3:
-            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
-            if (nombre == "0"):
-                salir_sin_guardar = True
-                salir = True
-            else:
-                try:
-                    VerificationExceptions.hayAlgo(nombre)
-                    salir = True
-
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
-        else:
-            print("\nHas llegado al limite de intentos.")
-            salir_sin_guardar = True
-
-    salir = False
-    cont = 0
-    while not salir and not salir_sin_guardar:
-        if not cont == 3:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ")
-            if (apellidos == "0"):
-                salir_sin_guardar = True
-                salir = True
-            else:
-                try:
-                    VerificationExceptions.hayAlgo(apellidos)
-                    salir = True
-
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
-        else:
-            print("\nHas llegado al limite de intentos.")
-            salir_sin_guardar = True
-
-    if nombre is not None and apellidos is not None and not salir_sin_guardar:
-        resultados = ConsultasAlumnos.consBuscar(nombre, apellidos)
-
-    else:
-        print("Saliendo...")
-
-
-def consultar():
-    salir = False
-    salir_sin_guardar = False
-    cont = 0
-    nombre = None
-    apellidos = None
-
-    while not salir and not salir_sin_guardar:
-        if not cont == 3:
-            nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ")
-            if (nombre == "0"):
-                salir_sin_guardar = True
-                salir = True
-            else:
-                try:
-                    VerificationExceptions.hayAlgo(nombre)
-                    salir = True
-
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
-        else:
-            print("\nHas llegado al limite de intentos.")
-            salir_sin_guardar = True
-
-    salir = False
-    cont = 0
-    while not salir and not salir_sin_guardar:
-        if not cont == 3:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ")
-            if (apellidos == "0"):
-                salir_sin_guardar = True
-                salir = True
-            else:
-                try:
-                    VerificationExceptions.hayAlgo(apellidos)
-                    salir = True
-
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
-        else:
-            print("\nHas llegado al limite de intentos.")
-            salir_sin_guardar = True
-
-    if nombre is not None and apellidos is not None:
-        resultados = ConsultasAlumnos.consBuscar(nombre, apellidos)
-
-    if resultados is not None:
-        for r in resultados:
-            print("---Alumno---")
-            print(f"ID:{r[0]}")
-            print(f"Nombre:{r[1]}")
-            print(f"Apellidos:{r[2]}")
-            print(f"Telefono:{r[3]}")
-            print(f"Direccion:{r[4]}")
-            print(f"Fecha de Nacimiento:{r[5]}")
-            print(f"Cursos:{r[6]}")
-    else:
-        print(f"No se encontro un alumno con ese nombre y esos apellidos")
 
 
 def mostrarTodos():
+    '''
+    Metodo cuya funcion es mostrar todos los alumnos y sus atributos dentro de la base de datos
+    :return:
+    '''
     tabla = ConsultasAlumnos.consMostrarAlumnos()
     print(type(tabla))
     for tupla in tabla:

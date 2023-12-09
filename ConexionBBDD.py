@@ -2,6 +2,10 @@ import pymysql
 
 
 def conexion():
+    """
+    Funcion que crea las tablas que estan en fichero sql
+    :return:
+    """
     con = conect()
     cursor = con.cursor()
     with open('Marcos_Javier_IkerBBDD.sql', 'r') as file:
@@ -14,6 +18,10 @@ def conexion():
 
 
 def conect():
+    """
+    Funcion que crea la base de datos si no existe y hace la conexion con ella
+    :return:Retorna la conexion
+    """
     prop = leerConf()
     try:
         con = pymysql.connect(
@@ -43,6 +51,10 @@ def conect():
 
 
 def leerConf():
+    """
+    Funcion que lee el documento de propiedadas de la base de datos
+    :return: Retorna una coleccion con los datos ordenados por clave valor
+    """
     propiedades = {}
     with open('conf.prop', 'r') as file:
         for linea in file:
