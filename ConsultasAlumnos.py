@@ -78,3 +78,17 @@ def existeAlumno(nombre, apellidos):
     except pymysql.Error as err:
         print(err)
     return False
+
+def hayAlumnos():
+    con = conect()
+    try:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM alumno")
+        resultados = cursor.fetchall()
+        cursor.close()
+        if resultados:
+            return True
+    except pymysql.Error as err:
+        print(err)
+    print('Aun no hay alumnos dados de alta')
+    return False

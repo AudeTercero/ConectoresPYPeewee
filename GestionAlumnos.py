@@ -20,13 +20,17 @@ def menu():
         if opcion == "1":
             alta()
         elif opcion == "2":
-            baja()
+            if ConsultasAlumnos.hayAlumnos():
+                baja()
         elif opcion == "3":
-            modificar()
+            if ConsultasAlumnos.hayAlumnos():
+                modificar()
         elif opcion == "4":
-            consultar()
+            if ConsultasAlumnos.hayAlumnos():
+                consultar()
         elif opcion == "5":
-            mostrarTodos()
+            if ConsultasAlumnos.hayAlumnos():
+                mostrarTodos()
         elif opcion == "0":
             print("Saliendo...")
             finMenuAlumnos = True
@@ -562,14 +566,14 @@ def consultar():
 
             if resultados is not None:
                 for r in resultados:
-                    print("---Alumno---")
-                    print(f"ID:{r[0]}")
-                    print(f"Nombre:{r[1]}")
-                    print(f"Apellidos:{r[2]}")
-                    print(f"Telefono:{r[3]}")
-                    print(f"Direccion:{r[4]}")
-                    print(f"Fecha de Nacimiento:{r[5]}")
-                    print(f"Cursos:{r[6]}")
+                    print(f'''---Alumno---
+        ID: {r[0]}
+        Nombre: {r[1]}
+        Apellidos: {r[2]}
+        Telefono: {r[3]}
+        Direccion: {r[4]}
+        Fecha de Nacimiento: {r[5]}
+        Cursos: {r[6]}''')
 
         except VerificationExceptions.MisExceptions as err:
             print(err)
