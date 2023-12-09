@@ -1,4 +1,6 @@
 from datetime import datetime
+
+import ConsultasAlumnos
 import ConsultasProfesor
 import ConsultasCurso
 
@@ -64,3 +66,12 @@ def existNombreCur(nombre):
 def noExistNombreCur(nombre):
     if not ConsultasCurso.existeCurso(nombre):
         raise MisExceptions('No se ha encontrado un curso con ese nombre')
+
+
+def existeAlumno(nombre, apellidos):
+    if ConsultasAlumnos.existeAlumno(nombre, apellidos):
+        raise MisExceptions('Ya existe un alumno con ese nombre y apellidos')
+
+def noExisteAlumno(nombre, apellidos):
+    if not ConsultasAlumnos.existeAlumno(nombre, apellidos):
+        raise MisExceptions('No se ha encontrado un alumno con ese nombre y apellidos')
