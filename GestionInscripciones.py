@@ -1,5 +1,8 @@
 import ConsultasInscripciones
 import VerificationExceptions
+import ConsultasCurso
+import ConsultasProfesor
+import ConsultasAlumnos
 
 
 def menu():
@@ -17,13 +20,17 @@ def menu():
                        "\t[0. Salir\n"
                        "\t[===== Opcion: ")
         if opcion == "1":
-            matricularAlumno()
+            if ConsultasCurso.hayCursos() and ConsultasAlumnos.hayAlumnos():
+                matricularAlumno()
         elif opcion == "2":
-            asignarProfesor()
+            if ConsultasCurso.hayCursos() and ConsultasProfesor.hayProfesores():
+                asignarProfesor()
         elif opcion == "3":
-            desmatricularAlumno()
+            if ConsultasInscripciones.hayAlumnosMatriculados():
+                desmatricularAlumno()
         elif opcion == "4":
-            desasignarProfesro()
+            if ConsultasInscripciones.hayAlumnosMatriculados():
+                desasignarProfesro()
         elif opcion == "0":
             print("Saliendo...")
             finMenuInscripciones = True
@@ -47,7 +54,7 @@ def matricularAlumno():
             if (curso is None):
                 aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:").lower()
                 opcSalir = aux
-                if (opcSalir != 0):
+                if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
                     VerificationExceptions.noExistNombreCur(aux)
                     curso = aux
@@ -57,7 +64,7 @@ def matricularAlumno():
                 auxApe = input(
                     f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
                 opcSalir = aux
-                if (opcSalir != 0):
+                if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(auxNom)
                     VerificationExceptions.hayAlgo(auxApe)
                     VerificationExceptions.existeAlumno(auxNom, auxApe)
@@ -67,7 +74,7 @@ def matricularAlumno():
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-    if (fallos < 5 and opcSalir != 0):
+    if (fallos < 5 and opcSalir != '0'):
         op = None
         salir = False
         while not salir and op is None:
@@ -156,7 +163,7 @@ def desmatricularAlumno():
             if (curso is None):
                 aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:").lower()
                 opcSalir = aux
-                if (opcSalir != 0):
+                if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
                     VerificationExceptions.existNombreCur(aux)
                     idCurso = ConsultasInscripciones.obtIdCurso(aux)
@@ -167,7 +174,7 @@ def desmatricularAlumno():
                 auxApe = input(
                     f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
                 opcSalir = aux
-                if (opcSalir != 0):
+                if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(auxNom)
                     VerificationExceptions.hayAlgo(auxApe)
                     VerificationExceptions.existeAlumno(auxNom, auxApe)
@@ -179,7 +186,7 @@ def desmatricularAlumno():
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-    if (fallos < 5 and opcSalir != 0):
+    if (fallos < 5 and opcSalir != '0'):
         op = None
         salir = False
         while not salir and op is None:
@@ -215,7 +222,7 @@ def desasignarProfesro():
             if (curso is None):
                 aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:").lower()
                 opcSalir = aux
-                if (opcSalir != 0):
+                if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
                     VerificationExceptions.existNombreCur(aux)
                     idCurso = ConsultasInscripciones.obtIdCurso(aux)
@@ -225,7 +232,7 @@ def desasignarProfesro():
                     f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:").upper()
 
                 opcSalir = aux
-                if (opcSalir != 0):
+                if (opcSalir != '0'):
                     VerificationExceptions.dniFormat(aux)
                     VerificationExceptions.noExistDni(aux)
                     idProf = ConsultasInscripciones.obtIdProf(aux)
@@ -235,7 +242,7 @@ def desasignarProfesro():
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-    if (fallos < 5 and opcSalir != 0):
+    if (fallos < 5 and opcSalir != '0'):
         op = None
         salir = False
         while not salir and op is None:
