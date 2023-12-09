@@ -1,6 +1,7 @@
 import ConsultasInscripciones
 import VerificationExceptions
 
+
 def menu():
     """
     Funcion para el menu para la gestion de inscripciones
@@ -40,7 +41,8 @@ def matricularAlumno():
     apellido = None
     opcSalir = None
     fallos = 0
-    while (opcSalir != '0' and fallos < 5):
+    salir = False
+    while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
                 aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:")
@@ -49,7 +51,7 @@ def matricularAlumno():
                     VerificationExceptions.hayAlgo(aux)
                     VerificationExceptions.noExistNombreCur(aux)
                     curso = aux
-            if (nombre is None and apellido is None):
+            if (nombre is None and apellido is None and opcSalir != '0'):
                 auxNom = input(
                     f"Introduzca el nombre del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:")
                 auxApe = input(
@@ -61,28 +63,28 @@ def matricularAlumno():
                     VerificationExceptions.existeAlumno(auxNom, auxApe)
                     nombre = auxNom
                     apellido = auxApe
+                    salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-        if (fallos < 5 and opcSalir != 0):
-            op = None
-            salir = False
-            while not salir and op is None:
-                op = input(
-                    f"Seguro que quiere matricular al alumno {nombre, apellido} en el curso {curso}?[S/N]").lower()
-                if op == "s":
-                    ConsultasInscripciones.matAlu(curso, nombre, apellido)
-                    print(f"El alumno {nombre, apellido} ha sido matriculado correctamente en el curso {curso}")
-                elif op == "n":
-                    salir = True
-                    print("Saliendo sin guardar...")
-                else:
-                    print("Entrada no valida.")
-
-        elif (fallos == 5):
-            print("Has superado el maximos de fallos permitidos que son 5")
-        else:
-            print("Saliendo...")
+    if (fallos < 5 and opcSalir != 0):
+        op = None
+        salir = False
+        while not salir and op is None:
+            op = input(
+                f"Seguro que quiere matricular al alumno {nombre, apellido} en el curso {curso}?[S/N]").lower()
+            if op == "s":
+                ConsultasInscripciones.matAlu(curso, nombre, apellido)
+                print(f"El alumno {nombre, apellido} ha sido matriculado correctamente en el curso {curso}")
+            elif op == "n":
+                salir = True
+                print("Saliendo sin guardar...")
+            else:
+                print("Entrada no valida.")
+    elif (fallos == 5):
+        print("Has superado el maximos de fallos permitidos que son 5")
+    else:
+        print("Saliendo...")
 
 
 def asignarProfesor():
@@ -94,46 +96,46 @@ def asignarProfesor():
     dni = None
     opcSalir = None
     fallos = 0
-    while (opcSalir != '0' and fallos < 5):
+    salir = False
+    while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
-                aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:")
+                aux = input("Introduzca el nombre del curso que quiera matricular al profesor o 0 pulsa para salir:")
                 opcSalir = aux
-                if (opcSalir != 0):
+                if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
                     VerificationExceptions.noExistNombreCur(aux)
                     curso = aux
-            if (dni is None):
+            if (dni is None and opcSalir != '0'):
                 aux = input(
                     f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:")
-
                 opcSalir = aux
-                if (opcSalir != 0):
+                if (opcSalir != '0'):
                     VerificationExceptions.dniFormat(aux)
                     VerificationExceptions.noExistDni(aux)
                     dni = aux
+                    salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-        if (fallos < 5 and opcSalir != 0):
-            op = None
-            salir = False
-            while not salir and op is None:
-                op = input(
-                    f"Seguro que quiere matricular al profesor {dni} en el curso {curso}?[S/N]").lower()
-                if op == "s":
-                    ConsultasInscripciones.asigProf(curso, dni)
-                    print(f"El profesro con el dni {dni} ha sido asignado correctamente en el curso {curso}")
-                elif op == "n":
-                    salir = True
-                    print("Saliendo sin guardar...")
-                else:
-                    print("Entrada no valida.")
-
-        elif (fallos == 5):
-            print("Has superado el maximos de fallos permitidos que son 5")
-        else:
-            print("Saliendo...")
+    if (fallos < 5 and opcSalir != '0'):
+        op = None
+        salir = False
+        while not salir and op is None:
+            op = input(
+                f"Seguro que quiere matricular al profesor {dni} en el curso {curso}?[S/N]").lower()
+            if op == "s":
+                ConsultasInscripciones.asigProf(curso, dni)
+                print(f"El profesro con el dni {dni} ha sido asignado correctamente en el curso {curso}")
+            elif op == "n":
+                salir = True
+                print("Saliendo sin guardar...")
+            else:
+                print("Entrada no valida.")
+    elif (fallos == 5):
+        print("Has superado el maximos de fallos permitidos que son 5")
+    else:
+        print("Saliendo...")
 
 
 def desmatricularAlumno():
@@ -148,7 +150,8 @@ def desmatricularAlumno():
     idAlu = None
     opcSalir = None
     fallos = 0
-    while (opcSalir != '0' and fallos < 5):
+    salir = False
+    while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
                 aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:")
@@ -158,7 +161,7 @@ def desmatricularAlumno():
                     VerificationExceptions.existNombreCur(aux)
                     idCurso = ConsultasInscripciones.obtIdCurso(aux)
                     curso = aux
-            if (nombre is None and apellido is None):
+            if (nombre is None and apellido is None and opcSalir != '0'):
                 auxNom = input(
                     f"Introduzca el nombre del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:")
                 auxApe = input(
@@ -172,27 +175,27 @@ def desmatricularAlumno():
                     VerificationExceptions.noExisteAlumnoEnAlumnoCurso(idAlu, idCurso)
                     nombre = aux
                     apellido = aux
+                    salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-        if (fallos < 5 and opcSalir != 0):
-            op = None
-            salir = False
-            while not salir and op is None:
-                op = input(
-                    f"Seguro que quiere desmatricular al alumno {nombre, apellido} del curso {curso}?[S/N]").lower()
-                if op == "s":
-                    ConsultasInscripciones.borrarAluCurso(idAlu, idCurso)
-                elif op == "n":
-                    salir = True
-                    print("Saliendo sin guardar...")
-                else:
-                    print("Entrada no valida.")
-
-        elif (fallos == 5):
-            print("Has superado el maximos de fallos permitidos que son 5")
-        else:
-            print("Saliendo...")
+    if (fallos < 5 and opcSalir != 0):
+        op = None
+        salir = False
+        while not salir and op is None:
+            op = input(
+                f"Seguro que quiere desmatricular al alumno {nombre, apellido} del curso {curso}?[S/N]").lower()
+            if op == "s":
+                ConsultasInscripciones.borrarAluCurso(idAlu, idCurso)
+            elif op == "n":
+                salir = True
+                print("Saliendo sin guardar...")
+            else:
+                print("Entrada no valida.")
+    elif (fallos == 5):
+        print("Has superado el maximos de fallos permitidos que son 5")
+    else:
+        print("Saliendo...")
 
 
 def desasignarProfesro():
@@ -206,7 +209,8 @@ def desasignarProfesro():
     idProf = None
     opcSalir = None
     fallos = 0
-    while (opcSalir != '0' and fallos < 5):
+    salir = False
+    while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
                 aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:")
@@ -216,7 +220,7 @@ def desasignarProfesro():
                     VerificationExceptions.existNombreCur(aux)
                     idCurso = ConsultasInscripciones.obtIdCurso(aux)
                     curso = aux
-            if (dni is None):
+            if (dni is None and opcSalir != '0'):
                 aux = input(
                     f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:")
 
@@ -227,24 +231,24 @@ def desasignarProfesro():
                     idProf = ConsultasInscripciones.obtIdProf(aux)
                     VerificationExceptions.noExisteProfesorEnCurso(idProf, idCurso)
                     dni = aux
+                    salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
-        if (fallos < 5 and opcSalir != 0):
-            op = None
-            salir = False
-            while not salir and op is None:
-                op = input(
-                    f"Seguro que quiere matricular al profesor {dni} en el curso {curso}?[S/N]").lower()
-                if op == "s":
-                    ConsultasInscripciones.borrarProfCurso(idProf, idCurso)
-                elif op == "n":
-                    salir = True
-                    print("Saliendo sin guardar...")
-                else:
-                    print("Entrada no valida.")
-
-        elif (fallos == 5):
-            print("Has superado el maximos de fallos permitidos que son 5")
-        else:
-            print("Saliendo...")
+    if (fallos < 5 and opcSalir != 0):
+        op = None
+        salir = False
+        while not salir and op is None:
+            op = input(
+                f"Seguro que quiere matricular al profesor {dni} en el curso {curso}?[S/N]").lower()
+            if op == "s":
+                ConsultasInscripciones.borrarProfCurso(idProf, idCurso)
+            elif op == "n":
+                salir = True
+                print("Saliendo sin guardar...")
+            else:
+                print("Entrada no valida.")
+    elif (fallos == 5):
+        print("Has superado el maximos de fallos permitidos que son 5")
+    else:
+        print("Saliendo...")

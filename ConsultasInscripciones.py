@@ -49,7 +49,7 @@ def asigProf(nomCurso, dniProf):
         if codCurso and codProf:
             codProf = codProf[0]
             codCurso = codCurso[0]
-            cursor.execute(f"UPEDATE curso SET id_profesor = {codProf} WHERE curso = {codCurso}")
+            cursor.execute(f"UPDATE curso SET id_profesor = {codProf} WHERE cod_curso = {codCurso}")
             con.commit()
         cursor.close()
     except pymysql.Error as err:

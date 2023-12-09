@@ -2,7 +2,6 @@ import pymysql
 from ConexionBBDD import conect
 
 
-
 def consAlta(dni, nombre, direccion, telefono):
     con = conect()
     """
@@ -51,7 +50,8 @@ def consBusqueda(dni):
     con = conect()
     try:
         cursor = con.cursor()
-        cursor.execute(f"SELECT p.*, c.nombre AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor WHERE p.dni = '{dni}'")
+        cursor.execute(
+            f"SELECT p.*, c.nombre AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor WHERE p.dni = '{dni}'")
         resultados = cursor.fetchall()
         cursor.close()
         return resultados
@@ -85,8 +85,9 @@ def mostrarTabla():
     con = conect()
     try:
         cursor = con.cursor()
-        cursor.execute("SELECT p.*, c.nombre AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor")
+        cursor.execute("SELECT profesor.*, GROUP_CONCAT(curso.nombre) AS nombre_curso FROM profesor LEFT JOIN curso ON profesor.id = curso.id_profesor GROUP BY profesor.id")
         resultados = cursor.fetchall()
+
         cursor.close()
         return resultados
     except pymysql.Error as err:
