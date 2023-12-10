@@ -67,7 +67,7 @@ def matricularAlumno():
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(auxNom)
                     VerificationExceptions.hayAlgo(auxApe)
-                    VerificationExceptions.existeAlumno(auxNom, auxApe)
+                    VerificationExceptions.noExisteAlumno(auxNom, auxApe)
                     nombre = auxNom
                     apellido = auxApe
                     salir = True
@@ -165,7 +165,7 @@ def desmatricularAlumno():
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
-                    VerificationExceptions.existNombreCur(aux)
+                    VerificationExceptions.noExistNombreCur(aux)
                     idCurso = ConsultasInscripciones.obtIdCurso(aux)
                     curso = aux
             if (nombre is None and apellido is None and opcSalir != '0'):
@@ -177,7 +177,7 @@ def desmatricularAlumno():
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(auxNom)
                     VerificationExceptions.hayAlgo(auxApe)
-                    VerificationExceptions.existeAlumno(auxNom, auxApe)
+                    VerificationExceptions.noExisteAlumno(auxNom, auxApe)
                     idAlu = ConsultasInscripciones.obtIdAlu(auxNom, auxApe)
                     VerificationExceptions.noExisteAlumnoEnAlumnoCurso(idAlu, idCurso)
                     nombre = aux
