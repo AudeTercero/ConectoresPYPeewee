@@ -7,14 +7,15 @@ def conexion():
     :return:
     """
     con = conect()
-    cursor = con.cursor()
-    with open('Marcos_Javier_IkerBBDD.sql', 'r') as file:
-        sql_commands = file.read()
-        comandos = sql_commands.split(";")
-        for comando in comandos:
-            if comando.strip():
-                cursor.execute(comando)
-    con.commit()
+    if (con is not None):
+        cursor = con.cursor()
+        with open('Marcos_Javier_IkerBBDD.sql', 'r') as file:
+            sql_commands = file.read()
+            comandos = sql_commands.split(";")
+            for comando in comandos:
+                if comando.strip():
+                    cursor.execute(comando)
+        con.commit()
 
 
 def conect():
@@ -46,8 +47,9 @@ def conect():
         )
         return con
 
-    except pymysql.Error as err:
-        print(f"Error de conexión a la base de datos: {err}")
+    except pymysql.Error and Exception as err:
+        #print(f"Error de conexión a la base de datos: {err}")
+        return None
 
 
 def leerConf():
