@@ -55,8 +55,7 @@ def consBusqueda(nombre):
                 c.nombre AS nombre_curso,
                 c.descripcion,
                 p.nombre AS nombre_profesor,
-                a.nombre AS nombre_alumno,
-                a.apellidos
+                GROUP_CONCAT(CONCAT(a.nombre, ' ', a.apellidos) SEPARATOR ', ') AS alumnos
             FROM 
                 curso c
             LEFT JOIN 
@@ -67,6 +66,8 @@ def consBusqueda(nombre):
                 alumno a ON ac.num_exp_alu = a.num_expediente
             WHERE 
                 c.nombre = '{nombre}'
+            GROUP BY 
+                c.cod_curso
         """)
         resultados = cursor.fetchall()
         cursor.close()
@@ -83,7 +84,24 @@ def mostrarTabla():
     con = conect()
     try:
         cursor = con.cursor()
-        cursor.execute("SELECT * FROM curso")
+        cursor.execute(f"""
+                    SELECT 
+                        c.cod_curso,
+                        c.nombre AS nombre_curso,
+                        c.descripcion,
+                        p.nombre AS nombre_profesor,
+                        GROUP_CONCAT(CONCAT(a.nombre, ' ', a.apellidos) SEPARATOR ', ') AS alumnos
+                    FROM 
+                        curso c
+                    LEFT JOIN 
+                        profesor p ON c.id_profesor = p.id
+                    LEFT JOIN 
+                        alumno_curso ac ON c.cod_curso = ac.cod_curso
+                    LEFT JOIN 
+                        alumno a ON ac.num_exp_alu = a.num_expediente
+                    GROUP BY 
+                        c.cod_curso
+                """)
         resultados = cursor.fetchall()
         cursor.close()
         return resultados

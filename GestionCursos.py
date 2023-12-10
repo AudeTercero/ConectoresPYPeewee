@@ -144,7 +144,9 @@ def consultar():
     if fallos < 5 and opcSalir != '0':
         curso = ConsultasCurso.consBusqueda(nombre)
         for dato in curso:
-            print(dato)
+            print(f"\n=== Curso ===\n"
+                  f"Cod: {dato[0]}  Nombre: {dato[1]}  Descripcion: {dato[2]}  Profesor: {dato[3]}\n"
+                  f"    Alumnos: {dato[4]}")
     elif fallos == 5:
         print("Has superado el maximos de fallos permitidos que son 5")
     else:
@@ -263,7 +265,8 @@ def mostrarTodos():
     :return:
     """
     tabla = ConsultasCurso.mostrarTabla()
-    print("--- CURSOS ---")
-    for tupla in tabla:
-        print(f"Cod: {tupla[0]}  Nombre: {tupla[2]}  Descripcion: {tupla[3]}  Profesor: {tupla[1]}")
+    print("\n--- CURSOS ---")
+    for dato in tabla:
+        print(f"Cod: {dato[0]}  Nombre: {dato[1]}  Descripcion: {dato[2]}  Profesor: {dato[3]}\n"
+              f"    Alumnos: {dato[4]}")
     print("--------------")
