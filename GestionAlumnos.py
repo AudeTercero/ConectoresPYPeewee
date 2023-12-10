@@ -52,42 +52,30 @@ def alta():
     telefono = ""
     fecha = ""
 
+
     while not salir and not salir_sin_guardar:
         if not cont == 5:
             nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ").lower()
-            if (nombre == "0"):
+            if nombre == "0":
                 salir_sin_guardar = True
                 salir = True
+
             else:
-                try:
-                    VerificationExceptions.hayAlgo(nombre)
-                    print("Nombre valido")
+                apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
+                if (apellidos == "0"):
+                    salir_sin_guardar = True
                     salir = True
+                else:
+                    try:
+                        VerificationExceptions.hayAlgo(nombre)
+                        VerificationExceptions.hayAlgo(apellidos)
+                        VerificationExceptions.existeAlumno(nombre, apellidos)
+                        print("Apellidos validos")
+                        salir = True
 
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
-        else:
-            print("\nHas llegado al limite de intentos.")
-            salir_sin_guardar = True
-
-    salir = False
-    cont = 0
-    while not salir and not salir_sin_guardar:
-        if not cont == 5:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
-            if (apellidos == "0"):
-                salir_sin_guardar = True
-                salir = True
-            else:
-                try:
-                    VerificationExceptions.hayAlgo(apellidos)
-                    print("Apellidos validos")
-                    salir = True
-
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
+                    except VerificationExceptions.MisExceptions as err:
+                        cont += 1
+                        print(err)
         else:
             print("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
@@ -162,7 +150,6 @@ def alta():
         print("Saliendo...")
     else:
         try:
-            VerificationExceptions.existeAlumno(nombre, apellidos)
             ConsultasAlumnos.consAlta(nombre, apellidos, telefono, direccion, fecha)
 
         except VerificationExceptions.MisExceptions as err:
