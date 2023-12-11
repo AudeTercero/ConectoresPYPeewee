@@ -200,3 +200,6 @@ def equals_ignore_case(str1, str2):
     :return: Retorna si son iguales o no
     """
     return str1.lower() == str2.lower()
+
+
+

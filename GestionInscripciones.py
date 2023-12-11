@@ -104,6 +104,8 @@ def asignarProfesor():
     opcSalir = None
     fallos = 0
     salir = False
+
+
     while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
@@ -112,16 +114,28 @@ def asignarProfesor():
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
                     VerificationExceptions.noExistNombreCur(aux)
-                    curso = aux
-            if (dni is None and opcSalir != '0'):
-                aux = input(
-                    f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:").upper()
-                opcSalir = aux
-                if (opcSalir != '0'):
-                    VerificationExceptions.dniFormat(aux)
-                    VerificationExceptions.noExistDni(aux)
-                    dni = aux
-                    salir = True
+
+                    if ConsultasInscripciones.tiene_profe(aux):
+                        seguir = None
+                        while seguir != 's' and seguir != 'n':
+                            seguir = input("El curso ya tiene asignado un profesor, quieres continuar? [S/N]").lower()
+
+                            if seguir == 's':
+                                curso = aux
+                                if (dni is None and opcSalir != '0'):
+                                    aux = input(
+                                        f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:").upper()
+                                    opcSalir = aux
+                                    if (opcSalir != '0'):
+                                        VerificationExceptions.dniFormat(aux)
+                                        VerificationExceptions.noExistDni(aux)
+                                        dni = aux
+                                        salir = True
+                            elif seguir == 'n':
+                                print("Volviendo...\n")
+
+                            else:
+                                print("Introduce una respuesta valida.")
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)

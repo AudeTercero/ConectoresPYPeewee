@@ -231,3 +231,22 @@ def hayProfesoresAsignados():
         print(err)
     print('Aun no hay profesores dados de alta en ningun curso')
     return False
+
+def tiene_profe(curso):
+    '''
+    Metodo para verificar si un curso tiene o no un profesor asignado
+    :param curso: nombre del curso a comprobar
+    :return:
+    '''
+    con = conect()
+    try:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT id_profesor FROM curso WHERE nombre = '{curso}'")
+        resultados = cursor.fetchall()
+        cursor.close()
+        if resultados:
+            return True
+    except pymysql.Error as err:
+        print(err)
+
+    return False
