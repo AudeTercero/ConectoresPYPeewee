@@ -346,11 +346,8 @@ def mostrarTodos():
     :return:
     """
     tabla = ConsultasProfesor.mostrarTabla()
-    for tupla in tabla:
-        print(f'''---Profesor---
-Id: {tupla[0]}
-DNI: {tupla[1]}
-Nombre: {tupla[2]}
-Direccion: {tupla[3]}
-Telefono: {tupla[4]}
-Cursos: {tupla[5]}''')
+    print("\n\n\t\t[==== PROFESORES ====>")
+    for dato in tabla:
+        print(f"\t\t[ID: {dato[0]}  -DNI: {dato[1]}  -Nombre: {dato[2]}  -Direccion: {dato[3]}  -Telefono: {dato[4]}\n"
+              f"\t\t[\t -Cursos: {dato[5]}")
+    print("\t\t[================>")

@@ -148,9 +148,13 @@ def consultar():
     if fallos < 5 and opcSalir != '0':
         curso = ConsultasCurso.consBusqueda(nombre)
         for dato in curso:
-            print(f"\n=== Curso ===\n"
-                  f"Cod: {dato[0]}  Nombre: {dato[1]}  Descripcion: {dato[2]}  Profesor: {dato[3]}\n"
-                  f"    Alumnos: {dato[4]}")
+            print(f'''\n\t\t[==== Curso {dato[1]} ==>
+        [Cod: {dato[0]}
+        [Nombre: {dato[1]}
+        [Descripcion: {dato[2]}
+        [Profesor: {dato[3]}
+        [Alumnos: {dato[4]}
+        [===================>''')
     elif fallos == 5:
         print("Has superado el maximos de fallos permitidos que son 5")
     else:
@@ -269,8 +273,8 @@ def mostrarTodos():
     :return:
     """
     tabla = ConsultasCurso.mostrarTabla()
-    print("\n--- CURSOS ---")
+    print("\n\n\t\t[==== CURSOS ====>")
     for dato in tabla:
-        print(f"Cod: {dato[0]}  Nombre: {dato[1]}  Descripcion: {dato[2]}  Profesor: {dato[3]}\n"
-              f"    Alumnos: {dato[4]}")
-    print("--------------")
+        print(f"\t\t[-Cod: {dato[0]}  -Nombre: {dato[1]}  -Descripcion: {dato[2]}  -Profesor: {dato[3]}\n"
+              f"\t\t[\t-Alumnos: {dato[4]}")
+    print("\t\t[================>")
