@@ -85,7 +85,7 @@ def obtIdAlu(nomAlu, apeAlu):
     con = conect()
     try:
         cursor = con.cursor()
-        cursor.execute(f"SELECT num_expediente FROM alumno WHERE nombre = '{nomAlu}' AND apellido = '{apeAlu}'")
+        cursor.execute(f"SELECT num_expediente FROM alumno WHERE nombre = '{nomAlu}' AND apellidos = '{apeAlu}'")
         idAlu = cursor.fetchone()
         cursor.close()
         if idAlu:
@@ -113,6 +113,7 @@ def obtIdCurso(nombre):
     except pymysql.Error as err:
         print(err)
 
+
 def borrarAluCurso(idAlu, idCurso):
     """
     Funcion para borrar un el alumno de la tabla de alumno_curso
@@ -123,11 +124,15 @@ def borrarAluCurso(idAlu, idCurso):
     con = conect()
     try:
         cursor = con.cursor()
-        cursor.execute(f"DELETE FROM alumno_curso WHERE num_exp_alu = {idAlu} AND cod_curso = {idCurso}")
+        sql = "DELETE FROM alumno_curso WHERE num_exp_alu = %s AND cod_curso = %s"
+        # cursor.execute(f"DELETE FROM alumno_curso WHERE num_exp_alu = {idAlu} AND cod_curso = {idCurso}")
+        cursor.execute(sql, (idAlu, idCurso))
         print("Alumno desmatriculado correctamente")
         cursor.close()
     except pymysql.Error as err:
         print(err)
+
+
 def borrarProfCurso(idProfe, idCurso):
     """
     Funcion para actualizar la tabla de curso y eliminar al profesor de ese curso
@@ -144,6 +149,7 @@ def borrarProfCurso(idProfe, idCurso):
     except pymysql.Error as err:
         print(err)
 
+
 def existeAluEnAluCurso(idAlu, idCurso):
     """
     Funcion para comprobar si existe o no el alumno en la tabla alumno_Curso
@@ -154,7 +160,7 @@ def existeAluEnAluCurso(idAlu, idCurso):
     con = conect()
     try:
         cursor = con.cursor()
-        cursor.execute(f"SELECT num_exp_alu FROM alumno_curso WHERE num_exp_alu = {idAlu}, cod_curso = {idCurso}")
+        cursor.execute(f"SELECT num_exp_alu FROM alumno_curso WHERE num_exp_alu = {idAlu} AND cod_curso = {idCurso}")
         existe = cursor.fetchone()
         cursor.close()
         if existe:
@@ -186,6 +192,8 @@ def existeProfEnCurso(idProfe, idCurso):
         print(err)
         return False
     return False
+
+
 def hayAlumnosMatriculados():
     """
     Funcion que comprueba si hay alumnos matriculados en cursos
@@ -203,6 +211,8 @@ def hayAlumnosMatriculados():
         print(err)
     print('Aun no hay alumnos dados de alta en ningun curso')
     return False
+
+
 def hayProfesoresAsignados():
     """
         Funcion que comprueba si hay profesores asignados en cursos
@@ -215,7 +225,7 @@ def hayProfesoresAsignados():
         resultados = cursor.fetchall()
         cursor.close()
         for lines in resultados:
-            if(lines[1] is not None):
+            if (lines[1] is not None):
                 return True
     except pymysql.Error as err:
         print(err)
