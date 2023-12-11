@@ -136,6 +136,17 @@ def asignarProfesor():
 
                             else:
                                 print("Introduce una respuesta valida.")
+                    else:
+                        curso = aux
+                        if (dni is None and opcSalir != '0'):
+                            aux = input(
+                                f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:").upper()
+                            opcSalir = aux
+                            if (opcSalir != '0'):
+                                VerificationExceptions.dniFormat(aux)
+                                VerificationExceptions.noExistDni(aux)
+                                dni = aux
+                                salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
