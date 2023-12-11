@@ -90,5 +90,5 @@ def hayAlumnos():
             return True
     except pymysql.Error as err:
         print(err)
-    print('Aun no hay alumnos dados de alta')
+    print('\nAun no hay alumnos dados de alta')
     return False

@@ -127,5 +127,5 @@ def hayProfesores():
             return True
     except pymysql.Error as err:
         print(err)
-    print('Aun no hay profesores dados de alta')
+    print('\nAun no hay profesores dados de alta')
     return False
