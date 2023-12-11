@@ -193,11 +193,13 @@ def modificar():
                 VerificationExceptions.dniFormat(aux)
                 VerificationExceptions.noExistDni(aux)
                 dni = aux
+            else:
+                print("Saliendo...")
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
     salir = False
-    while (fallos < 5 and not salir):
+    while (fallos < 5 and not salir and opcSalir != '0'):
         opc = input("\n\t[====== MODIFICACION PROFESOR ======\n"
                     "\t[1.DNI\n"
                     "\t[2.Nombre\n"
