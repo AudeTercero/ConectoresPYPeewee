@@ -30,7 +30,7 @@ def menu():
                 desmatricularAlumno()
         elif opcion == "4":
             if ConsultasInscripciones.hayAlumnosMatriculados():
-                desasignarProfesro()
+                desasignarProfesor()
         elif opcion == "0":
             print("Saliendo...")
             finMenuInscripciones = True
@@ -207,7 +207,7 @@ def desmatricularAlumno():
         print("Saliendo...")
 
 
-def desasignarProfesro():
+def desasignarProfesor():
     """
     Funcion que desasigna un profesor de un curso
     :return:
@@ -222,7 +222,7 @@ def desasignarProfesro():
     while (opcSalir != '0' and fallos < 5 and not salir):
         try:
             if (curso is None):
-                aux = input("Introduzca el nombre del curso que quiera matricular al alumno o 0 pulsa para salir:").lower()
+                aux = input("Introduzca el nombre del curso que quiera desasignar al profesor o 0 pulsa para salir:").lower()
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
@@ -231,7 +231,7 @@ def desasignarProfesro():
                     curso = aux
             if (dni is None and opcSalir != '0'):
                 aux = input(
-                    f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:").upper()
+                    f"Introduzca el dni del profesor que quiera desasignar al curso {curso} o 0 pulsa para salir:").upper()
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.dniFormat(aux)

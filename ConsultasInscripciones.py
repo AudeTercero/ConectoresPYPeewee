@@ -124,10 +124,9 @@ def borrarAluCurso(idAlu, idCurso):
     con = conect()
     try:
         cursor = con.cursor()
-        sql = "DELETE FROM alumno_curso WHERE num_exp_alu = %s AND cod_curso = %s"
-        # cursor.execute(f"DELETE FROM alumno_curso WHERE num_exp_alu = {idAlu} AND cod_curso = {idCurso}")
-        cursor.execute(sql, (idAlu, idCurso))
+        cursor.execute(f"DELETE FROM alumno_curso WHERE num_exp_alu = {idAlu} AND cod_curso = {idCurso}")
         print("Alumno desmatriculado correctamente")
+        con.commit()
         cursor.close()
     except pymysql.Error as err:
         print(err)
@@ -145,6 +144,7 @@ def borrarProfCurso(idProfe, idCurso):
         cursor = con.cursor()
         cursor.execute(f"UPDATE curso SET id_profesor = NULL WHERE id_Profesor = {idProfe} AND cod_curso = {idCurso}")
         print("Profesor desmatriculado correctamente")
+        con.commit()
         cursor.close()
     except pymysql.Error as err:
         print(err)
