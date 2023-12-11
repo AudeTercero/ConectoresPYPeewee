@@ -150,7 +150,7 @@ def consultar():
     while (opcSalir != '0' and fallos < 5):
         entrar = True
         try:
-            aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:").upper()
+            aux = input("\nIntroduzca el dni del profesor que quiera buscar o 0 pulsa para salir:").upper()
             opcSalir = aux
             if (opcSalir != '0'):
                 VerificationExceptions.dniFormat(aux)
@@ -163,8 +163,14 @@ def consultar():
         if (fallos < 5 and opcSalir != '0' and entrar):
             profesor = ConsultasProfesor.consBusqueda(dni)
             for tupla in profesor:
-                print(f'''---Profesor---
-Id: {tupla[0]}, DNI: {tupla[1]}, Nombre: {tupla[2]}, Direccion: {tupla[3]}, Telefono: {tupla[4]}, Cursos: {tupla[5]}''')
+                print(f'''\n\n\t\t[====Profesor {tupla[1]} ==>
+        [ID: {tupla[0]}
+        [DNI: {tupla[1]}
+        [Nombre: {tupla[2]}
+        [Direccion: {tupla[3]}
+        [Telefono: {tupla[4]}
+        [Cursos: {tupla[5]}
+        [===================>''')
         elif (fallos == 5):
             print("Has superado el maximos de fallos permitidos que son 5")
         elif (opcSalir == '0'):
@@ -192,14 +198,13 @@ def modificar():
             print(err)
     salir = False
     while (fallos < 5 and not salir):
-        opc = input(''' 
-                    ******* MODIFICACION PROFESOR *******
-                    1.DNI
-                    2.Nombre
-                    3.Direccion
-                    4.Telefono
-                    0.Salir
-                    ''')
+        opc = input("\n\t[====== MODIFICACION PROFESOR ======\n"
+                    "\t[1.DNI\n"
+                    "\t[2.Nombre\n"
+                    "\t[3.Direccion\n"
+                    "\t[4.Telefono\n"
+                    "\t[0.Salir\n"
+                    "\t[Opcion: ")
         if opc == '1':
             nuevoDni = None
             fallos = 0

@@ -289,15 +289,14 @@ def modificar():
             salir_sin_guardar = False
 
             while cont < 5 and not salir:
-                op = input(''' 
-                            ******* MODIFICACION ALUMNO *******
-                            1.Nombre
-                            2.Apellidos
-                            3.Telefono
-                            4.Direccion
-                            5.Fecha
-                            0.Salir
-                            ''')
+                op = input("\n\t[====== MODIFICACION PROFESOR ======\n"
+                           "\t[1.Nombre\n"
+                           "\t[2.Apellidos\n"
+                           "\t[3.Telefono\n"
+                           "\t[4.Direccion\n"
+                           "\t[5.Fecha\n"
+                           "\t[0.Salir\n"
+                           "\t[Opcion: ")
 
                 if op == '1':
                     nuevoNombre = None
@@ -451,7 +450,7 @@ def modificar():
                     else:
                         print("Saliendo...")
 
-                elif op == '4':
+                elif op == '5':
                     nuevaFech = None
                     cont = 0
                     opSalir = None
@@ -461,7 +460,7 @@ def modificar():
                             aux = input('Escribe la nueva fecha de nacimiento o pulsa 0 para salir:')
                             opSalir = aux
 
-                            if (opSalir != 0):
+                            if (opSalir != '0'):
                                 VerificationExceptions.formatoFecha(aux)
                                 print("Fecha valida")
                                 nuevaFech = aux
@@ -487,9 +486,10 @@ def modificar():
 
                     else:
                         print("Saliendo...")
-
                 elif op == '0':
                     salir = True
+                else:
+                    print("Opcion no valida")
 
         except VerificationExceptions.MisExceptions as err:
             print(err)

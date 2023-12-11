@@ -184,12 +184,11 @@ def modificar():
             print(err)
     salir = False
     while fallos < 5 and not salir and opcSalir != '0':
-        opc = input(''' 
-                    ******* MODIFICACION CURSO *******
-                    1.Nombre
-                    2.Descripcion
-                    0.Salir
-                    ''')
+        opc = input("\n\t[====== MODIFICACION PROFESOR ======\n"
+                    "\t[1.Nombre\n"
+                    "\t[2.Descripcion\n"
+                    "\t[0.Salir\n"
+                    "\t[Opcion: ")
         if opc == '1':
             nuevoNombre = None
             fallos = 0
