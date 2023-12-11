@@ -553,14 +553,15 @@ def consultar():
 
             if resultados is not None:
                 for r in resultados:
-                    print(f'''---Alumno---
-        ID: {r[0]}
-        Nombre: {r[1]}
-        Apellidos: {r[2]}
-        Telefono: {r[3]}
-        Direccion: {r[4]}
-        Fecha de Nacimiento: {r[5]}
-        Cursos: {r[6]}''')
+                    print(f'''\n\n\t\t[==== Alumno {r[1]} ==>
+        [ID: {r[0]}
+        [Nombre: {r[1]}
+        [Apellidos: {r[2]}
+        [Telefono: {r[3]}
+        [Direccion: {r[4]}
+        [Fecha de Nacimiento: {r[5]}
+        [Cursos: {r[6]}
+        [===================>''')
 
         except VerificationExceptions.MisExceptions as err:
             print(err)
@@ -572,13 +573,11 @@ def mostrarTodos():
     :return:
     '''
     tabla = ConsultasAlumnos.consMostrarAlumnos()
+
+    print("\n\n\t\t[==== ALUMNOS ====>")
     for tupla in tabla:
-        print(f'''---Alumno---
-        ID: {tupla[0]}
-        Nombre: {tupla[1]}
-        Apellidos: {tupla[2]}
-        Telefono: {tupla[3]}
-        Direccion: {tupla[4]}
-        Fecha de Nacimiento: {tupla[5]}
-        Cursos: {tupla[6]}''')
+        print(f"\t\t[-ID: {tupla[0]}  Nombre: {tupla[1]}  Apellidos: {tupla[2]}  Telefono: {tupla[3]}  Direccion: {tupla[4]}  Fecha de Nacimiento: {tupla[5]}\n"
+              f"\t\t[\t Cursos: {tupla[6]}")
+    print("\t\t[=================>")
+
 

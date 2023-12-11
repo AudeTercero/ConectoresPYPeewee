@@ -148,24 +148,26 @@ def consultar():
     opcSalir = None
     fallos = 0
     while (opcSalir != '0' and fallos < 5):
+        entrar = True
         try:
             aux = input("Introduzca el dni del profesor que quiera buscar o 0 pulsa para salir:").upper()
             opcSalir = aux
-            if (opcSalir != 0):
+            if (opcSalir != '0'):
                 VerificationExceptions.dniFormat(aux)
                 VerificationExceptions.noExistDni(aux)
                 dni = aux
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
+            entrar = False
             print(err)
-        if (fallos < 5 and opcSalir != 0):
+        if (fallos < 5 and opcSalir != '0' and entrar):
             profesor = ConsultasProfesor.consBusqueda(dni)
             for tupla in profesor:
                 print(f'''---Profesor---
 Id: {tupla[0]}, DNI: {tupla[1]}, Nombre: {tupla[2]}, Direccion: {tupla[3]}, Telefono: {tupla[4]}, Cursos: {tupla[5]}''')
         elif (fallos == 5):
             print("Has superado el maximos de fallos permitidos que son 5")
-        else:
+        elif (opcSalir == '0'):
             print("Saliendo...")
 
 
@@ -346,11 +348,8 @@ def mostrarTodos():
     :return:
     """
     tabla = ConsultasProfesor.mostrarTabla()
-    for tupla in tabla:
-        print(f'''---Profesor---
-Id: {tupla[0]}
-DNI: {tupla[1]}
-Nombre: {tupla[2]}
-Direccion: {tupla[3]}
-Telefono: {tupla[4]}
-Cursos: {tupla[5]}''')
+    print("\n\n\t\t[==== PROFESORES ====>")
+    for dato in tabla:
+        print(f"\t\t[ID: {dato[0]}  -DNI: {dato[1]}  -Nombre: {dato[2]}  -Direccion: {dato[3]}  -Telefono: {dato[4]}\n"
+              f"\t\t[\t -Cursos: {dato[5]}")
+    print("\t\t[====================>")
