@@ -143,7 +143,7 @@ def borrarProfCurso(idProfe, idCurso):
     con = conect()
     try:
         cursor = con.cursor()
-        cursor.execute(f"UPDATE curso SET id_profesor = '' WHERE id_Profesor = {idProfe} AND cod_curso = {idCurso}")
+        cursor.execute(f"UPDATE curso SET id_profesor = NULL WHERE id_Profesor = {idProfe} AND cod_curso = {idCurso}")
         print("Profesor desmatriculado correctamente")
         cursor.close()
     except pymysql.Error as err:
@@ -182,7 +182,7 @@ def existeProfEnCurso(idProfe, idCurso):
     con = conect()
     try:
         cursor = con.cursor()
-        cursor.execute(f"SELECT id_profesor FROM curso WHERE id_profesor = {idProfe}, cod_curso = {idCurso}")
+        cursor.execute(f"SELECT id_profesor FROM curso WHERE id_profesor = {idProfe} AND cod_curso = {idCurso}")
         existe = cursor.fetchone()
         cursor.close()
         if existe:
@@ -215,9 +215,9 @@ def hayAlumnosMatriculados():
 
 def hayProfesoresAsignados():
     """
-        Funcion que comprueba si hay profesores asignados en cursos
-        :return: Retorna si lo hay o no
-        """
+    Funcion que comprueba si hay profesores asignados en cursos
+    :return: Retorna si lo hay o no
+    """
     con = conect()
     try:
         cursor = con.cursor()

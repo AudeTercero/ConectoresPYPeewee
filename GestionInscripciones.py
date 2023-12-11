@@ -171,20 +171,18 @@ def desmatricularAlumno():
             if (nombre is None and apellido is None and opcSalir != '0'):
                 auxNom = input(
                     f"Introduzca el nombre del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
-                opcSalir = auxNom
-                if opcSalir != '0':
-                    auxApe = input(
-                        f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
-                    opcSalir = auxApe
-                    if (opcSalir != '0'):
-                        VerificationExceptions.hayAlgo(auxNom)
-                        VerificationExceptions.hayAlgo(auxApe)
-                        VerificationExceptions.noExisteAlumno(auxNom, auxApe)
-                        idAlu = ConsultasInscripciones.obtIdAlu(auxNom, auxApe)
-                        VerificationExceptions.noExisteAlumnoEnAlumnoCurso(idAlu, idCurso)
-                        nombre = aux
-                        apellido = aux
-                        salir = True
+                auxApe = input(
+                    f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
+                opcSalir = aux
+                if (opcSalir != '0'):
+                    VerificationExceptions.hayAlgo(auxNom)
+                    VerificationExceptions.hayAlgo(auxApe)
+                    VerificationExceptions.noExisteAlumno(auxNom, auxApe)
+                    idAlu = ConsultasInscripciones.obtIdAlu(auxNom, auxApe)
+                    VerificationExceptions.noExisteAlumnoEnAlumnoCurso(idAlu, idCurso)
+                    nombre = aux
+                    apellido = aux
+                    salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)

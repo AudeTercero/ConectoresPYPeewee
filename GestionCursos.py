@@ -3,6 +3,10 @@ import ConsultasCurso
 
 
 def menu():
+    '''
+    Metodo que simula un menu para acceder a las distintas funciones y poder gestionar los cursos guardados
+    :return:
+    '''
     finMenuCursos = False
     while not finMenuCursos:
         opcion = input("\n\n\t[==== MENU CURSOS ====>\n"
