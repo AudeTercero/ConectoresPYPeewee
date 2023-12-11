@@ -70,7 +70,7 @@ def alta():
                         VerificationExceptions.hayAlgo(nombre)
                         VerificationExceptions.hayAlgo(apellidos)
                         VerificationExceptions.existeAlumno(nombre, apellidos)
-                        print("Apellidos validos")
+                        print("Nombre y Apellidos validos")
                         salir = True
 
                     except VerificationExceptions.MisExceptions as err:
@@ -170,39 +170,26 @@ def baja():
     while not salir and not salir_sin_guardar:
         if not cont == 5:
             nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ").lower()
-            if (nombre == "0"):
+            if nombre == "0":
                 salir_sin_guardar = True
                 salir = True
+
             else:
-                try:
-                    VerificationExceptions.hayAlgo(nombre)
-                    print("Nombre valido")
+                apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
+                if (apellidos == "0"):
+                    salir_sin_guardar = True
                     salir = True
+                else:
+                    try:
+                        VerificationExceptions.hayAlgo(nombre)
+                        VerificationExceptions.hayAlgo(apellidos)
+                        VerificationExceptions.noExisteAlumno(nombre, apellidos)
+                        print("Nombre y Apellidos validos")
+                        salir = True
 
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
-        else:
-            print("\nHas llegado al limite de intentos.")
-            salir_sin_guardar = True
-
-    salir = False
-    cont = 0
-    while not salir and not salir_sin_guardar:
-        if not cont == 5:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
-            if (apellidos == "0"):
-                salir_sin_guardar = True
-                salir = True
-            else:
-                try:
-                    VerificationExceptions.hayAlgo(apellidos)
-                    print("Apellidos validos")
-                    salir = True
-
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
+                    except VerificationExceptions.MisExceptions as err:
+                        cont += 1
+                        print(err)
         else:
             print("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
@@ -244,42 +231,30 @@ def modificar():
     while not salir and not salir_sin_guardar:
         if not cont == 5:
             nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ").lower()
-            if (nombre == "0"):
+            if nombre == "0":
                 salir_sin_guardar = True
                 salir = True
-            else:
-                try:
-                    VerificationExceptions.hayAlgo(nombre)
-                    print("Nombre valido")
-                    salir = True
 
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
+            else:
+                apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
+                if (apellidos == "0"):
+                    salir_sin_guardar = True
+                    salir = True
+                else:
+                    try:
+                        VerificationExceptions.hayAlgo(nombre)
+                        VerificationExceptions.hayAlgo(apellidos)
+                        VerificationExceptions.noExisteAlumno(nombre, apellidos)
+                        print("Nombre y Apellidos validos")
+                        salir = True
+
+                    except VerificationExceptions.MisExceptions as err:
+                        cont += 1
+                        print(err)
         else:
             print("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
-    salir = False
-    cont = 0
-    while not salir and not salir_sin_guardar:
-        if not cont == 5:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
-            if (apellidos == "0"):
-                salir_sin_guardar = True
-                salir = True
-            else:
-                try:
-                    VerificationExceptions.hayAlgo(apellidos)
-                    print("Apellidos validos")
-                    salir = True
-
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
-        else:
-            print("\nHas llegado al limite de intentos.")
-            salir_sin_guardar = True
 
     if nombre is not None and apellidos is not None and not salir_sin_guardar:
         try:
@@ -511,37 +486,26 @@ def consultar():
     while not salir and not salir_sin_guardar:
         if not cont == 5:
             nombre = input("Ingrese el nombre del alumno o pulse 0 para salir: ").lower()
-            if (nombre == "0"):
+            if nombre == "0":
                 salir_sin_guardar = True
                 salir = True
+
             else:
-                try:
-                    VerificationExceptions.hayAlgo(nombre)
+                apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
+                if (apellidos == "0"):
+                    salir_sin_guardar = True
                     salir = True
+                else:
+                    try:
+                        VerificationExceptions.hayAlgo(nombre)
+                        VerificationExceptions.hayAlgo(apellidos)
+                        VerificationExceptions.noExisteAlumno(nombre, apellidos)
+                        print("Nombre y Apellidos validos")
+                        salir = True
 
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
-        else:
-            print("\nHas llegado al limite de intentos.")
-            salir_sin_guardar = True
-
-    salir = False
-    cont = 0
-    while not salir and not salir_sin_guardar:
-        if not cont == 3:
-            apellidos = input("Ingrese los apellidos del alumno o pulse 0 para salir: ").lower()
-            if (apellidos == "0"):
-                salir_sin_guardar = True
-                salir = True
-            else:
-                try:
-                    VerificationExceptions.hayAlgo(apellidos)
-                    salir = True
-
-                except VerificationExceptions.MisExceptions as err:
-                    cont += 1
-                    print(err)
+                    except VerificationExceptions.MisExceptions as err:
+                        cont += 1
+                        print(err)
         else:
             print("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
