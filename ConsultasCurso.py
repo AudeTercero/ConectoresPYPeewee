@@ -157,5 +157,5 @@ def hayCursos():
             return True
     except pymysql.Error as err:
         print(err)
-    print('Aun no hay cursos dados de alta')
+    print('\nAun no hay cursos dados de alta')
     return False
