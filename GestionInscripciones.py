@@ -171,18 +171,20 @@ def desmatricularAlumno():
             if (nombre is None and apellido is None and opcSalir != '0'):
                 auxNom = input(
                     f"Introduzca el nombre del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
-                auxApe = input(
-                    f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
-                opcSalir = aux
+                opcSalir = auxNom
                 if (opcSalir != '0'):
-                    VerificationExceptions.hayAlgo(auxNom)
-                    VerificationExceptions.hayAlgo(auxApe)
-                    VerificationExceptions.noExisteAlumno(auxNom, auxApe)
-                    idAlu = ConsultasInscripciones.obtIdAlu(auxNom, auxApe)
-                    VerificationExceptions.noExisteAlumnoEnAlumnoCurso(idAlu, idCurso)
-                    nombre = aux
-                    apellido = aux
-                    salir = True
+                    auxApe = input(
+                        f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
+                    opcSalir = auxApe
+                    if (opcSalir != '0'):
+                        VerificationExceptions.hayAlgo(auxNom)
+                        VerificationExceptions.hayAlgo(auxApe)
+                        VerificationExceptions.noExisteAlumno(auxNom, auxApe)
+                        idAlu = ConsultasInscripciones.obtIdAlu(auxNom, auxApe)
+                        VerificationExceptions.noExisteAlumnoEnAlumnoCurso(idAlu, idCurso)
+                        nombre = aux
+                        apellido = aux
+                        salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
@@ -224,13 +226,12 @@ def desasignarProfesro():
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
-                    VerificationExceptions.existNombreCur(aux)
+                    VerificationExceptions.noExistNombreCur(aux)
                     idCurso = ConsultasInscripciones.obtIdCurso(aux)
                     curso = aux
             if (dni is None and opcSalir != '0'):
                 aux = input(
                     f"Introduzca el dni del profesor que quiera asignar al curso {curso} o 0 pulsa para salir:").upper()
-
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.dniFormat(aux)
