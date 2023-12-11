@@ -244,7 +244,7 @@ def tiene_profe(curso):
         cursor.execute(f"SELECT id_profesor FROM curso WHERE nombre = '{curso}'")
         resultados = cursor.fetchall()
         cursor.close()
-        if resultados:
+        if resultados[0][0] is not None:
             return True
     except pymysql.Error as err:
         print(err)
