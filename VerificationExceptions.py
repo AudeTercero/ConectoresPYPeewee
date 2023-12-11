@@ -25,7 +25,7 @@ def hayAlgo(cadena):
     :return:
     """
     if len(cadena) < 2:
-        raise MisExceptions('No se ha escrito nada')
+        raise MisExceptions('No se ha escrito nada o es demasiado corto.')
 
 
 def dniFormat(dni):
