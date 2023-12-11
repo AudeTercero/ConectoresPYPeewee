@@ -24,7 +24,7 @@ def hayAlgo(cadena):
     :param cadena: La cadena a validar
     :return:
     """
-    if len(cadena) < 2:
+    if len(cadena) < 3:
         raise MisExceptions('No se ha escrito nada o es demasiado corto.')
 
 
