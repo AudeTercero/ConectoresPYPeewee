@@ -146,4 +146,16 @@ def consModificar(nombre, columna, nuevoCampo):
     except pymysql.Error as err:
         print(err)
 
-
+def hayCursos():
+    con = conect()
+    try:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM curso")
+        resultados = cursor.fetchall()
+        cursor.close()
+        if resultados:
+            return True
+    except pymysql.Error as err:
+        print(err)
+    print('Aun no hay cursos dados de alta')
+    return False
