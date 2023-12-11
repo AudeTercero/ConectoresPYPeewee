@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS curso(
     id_profesor INT,
     nombre VARCHAR(20) NOT NULL UNIQUE,
     descripcion VARCHAR(50) NOT NULL,
-    CONSTRAINT fk_curso_profesor FOREIGN KEY (id_profesor) REFERENCES profesor(id) ON UPDATE CASCADE
+    CONSTRAINT fk_curso_profesor FOREIGN KEY (id_profesor) REFERENCES profesor(id) ON DELETE SET NULL ON UPDATE SET NULL
 );
 CREATE TABLE IF NOT EXISTS alumno_curso(
     num_exp_alu INT,
