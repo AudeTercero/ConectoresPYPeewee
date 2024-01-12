@@ -1,0 +1,5 @@
+host=localhost
+user=root
+password=alumno
+database=Marcos_Javier_Iker
+port=3307
