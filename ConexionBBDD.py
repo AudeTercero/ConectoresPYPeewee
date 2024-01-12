@@ -42,7 +42,7 @@ def conect():
         db = MySQLDatabase('Marcos_Javier_Iker', user=prop['user'], password=prop['password'], host=prop['host'],
                            port=int(prop['port']))
 
-        return con
+        return db
 
     except pymysql.Error and Exception as err:
         # print(f"Error de conexión a la base de datos: {err}")
