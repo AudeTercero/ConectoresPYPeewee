@@ -53,7 +53,6 @@ def consModificar(dni, columna, nuevoCampo):
     """
     Profesor.update({columna: nuevoCampo}).where(Profesor.dni == dni).execute()
 
-
 def mostrarTabla():
     """
     Funcion que obtiene de la base de datos todos los datos de todos los profesores
