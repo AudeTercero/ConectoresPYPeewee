@@ -5,8 +5,6 @@ from GestionCursos import menu as menuCursos
 from GestionInscripciones import menu as menuInscripciones
 from Tablas_BBDD import crear_tabla
 
-'''ConexionBBDD.conexion()
-con = ConexionBBDD.conect()'''
 
 con = conect()
 if(con is not None):
