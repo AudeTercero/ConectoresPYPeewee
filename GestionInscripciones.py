@@ -29,7 +29,7 @@ def menu():
             if ConsultasInscripciones.hayAlumnosMatriculados():
                 desmatricularAlumno()
         elif opcion == "4":
-            if ConsultasInscripciones.hayAlumnosMatriculados():
+            if ConsultasInscripciones.hayProfesoresAsignados():
                 desasignarProfesor()
         elif opcion == "0":
             print("Saliendo...")

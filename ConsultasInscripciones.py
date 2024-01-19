@@ -1,5 +1,4 @@
-import pymysql
-from ConexionBBDD import conect
+from Tablas_BBDD import *
 
 
 def matAlu(nomCurso, nomAlu, apeAlu):
@@ -10,25 +9,12 @@ def matAlu(nomCurso, nomAlu, apeAlu):
     :param apeAlu: Recibe el apellido del alumno
     :return:
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT cod_curso FROM curso WHERE nombre = '{nomCurso}'")
-        codCurso = cursor.fetchone()
-        cursor.execute(f"SELECT num_expediente FROM alumno WHERE nombre = '{nomAlu}' AND apellidos = '{apeAlu}'")
-        codAlu = cursor.fetchone()
-
-        if codCurso and codAlu:
-            codCurso = codCurso[0]
-            codAlu = codAlu[0]
-            cursor.execute(f"INSERT INTO alumno_curso (num_exp_alu, cod_curso) VALUES ({codAlu},{codCurso})")
-            con.commit()
-
-        cursor.close()
-
-
-    except pymysql.Error as err:
-        print(err)
+    curso = Curso.select().where(Curso.nombre == nomCurso).first()
+    id_curso = curso.cod_curso
+    alumno = Alumno.select().where((Alumno.nombre == nomAlu) and (Alumno.apellidos == apeAlu)).first()
+    id_alumno = alumno.num_expediente
+    print(id_curso, id_alumno)
+    AlumnoCurso.create(cod_curso_id=id_curso, num_exp_alu_id=id_alumno)
 
 
 def asigProf(nomCurso, dniProf):
@@ -38,22 +24,11 @@ def asigProf(nomCurso, dniProf):
     :param dniProf: Recibe el dni del profesor
     :return:
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT cod_curso FROM curso WHERE nombre = '{nomCurso}'")
-        codCurso = cursor.fetchone()
-        cursor.execute(f"SELECT id FROM profesor WHERE dni = '{dniProf}'")
-        codProf = cursor.fetchone()
-
-        if codCurso and codProf:
-            codProf = codProf[0]
-            codCurso = codCurso[0]
-            cursor.execute(f"UPDATE curso SET id_profesor = {codProf} WHERE cod_curso = {codCurso}")
-            con.commit()
-        cursor.close()
-    except pymysql.Error as err:
-        print(err)
+    curso = Curso.select().where(Curso.nombre == nomCurso).first()
+    id_curso = curso.cod_curso
+    profesor = Profesor.select().where(Profesor.dni == dniProf).first()
+    id_profe = profesor.id
+    Curso.update(id_profesor=id_profe).where(Curso.cod_curso == id_curso).execute()
 
 
 def obtIdProf(dni):
@@ -62,17 +37,8 @@ def obtIdProf(dni):
     :param dni: Recibe el dni del profesor
     :return: Retorna la id del profesor
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT id FROM profesor WHERE dni = '{dni}'")
-        idProf = cursor.fetchone()
-        cursor.close()
-        if idProf:
-            idProf = idProf[0]
-            return idProf
-    except pymysql.Error as err:
-        print(err)
+    profe = Profesor.select().where(Profesor.dni == dni).first()
+    return profe.id
 
 
 def obtIdAlu(nomAlu, apeAlu):
@@ -82,17 +48,8 @@ def obtIdAlu(nomAlu, apeAlu):
     :param apeAlu: Recibe el apellido del alumno
     :return: Retorna la id del alumno
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT num_expediente FROM alumno WHERE nombre = '{nomAlu}' AND apellidos = '{apeAlu}'")
-        idAlu = cursor.fetchone()
-        cursor.close()
-        if idAlu:
-            idAlu = idAlu[0]
-            return idAlu
-    except pymysql.Error as err:
-        print(err)
+    alumno = Alumno.select().where(Alumno.nombre == nomAlu and Alumno.apellidos == apeAlu).first()
+    return alumno.num_expediente
 
 
 def obtIdCurso(nombre):
@@ -101,17 +58,8 @@ def obtIdCurso(nombre):
     :param nombre: Recibe el nombre del curso
     :return: Retorna la id del profesor
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT cod_curso FROM curso WHERE nombre = '{nombre}'")
-        idCurso = cursor.fetchone()
-        cursor.close()
-        if idCurso:
-            idCurso = idCurso[0]
-            return idCurso
-    except pymysql.Error as err:
-        print(err)
+    curso = Curso.select().where(Curso.nombre == nombre).first()
+    return curso.cod_curso
 
 
 def borrarAluCurso(idAlu, idCurso):
@@ -121,15 +69,8 @@ def borrarAluCurso(idAlu, idCurso):
     :param idCurso: Recibe la id del curso
     :return:
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"DELETE FROM alumno_curso WHERE num_exp_alu = {idAlu} AND cod_curso = {idCurso}")
-        print("Alumno desmatriculado correctamente")
-        con.commit()
-        cursor.close()
-    except pymysql.Error as err:
-        print(err)
+    AlumnoCurso.delete().where(AlumnoCurso.num_exp_alu == idAlu and AlumnoCurso.cod_curso == idCurso).execute()
+    print("Alumno desmatriculado correctamente")
 
 
 def borrarProfCurso(idProfe, idCurso):
@@ -139,15 +80,8 @@ def borrarProfCurso(idProfe, idCurso):
     :param idCurso: Recibe la id del curso
     :return:
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"UPDATE curso SET id_profesor = NULL WHERE id_Profesor = {idProfe} AND cod_curso = {idCurso}")
-        print("Profesor desmatriculado correctamente")
-        con.commit()
-        cursor.close()
-    except pymysql.Error as err:
-        print(err)
+    Curso.update(id_profesor=None).where(Curso.cod_curso == idCurso and Curso.id_profesor == idProfe).execute()
+    print("Profesor desmatriculado correctamente")
 
 
 def existeAluEnAluCurso(idAlu, idCurso):
@@ -157,19 +91,8 @@ def existeAluEnAluCurso(idAlu, idCurso):
     :param idCurso: Recibe la id del curso
     :return: Retorna si existe o no en la tabla
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT num_exp_alu FROM alumno_curso WHERE num_exp_alu = {idAlu} AND cod_curso = {idCurso}")
-        existe = cursor.fetchone()
-        cursor.close()
-        if existe:
-            return True
-
-    except pymysql.Error as err:
-        print(err)
-        return False
-    return False
+    alumno = AlumnoCurso.select().where(AlumnoCurso.num_exp_alu_id == idAlu and AlumnoCurso.cod_curso_id == idCurso)
+    return alumno.exists()
 
 
 def existeProfEnCurso(idProfe, idCurso):
@@ -179,19 +102,8 @@ def existeProfEnCurso(idProfe, idCurso):
         :param idCurso: Recibe la id del curso
         :return: Retorna si existe o no en la tabla
         """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT id_profesor FROM curso WHERE id_profesor = {idProfe} AND cod_curso = {idCurso}")
-        existe = cursor.fetchone()
-        cursor.close()
-        if existe:
-            return True
-
-    except pymysql.Error as err:
-        print(err)
-        return False
-    return False
+    curso = Curso.select().where(Curso.id_profesor_id == idProfe and Curso.cod_curso == idCurso)
+    return curso.exists()
 
 
 def hayAlumnosMatriculados():
@@ -199,18 +111,11 @@ def hayAlumnosMatriculados():
     Funcion que comprueba si hay alumnos matriculados en cursos
     :return: Retorna si lo hay o no
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT * FROM alumno_curso")
-        resultados = cursor.fetchall()
-        cursor.close()
-        if resultados:
-            return True
-    except pymysql.Error as err:
-        print(err)
-    print('Aun no hay alumnos dados de alta en ningun curso')
-    return False
+    if AlumnoCurso.select().exists():
+        return True
+    else:
+        print('Aun no hay alumnos dados de alta en ningun curso')
+        return False
 
 
 def hayProfesoresAsignados():
@@ -218,19 +123,13 @@ def hayProfesoresAsignados():
     Funcion que comprueba si hay profesores asignados en cursos
     :return: Retorna si lo hay o no
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT * FROM curso")
-        resultados = cursor.fetchall()
-        cursor.close()
-        for lines in resultados:
-            if (lines[1] is not None):
-                return True
-    except pymysql.Error as err:
-        print(err)
+    cursos = Curso.select()
+    for curso in cursos:
+        if curso.id_profesor is not None:
+            return True
     print('Aun no hay profesores dados de alta en ningun curso')
     return False
+
 
 def tiene_profe(curso):
     '''
@@ -238,15 +137,8 @@ def tiene_profe(curso):
     :param curso: nombre del curso a comprobar
     :return:
     '''
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT id_profesor FROM curso WHERE nombre = '{curso}'")
-        resultados = cursor.fetchall()
-        cursor.close()
-        if resultados[0][0] is not None:
+    cursos = Curso.select().where(Curso.nombre == curso)
+    for curso in cursos:
+        if curso.id_profesor is not None:
             return True
-    except pymysql.Error as err:
-        print(err)
-
     return False
