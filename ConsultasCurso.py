@@ -53,6 +53,7 @@ def consBusqueda(nombre):
     :param nombre: El nombre que se busca
     :return: Devuelve los datos de ese curso
     """
+
     query = (Curso
              .select(Curso, Profesor.nombre.alias('nombre_profesor'), fn.GROUP_CONCAT(Alumno.nombre, ' ', Alumno.apellidos).alias('alumnos'))
              .left_outer_join(Profesor, on=(Curso.id_profesor_id == Profesor.id))
