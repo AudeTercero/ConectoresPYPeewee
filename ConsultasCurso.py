@@ -1,7 +1,5 @@
-import pymysql
-
 from Tablas_BBDD import *
-from ConexionBBDD import conect
+
 from peewee import *
 
 
@@ -100,32 +98,43 @@ def mostrarTabla():
     Consulta todos los cursos de la tabla alumnos
     :return: Devuelve todos los cursos
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"""
-                    SELECT 
-                        c.cod_curso,
-                        c.nombre AS nombre_curso,
-                        c.descripcion,
-                        p.nombre AS nombre_profesor,
-                        GROUP_CONCAT(CONCAT(a.nombre, ' ', a.apellidos) SEPARATOR ', ') AS alumnos
-                    FROM 
-                        curso c
-                    LEFT JOIN 
-                        profesor p ON c.id_profesor = p.id
-                    LEFT JOIN 
-                        alumno_curso ac ON c.cod_curso = ac.cod_curso
-                    LEFT JOIN 
-                        alumno a ON ac.num_exp_alu = a.num_expediente
-                    GROUP BY 
-                        c.cod_curso
-                """)
-        resultados = cursor.fetchall()
-        cursor.close()
-        return resultados
-    except pymysql.Error as err:
-        print(err)
+    query = (Curso
+             .select(Curso, fn.CONCAT(Profesor.nombre).alias('nombre_profesor'),
+                     fn.GROUP_CONCAT(Alumno.nombre, ' ', Alumno.apellidos).alias('alumnos'))
+             .left_outer_join(Profesor, on=(Curso.id_profesor_id == Profesor.id))
+             .left_outer_join(AlumnoCurso, on=(Curso.cod_curso == AlumnoCurso.cod_curso_id))
+             .left_outer_join(Alumno, on=(AlumnoCurso.num_exp_alu_id == Alumno.num_expediente))
+             .group_by(Curso.cod_curso))
+    return query
+
+
+'''
+con = conect()
+try:
+    cursor = con.cursor()
+    cursor.execute(f"""
+                SELECT 
+                    c.cod_curso,
+                    c.nombre AS nombre_curso,
+                    c.descripcion,
+                    p.nombre AS nombre_profesor,
+                    GROUP_CONCAT(CONCAT(a.nombre, ' ', a.apellidos) SEPARATOR ', ') AS alumnos
+                FROM 
+                    curso c
+                LEFT JOIN 
+                    profesor p ON c.id_profesor = p.id
+                LEFT JOIN 
+                    alumno_curso ac ON c.cod_curso = ac.cod_curso
+                LEFT JOIN 
+                    alumno a ON ac.num_exp_alu = a.num_expediente
+                GROUP BY 
+                    c.cod_curso
+            """)
+    resultados = cursor.fetchall()
+    cursor.close()
+    return resultados
+except pymysql.Error as err:
+    print(err)'''
 
 
 def existeCurso(nombre):
@@ -134,7 +143,7 @@ def existeCurso(nombre):
     :param nombre: El nombre que se busca
     :return: Devuelve true o false si lo encuentra o no
     """
-    con = conect()
+    '''con = conect()
     try:
         cursor = con.cursor()
         cursor.execute(f"SELECT nombre FROM curso WHERE nombre = '{nombre}'")
@@ -145,7 +154,12 @@ def existeCurso(nombre):
     except pymysql.Error as err:
         print(err)
 
-    return False
+    return False'''
+    query = Curso.select().where(Curso.nombre == nombre)
+    if query.count() > 0:
+        return True
+    else:
+        return False
 
 
 def consModificar(nombre, columna, nuevoCampo):
@@ -156,18 +170,18 @@ def consModificar(nombre, columna, nuevoCampo):
     :param nuevoCampo: El nuevo valor que tendra esa columna
     :return:
     """
-    con = conect()
+    '''con = conect()
     try:
         cursor = con.cursor()
         cursor.execute(f"UPDATE curso SET {columna} = '{nuevoCampo}' WHERE nombre = '{nombre}'")
         con.commit()
         cursor.close()
     except pymysql.Error as err:
-        print(err)
+        print(err)'''
 
 
 def hayCursos():
-    con = conect()
+    '''con = conect()
     try:
         cursor = con.cursor()
         cursor.execute(f"SELECT * FROM curso")
@@ -178,4 +192,10 @@ def hayCursos():
     except pymysql.Error as err:
         print(err)
     print('\nAun no hay cursos dados de alta')
-    return False
+    return False'''
+    query = Curso.select()
+    if query.count() > 0:
+        return True
+    else:
+        print('\nAun no hay cursos dados de alta')
+        return False

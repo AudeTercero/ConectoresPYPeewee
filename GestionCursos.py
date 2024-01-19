@@ -273,8 +273,7 @@ def mostrarTodos():
     """
     tabla = ConsultasCurso.mostrarTabla()
     print("\n\n\t\t[==== CURSOS ====>")
-    print(type(tabla))
     for dato in tabla:
         print(f"\t\t[-Cod: {dato.cod_curso}  -Nombre: {dato.nombre}  -Descripcion: {dato.descripcion}  -Profesor: {dato.nombre_profesor}\n"
-              f"\t\t[\t-Alumnos: {dato.nombre_profesor}")
+              f"\t\t[\t-Alumnos: {dato.alumnos}")
     print("\t\t[================>")
