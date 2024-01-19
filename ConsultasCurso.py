@@ -1,7 +1,8 @@
 import pymysql
 
-import Tablas_BBDD
+from Tablas_BBDD import *
 from ConexionBBDD import conect
+from peewee import *
 
 
 def consAlta(nombre, descripcion):
@@ -11,7 +12,7 @@ def consAlta(nombre, descripcion):
     :param descripcion: La descripcion del curso
     :return:
     """
-    Tablas_BBDD.Curso.create(nombre=nombre, descripcion=descripcion)
+    Curso.create(nombre=nombre, descripcion=descripcion)
     '''
     con = conect()
     try:
@@ -31,6 +32,8 @@ def consBaja(nombre):
     :param nombre: EL curso que se busca
     :return:
     """
+    Curso.select().where(Curso.nombre == nombre).get().delete_instance()
+    '''
     con = conect()
     try:
         cursor = con.cursor()
@@ -40,7 +43,7 @@ def consBaja(nombre):
         cursor.close()
         print("Curso dado de baja correctamente")
     except pymysql.Error as err:
-        print(err)
+        print(err)'''
 
 
 def consBusqueda(nombre):
@@ -50,34 +53,46 @@ def consBusqueda(nombre):
     :param nombre: El nombre que se busca
     :return: Devuelve los datos de ese curso
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"""
-            SELECT 
-                c.cod_curso,
-                c.nombre AS nombre_curso,
-                c.descripcion,
-                p.nombre AS nombre_profesor,
-                GROUP_CONCAT(CONCAT(a.nombre, ' ', a.apellidos) SEPARATOR ', ') AS alumnos
-            FROM 
-                curso c
-            LEFT JOIN 
-                profesor p ON c.id_profesor = p.id
-            LEFT JOIN 
-                alumno_curso ac ON c.cod_curso = ac.cod_curso
-            LEFT JOIN 
-                alumno a ON ac.num_exp_alu = a.num_expediente
-            WHERE 
-                c.nombre = '{nombre}'
-            GROUP BY 
-                c.cod_curso
-        """)
-        resultados = cursor.fetchall()
-        cursor.close()
-        return resultados
-    except pymysql.Error as err:
-        print(err)
+
+    query = (Curso
+             .select(Curso, Profesor.nombre.alias('nombre_profesor'), fn.GROUP_CONCAT(Alumno.nombre, ' ', Alumno.apellidos).alias('alumnos'))
+             .left_outer_join(Profesor, on=(Curso.id_profesor_id == Profesor.id))
+             .left_outer_join(AlumnoCurso, on=(Curso.cod_curso == AlumnoCurso.cod_curso_id))
+             .left_outer_join(Alumno, on=(AlumnoCurso.num_exp_alu_id == Alumno.num_expediente))
+             .where(Curso.nombre == nombre)
+             .group_by(Curso.cod_curso))
+    return query
+
+
+'''
+con = conect()
+try:
+    cursor = con.cursor()
+    cursor.execute(f"""
+        SELECT 
+            c.cod_curso,
+            c.nombre AS nombre_curso,
+            c.descripcion,
+            p.nombre AS nombre_profesor,
+            GROUP_CONCAT(CONCAT(a.nombre, ' ', a.apellidos) SEPARATOR ', ') AS alumnos
+        FROM 
+            curso c
+        LEFT JOIN 
+            profesor p ON c.id_profesor = p.id
+        LEFT JOIN 
+            alumno_curso ac ON c.cod_curso = ac.cod_curso
+        LEFT JOIN 
+            alumno a ON ac.num_exp_alu = a.num_expediente
+        WHERE 
+            c.nombre = '{nombre}'
+        GROUP BY 
+            c.cod_curso
+    """)
+    resultados = cursor.fetchall()
+    cursor.close()
+    return resultados
+except pymysql.Error as err:
+    print(err)'''
 
 
 def mostrarTabla():
