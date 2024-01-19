@@ -19,7 +19,7 @@ class Alumno(Model):
     apellidos = CharField(null=False, max_length=35)
     telefono = CharField(null=False, max_length=9)
     direccion = CharField(null=False, max_length=35)
-    fecha_nacimiento = DateField(null=False, constraints=[Check("fecha_nacimiento STR_TO_DATE(fecha_nacimiento, '%Y-%m-%d')")])
+    fecha_nacimiento = DateField(null=False, formats=['%Y-%m-%d'])
 
     class Meta:
         unique_together = ('nombre', 'apellidos')
