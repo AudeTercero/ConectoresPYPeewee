@@ -1,6 +1,7 @@
-import pymysql
+# import pymysql
 from ConexionBBDD import conect
 from Tablas_BBDD import Profesor
+from Tablas_BBDD import Curso
 from peewee import *
 
 
@@ -28,24 +29,18 @@ def consBaja(dni):
     print("Profesor eliminado con exito")
 
 
-
 def consBusqueda(dni):
     """
     Funcion para buscar un profesor en la base de datos
     :param dni: Recibe el dni del profesor a buscar
     :return: Retorna el resultado del select
     """
-
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(
-            f"SELECT p.*, GROUP_CONCAT(c.nombre) AS nombre_curso FROM profesor p LEFT JOIN curso c ON p.id = c.id_profesor WHERE p.dni = '{dni}' GROUP BY p.id")
-        resultados = cursor.fetchall()
-        cursor.close()
-        return resultados
-    except pymysql.Error as err:
-        print(err)
+    query = (Profesor
+             .select(Profesor, fn.GROUP_CONCAT(Curso.nombre).alias('nombre_curso'))
+             .left_outer_join(Curso, on=(Profesor.id == Curso.id_profesor_id))
+             .where(Profesor.dni == dni)
+             .group_by(Profesor.id))
+    return query
 
 
 def consModificar(dni, columna, nuevoCampo):
@@ -56,14 +51,7 @@ def consModificar(dni, columna, nuevoCampo):
     :param nuevoCampo: Recibe el nuevo campo a modificar
     :return:
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"UPDATE profesor SET {columna} = '{nuevoCampo}' WHERE dni = '{dni}'")
-        con.commit()
-        cursor.close()
-    except pymysql.Error as err:
-        print(err)
+    Profesor.update({columna: nuevoCampo}).where(Profesor.dni == dni).execute()
 
 
 def mostrarTabla():
@@ -71,16 +59,11 @@ def mostrarTabla():
     Funcion que obtiene de la base de datos todos los datos de todos los profesores
     :return: Retorna todos los resultados para mostrarlos
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute("SELECT profesor.*, GROUP_CONCAT(curso.nombre) AS nombre_curso FROM profesor LEFT JOIN curso ON profesor.id = curso.id_profesor GROUP BY profesor.id")
-        resultados = cursor.fetchall()
-
-        cursor.close()
-        return resultados
-    except pymysql.Error as err:
-        print(err)
+    query = (Profesor
+             .select(Profesor, fn.GROUP_CONCAT(Curso.nombre).alias('nombre_curso'))
+             .left_outer_join(Curso, on=(Profesor.id == Curso.id_profesor_id))
+             .group_by(Profesor.id))
+    return query
 
 
 def existProfesor(dni):
@@ -89,32 +72,21 @@ def existProfesor(dni):
     :param dni: Recibe el dni del profesor
     :return: Retorna si existe o no
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT dni FROM profesor WHERE dni = '{dni}'")
-        resultados = cursor.fetchall()
-        cursor.close()
-        if (len(resultados) and resultados[0][0] == dni):
-            return True
-    except pymysql.Error as err:
-        print(err)
+    query = Profesor.select().where(Profesor.dni == dni)
+    if query.count() > 0:
+        return True
+    else:
+        return False
 
-    return False
+
 def hayProfesores():
     """
     Funcion que comprueba si hay profesores dados de alta
     :return: Retorna booleano si lo hay o no
     """
-    con = conect()
-    try:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT * FROM profesor")
-        resultados = cursor.fetchall()
-        cursor.close()
-        if resultados:
-            return True
-    except pymysql.Error as err:
-        print(err)
-    print('\nAun no hay profesores dados de alta')
-    return False
+    query = Profesor.select()
+    if query.count() > 0:
+        return True
+    else:
+        print('\nAun no hay profesores dados de alta')
+        return False

@@ -163,13 +163,13 @@ def consultar():
         if (fallos < 5 and opcSalir != '0' and entrar):
             profesor = ConsultasProfesor.consBusqueda(dni)
             for tupla in profesor:
-                print(f'''\n\n\t\t[====Profesor {tupla[1]} ==>
-        [ID: {tupla[0]}
-        [DNI: {tupla[1]}
-        [Nombre: {tupla[2]}
-        [Direccion: {tupla[3]}
-        [Telefono: {tupla[4]}
-        [Cursos: {tupla[5]}
+                print(f'''\n\n\t\t[====Profesor {tupla.nombre} ==>
+        [ID: {tupla.id}
+        [DNI: {tupla.dni}
+        [Nombre: {tupla.nombre}
+        [Direccion: {tupla.direccion}
+        [Telefono: {tupla.telefono}
+        [Cursos: {tupla.nombre_curso}
         [===================>''')
         elif (fallos == 5):
             print("Has superado el maximos de fallos permitidos que son 5")
@@ -357,6 +357,6 @@ def mostrarTodos():
     tabla = ConsultasProfesor.mostrarTabla()
     print("\n\n\t\t[==== PROFESORES ====>")
     for dato in tabla:
-        print(f"\t\t[ID: {dato[0]}  -DNI: {dato[1]}  -Nombre: {dato[2]}  -Direccion: {dato[3]}  -Telefono: {dato[4]}\n"
-              f"\t\t[\t -Cursos: {dato[5]}")
+        print(f"\t\t[ID: {dato.id}  -DNI: {dato.dni}  -Nombre: {dato.nombre}  -Direccion: {dato.direccion}  -Telefono: {dato.telefono}\n"
+              f"\t\t[\t -Cursos: {dato.nombre_curso}")
     print("\t\t[====================>")

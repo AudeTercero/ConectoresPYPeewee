@@ -1,25 +1,6 @@
 import pymysql
 from peewee import *
 
-
-
-'''def conexion():
-    """
-    Funcion que crea las tablas que estan en fichero sql
-    :return:
-    """
-    con = conect()
-    if (con is not None):
-        cursor = con.cursor()
-        with open('Marcos_Javier_IkerBBDD.sql', 'r') as file:
-            sql_commands = file.read()
-            comandos = sql_commands.split(";")
-            for comando in comandos:
-                if comando.strip():
-                    cursor.execute(comando)
-        con.commit()
-'''
-
 def conect():
     """
     Funcion que crea la base de datos si no existe y hace la conexion con ella
