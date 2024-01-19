@@ -1,9 +1,10 @@
 import pymysql
 from ConexionBBDD import conect
+import Tablas_BBDD
 
 
 def consAlta(dni, nombre, direccion, telefono):
-    con = conect()
+    con = Tablas_BBDD.conexion()
     """
     Funcion que lanza una una insreccion en la tabla de profesor de la base de datos
     :param dni: Recibe el dni para
@@ -12,6 +13,7 @@ def consAlta(dni, nombre, direccion, telefono):
     :param telefono: Recibe el telefono
     :return:
     """
+    Tablas_BBDD.Profesor.create(name=nombre, dni=dni, direccion=direccion, telefono=telefono)
     try:
         cursor = con.cursor()
         cursor.execute(

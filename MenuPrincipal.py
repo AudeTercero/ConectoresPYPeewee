@@ -1,12 +1,14 @@
-import ConexionBBDD
+import Tablas_BBDD
 from GestionAlumnos import menu as menuAlumnos
 from GestionProfesores import menu as menuProfesores
 from GestionCursos import menu as menuCursos
 from GestionInscripciones import menu as menuInscripciones
+from Tablas_BBDD import crear_tabla
 
-
-ConexionBBDD.conexion()
-con = ConexionBBDD.conect()
+'''ConexionBBDD.conexion()
+con = ConexionBBDD.conect()'''
+crear_tabla()
+con = Tablas_BBDD.conexion()
 if(con is not None):
     print("Inicio Practica Conectores")
     finMenuPrincipal = False

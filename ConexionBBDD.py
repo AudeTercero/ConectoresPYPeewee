@@ -2,7 +2,8 @@ import pymysql
 from peewee import *
 
 
-def conexion():
+
+'''def conexion():
     """
     Funcion que crea las tablas que estan en fichero sql
     :return:
@@ -17,7 +18,7 @@ def conexion():
                 if comando.strip():
                     cursor.execute(comando)
         con.commit()
-
+'''
 
 def conect():
     """
