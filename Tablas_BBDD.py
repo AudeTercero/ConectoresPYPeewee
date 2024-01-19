@@ -1,8 +1,6 @@
 from peewee import *
 from ConexionBBDD import conect
 
-bd = conect()
-
 
 class Profesor(Model):
     id = AutoField(primary_key=True)
@@ -12,7 +10,7 @@ class Profesor(Model):
     telefono = CharField(null=False, max_length=9)
 
     class Meta:
-        database = bd
+        database = conect()
 
 
 class Alumno(Model):
@@ -25,7 +23,7 @@ class Alumno(Model):
 
     class Meta:
         unique_together = ('nombre', 'apellidos')
-        database = bd
+        database = conect()
 
 
 class Curso(Model):
@@ -35,7 +33,7 @@ class Curso(Model):
     descripcion = TextField(null=False)
 
     class Meta:
-        database = bd
+        database = conect()
 
 
 class AlumnoCurso(Model):
@@ -44,12 +42,12 @@ class AlumnoCurso(Model):
 
     class Meta:
         primary_key = CompositeKey('num_exp_alu', 'cod_curso')
-        database = bd
+        database = conect()
 
 
 def crear_tabla():
+    bd = conect()
     bd.connect()
     bd.create_tables([Alumno,Profesor,Curso,AlumnoCurso])
     bd.close()
-def conexion():
-    return bd.connect()
+
