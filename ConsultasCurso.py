@@ -1,4 +1,6 @@
 import pymysql
+
+import Tablas_BBDD
 from ConexionBBDD import conect
 
 
@@ -9,6 +11,8 @@ def consAlta(nombre, descripcion):
     :param descripcion: La descripcion del curso
     :return:
     """
+    Tablas_BBDD.Curso.create(nombre=nombre, descripcion=descripcion)
+    '''
     con = conect()
     try:
         cursor = con.cursor()
@@ -18,7 +22,7 @@ def consAlta(nombre, descripcion):
         cursor.close()
         print("Curso guardado correctamente")
     except pymysql.Error as err:
-        print(err)
+        print(err)'''
 
 
 def consBaja(nombre):
@@ -145,6 +149,7 @@ def consModificar(nombre, columna, nuevoCampo):
         cursor.close()
     except pymysql.Error as err:
         print(err)
+
 
 def hayCursos():
     con = conect()
