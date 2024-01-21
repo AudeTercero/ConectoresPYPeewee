@@ -11,7 +11,7 @@ def matAlu(nomCurso, nomAlu, apeAlu):
     """
     curso = Curso.select().where(Curso.nombre == nomCurso).first()
     id_curso = curso.cod_curso
-    alumno = Alumno.select().where((Alumno.nombre == nomAlu) and (Alumno.apellidos == apeAlu)).first()
+    alumno = Alumno.select().where((Alumno.nombre == nomAlu) & (Alumno.apellidos == apeAlu)).first()
     id_alumno = alumno.num_expediente
     print(id_curso, id_alumno)
     AlumnoCurso.create(cod_curso_id=id_curso, num_exp_alu_id=id_alumno)
@@ -48,7 +48,7 @@ def obtIdAlu(nomAlu, apeAlu):
     :param apeAlu: Recibe el apellido del alumno
     :return: Retorna la id del alumno
     """
-    alumno = Alumno.select().where(Alumno.nombre == nomAlu and Alumno.apellidos == apeAlu).first()
+    alumno = Alumno.select().where((Alumno.nombre == nomAlu) & (Alumno.apellidos == apeAlu)).first()
     return alumno.num_expediente
 
 
@@ -69,7 +69,7 @@ def borrarAluCurso(idAlu, idCurso):
     :param idCurso: Recibe la id del curso
     :return:
     """
-    AlumnoCurso.delete().where(AlumnoCurso.num_exp_alu == idAlu and AlumnoCurso.cod_curso == idCurso).execute()
+    AlumnoCurso.delete().where((AlumnoCurso.num_exp_alu == idAlu) & (AlumnoCurso.cod_curso == idCurso)).execute()
     print("Alumno desmatriculado correctamente")
 
 

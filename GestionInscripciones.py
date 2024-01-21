@@ -61,16 +61,19 @@ def matricularAlumno():
             if (nombre is None and apellido is None and opcSalir != '0'):
                 auxNom = input(
                     f"Introduzca el nombre del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
-                auxApe = input(
-                    f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
-                opcSalir = aux
+                opcSalir = auxNom
                 if (opcSalir != '0'):
-                    VerificationExceptions.hayAlgo(auxNom)
-                    VerificationExceptions.hayAlgo(auxApe)
-                    VerificationExceptions.noExisteAlumno(auxNom, auxApe)
-                    nombre = auxNom
-                    apellido = auxApe
-                    salir = True
+                    auxApe = input(
+                        f"Introduzca el apellido del alumno que quiera matricular al curso {curso} o 0 pulsa para salir:").lower()
+                    opcSalir = auxApe
+                    if (opcSalir != '0'):
+                        VerificationExceptions.hayAlgo(auxNom)
+                        VerificationExceptions.hayAlgo(auxApe)
+                        VerificationExceptions.noExisteAlumno(auxNom, auxApe)
+                        VerificationExceptions.existeAlumnoEnAlumnoCurso(ConsultasInscripciones.obtIdAlu(auxNom,auxApe),ConsultasInscripciones.obtIdCurso(aux))
+                        nombre = auxNom
+                        apellido = auxApe
+                        salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             print(err)
@@ -145,6 +148,7 @@ def asignarProfesor():
                             if (opcSalir != '0'):
                                 VerificationExceptions.dniFormat(aux)
                                 VerificationExceptions.noExistDni(aux)
+
                                 dni = aux
                                 salir = True
         except VerificationExceptions.MisExceptions as err:
@@ -207,8 +211,8 @@ def desmatricularAlumno():
                         VerificationExceptions.noExisteAlumno(auxNom, auxApe)
                         idAlu = ConsultasInscripciones.obtIdAlu(auxNom, auxApe)
                         VerificationExceptions.noExisteAlumnoEnAlumnoCurso(idAlu, idCurso)
-                        nombre = aux
-                        apellido = aux
+                        nombre = auxNom
+                        apellido = auxApe
                         salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
