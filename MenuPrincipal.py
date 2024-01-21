@@ -33,7 +33,7 @@ if(con is not None):
             finMenuPrincipal = True
         else:
             rojo("Entrada no valida")
-    print("Fin Practica Conectores")
+    verde("\n\tFin Practica Conectores Peewee")
     con.close()
 else:
     amarillo("Debes conectar la base de datos primero")
