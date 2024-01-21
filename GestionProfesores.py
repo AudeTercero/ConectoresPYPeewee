@@ -1,5 +1,6 @@
 import VerificationExceptions
 import ConsultasProfesor
+from prettytable import PrettyTable
 
 
 def menu():
@@ -162,15 +163,13 @@ def consultar():
             print(err)
         if (fallos < 5 and opcSalir != '0' and entrar):
             profesor = ConsultasProfesor.consBusqueda(dni)
-            for tupla in profesor:
-                print(f'''\n\n\t\t[====Profesor {tupla.nombre} ==>
-        [ID: {tupla.id}
-        [DNI: {tupla.dni}
-        [Nombre: {tupla.nombre}
-        [Direccion: {tupla.direccion}
-        [Telefono: {tupla.telefono}
-        [Cursos: {tupla.nombre_curso}
-        [===================>''')
+            x = PrettyTable()
+            x.field_names = ["Id", "DNI", "Nombre", "Direccion", "Telefono", "Cursos"]
+            for dato in profesor:
+                x.add_row([dato.id, dato.dni, dato.nombre, dato.direccion, dato.telefono, dato.nombre_curso])
+
+            print()
+            print(x)
         elif (fallos == 5):
             print("Has superado el maximos de fallos permitidos que son 5")
         elif (opcSalir == '0'):
@@ -355,8 +354,12 @@ def mostrarTodos():
     :return:
     """
     tabla = ConsultasProfesor.mostrarTabla()
+
     print("\n\n\t\t[==== PROFESORES ====>")
+    x = PrettyTable()
+    x.field_names = ["Id", "DNI", "Nombre", "Direccion", "Telefono", "Cursos"]
     for dato in tabla:
-        print(f"\t\t[ID: {dato.id}  -DNI: {dato.dni}  -Nombre: {dato.nombre}  -Direccion: {dato.direccion}  -Telefono: {dato.telefono}\n"
-              f"\t\t[\t -Cursos: {dato.nombre_curso}")
-    print("\t\t[====================>")
+        x.add_row([dato.id, dato.dni, dato.nombre, dato.direccion, dato.telefono, dato.nombre_curso])
+
+    print()
+    print(x)
