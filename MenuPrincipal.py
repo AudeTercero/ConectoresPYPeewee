@@ -4,6 +4,7 @@ from GestionProfesores import menu as menuProfesores
 from GestionCursos import menu as menuCursos
 from GestionInscripciones import menu as menuInscripciones
 from Tablas_BBDD import crear_tabla
+from Utiles import *
 
 
 con = conect()
@@ -31,8 +32,8 @@ if(con is not None):
             print("Saliendo...")
             finMenuPrincipal = True
         else:
-            print("Entrada no valida")
+            rojo("Entrada no valida")
     print("Fin Practica Conectores")
     con.close()
 else:
-    print("Debes conectar la base de datos primero")
+    amarillo("Debes conectar la base de datos primero")

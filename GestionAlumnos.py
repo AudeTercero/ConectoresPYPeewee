@@ -1,8 +1,7 @@
 import VerificationExceptions
 import ConsultasAlumnos
 from prettytable import PrettyTable
-
-
+from Utiles import *
 def menu():
     '''
     Metodo cuya funcion es simular un menu para interactuar con los alumnos de la base de datos
@@ -36,7 +35,7 @@ def menu():
             print("Saliendo...")
             finMenuAlumnos = True
         else:
-            print("Entrada no valida")
+            rojo("Entrada no valida")
 
 
 def alta():
@@ -70,14 +69,14 @@ def alta():
                         VerificationExceptions.hayAlgo(nombre)
                         VerificationExceptions.hayAlgo(apellidos)
                         VerificationExceptions.existeAlumno(nombre, apellidos)
-                        print("Nombre y Apellidos validos")
+                        verde("Nombre y Apellidos validos")
                         salir = True
 
                     except VerificationExceptions.MisExceptions as err:
                         cont += 1
-                        print(err)
+                        rojo(str(err))
         else:
-            print("\nHas llegado al limite de intentos.")
+            amarillo("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
     salir = False
@@ -92,14 +91,14 @@ def alta():
                 try:
                     VerificationExceptions.hayAlgo(telefono)
                     VerificationExceptions.validar_telefono(telefono)
-                    print("Telefono valido")
+                    verde("Telefono valido")
                     salir = True
 
                 except VerificationExceptions.MisExceptions as err:
                     cont += 1
-                    print(err)
+                    rojo(str(err))
         else:
-            print("\nHas llegado al limite de intentos.")
+            amarillo("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
     salir = False
@@ -113,14 +112,14 @@ def alta():
             else:
                 try:
                     VerificationExceptions.hayAlgo(direccion)
-                    print("Direccion valida")
+                    verde("Direccion valida")
                     salir = True
 
                 except VerificationExceptions.MisExceptions as err:
                     cont += 1
-                    print(err)
+                    rojo(str(err))
         else:
-            print("\nHas llegado al limite de intentos.")
+            amarillo("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
     salir = False
@@ -136,14 +135,14 @@ def alta():
                 try:
                     VerificationExceptions.hayAlgo(fecha)
                     VerificationExceptions.formatoFecha(fecha)
-                    print("Fecha valida")
+                    verde("Fecha valida")
                     salir = True
 
                 except VerificationExceptions.MisExceptions as err:
                     cont += 1
-                    print(err)
+                    rojo(str(err))
         else:
-            print("\nHas llegado al limite de intentos.")
+            amarillo("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
     if salir_sin_guardar:
@@ -153,7 +152,7 @@ def alta():
             ConsultasAlumnos.consAlta(nombre, apellidos, telefono, direccion, fecha)
 
         except VerificationExceptions.MisExceptions as err:
-            print(err)
+            rojo(str(err))
 
 
 def baja():
@@ -184,14 +183,14 @@ def baja():
                         VerificationExceptions.hayAlgo(nombre)
                         VerificationExceptions.hayAlgo(apellidos)
                         VerificationExceptions.noExisteAlumno(nombre, apellidos)
-                        print("Nombre y Apellidos validos")
+                        verde("Nombre y Apellidos validos")
                         salir = True
 
                     except VerificationExceptions.MisExceptions as err:
                         cont += 1
-                        print(err)
+                        rojo(str(err))
         else:
-            print("\nHas llegado al limite de intentos.")
+            amarillo("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
     salir = False
@@ -209,10 +208,10 @@ def baja():
                     salir = True;
                     print("Saliendo sin guardar...")
                 else:
-                    print("Entrada no valida.")
+                    rojo("Entrada no valida.")
 
         except VerificationExceptions.MisExceptions as err:
-            print(err)
+            rojo(str(err))
     else:
         print("Saliendo...")
 
@@ -245,14 +244,14 @@ def modificar():
                         VerificationExceptions.hayAlgo(nombre)
                         VerificationExceptions.hayAlgo(apellidos)
                         VerificationExceptions.noExisteAlumno(nombre, apellidos)
-                        print("Nombre y Apellidos validos")
+                        verde("Nombre y Apellidos validos")
                         salir = True
 
                     except VerificationExceptions.MisExceptions as err:
                         cont += 1
-                        print(err)
+                        rojo(str(err))
         else:
-            print("\nHas llegado al limite de intentos.")
+            amarillo("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
     if nombre is not None and apellidos is not None and not salir_sin_guardar:
@@ -284,12 +283,12 @@ def modificar():
 
                             if (opSalir != 0):
                                 VerificationExceptions.hayAlgo(aux)
-                                print("Nombre valido")
+                                verde("Nombre valido")
                                 VerificationExceptions.existeAlumno(aux, apellidos)
                                 nuevoNombre = aux
 
                         except VerificationExceptions.MisExceptions as err:
-                            print(err)
+                            rojo(str(err))
                             cont += 1
 
                     if (cont < 5 and opSalir != '0'):
@@ -298,15 +297,15 @@ def modificar():
                             op = input("Seguro que quiere modificar el nombre del alumno?[S/N]").lower()
                             if op == "s":
                                 ConsultasAlumnos.consModificar(nombre, apellidos, 'nombre', nuevoNombre)
-                                print("Modificacion realizada correctamente")
+                                verde("Modificacion realizada correctamente")
                                 nombre = nuevoNombre
                             elif op == "n":
                                 salir = True
                                 print("Saliendo sin guardar...")
                             else:
-                                print("Entrada no valida.")
+                                rojo("Entrada no valida.")
                     elif (cont == 5):
-                        print("No puedes fallar mas de 5 veces")
+                        amarillo("No puedes fallar mas de 5 veces")
 
                     else:
                         print("Saliendo...")
@@ -323,12 +322,12 @@ def modificar():
 
                             if (opSalir != 0):
                                 VerificationExceptions.hayAlgo(aux)
-                                print("Apellidos validos")
+                                verde("Apellidos validos")
                                 VerificationExceptions.existeAlumno(nombre, nuevoApe)
                                 nuevoApe = aux
 
                         except VerificationExceptions.MisExceptions as err:
-                            print(err)
+                            rojo(str(err))
                             cont += 1
 
                     if (cont < 5 and opSalir != '0'):
@@ -337,15 +336,15 @@ def modificar():
                             op = input("Seguro que quiere modificar los apellidos del alumno?[S/N]").lower()
                             if op == "s":
                                 ConsultasAlumnos.consModificar(nombre, apellidos, 'apellidos', nuevoApe)
-                                print("Modificacion realizada correctamente")
+                                verde("Modificacion realizada correctamente")
                                 apellidos = nuevoApe
                             elif op == "n":
                                 salir = True
                                 print("Saliendo sin guardar...")
                             else:
-                                print("Entrada no valida.")
+                                rojo("Entrada no valida.")
                     elif (cont == 5):
-                        print("No puedes fallar mas de 5 veces")
+                        amarillo("No puedes fallar mas de 5 veces")
 
                     else:
                         print("Saliendo...")
@@ -362,11 +361,11 @@ def modificar():
 
                             if (opSalir != 0):
                                 VerificationExceptions.validar_telefono(aux)
-                                print("Telefono valido")
+                                verde("Telefono valido")
                                 nuevoTel = aux
 
                         except VerificationExceptions.MisExceptions as err:
-                            print(err)
+                            rojo(str(err))
                             cont += 1
 
                     if (cont < 5 and opSalir != '0'):
@@ -375,14 +374,14 @@ def modificar():
                             op = input("Seguro que quiere modificar el telefono del alumno?[S/N]").lower()
                             if op == "s":
                                 ConsultasAlumnos.consModificar(nombre, apellidos, 'telefono', nuevoTel)
-                                print("Modificacion realizada correctamente")
+                                verde("Modificacion realizada correctamente")
                             elif op == "n":
                                 salir = True
                                 print("Saliendo sin guardar...")
                             else:
-                                print("Entrada no valida.")
+                                rojo("Entrada no valida.")
                     elif (cont == 5):
-                        print("No puedes fallar mas de 5 veces")
+                        amarillo("No puedes fallar mas de 5 veces")
 
                     else:
                         print("Saliendo...")
@@ -399,11 +398,11 @@ def modificar():
 
                             if (opSalir != 0):
                                 VerificationExceptions.hayAlgo(aux)
-                                print("Direccion valida")
+                                verde("Direccion valida")
                                 nuevaDir = aux
 
                         except VerificationExceptions.MisExceptions as err:
-                            print(err)
+                            rojo(str(err))
                             cont += 1
 
                     if (cont < 5 and opSalir != '0'):
@@ -412,14 +411,14 @@ def modificar():
                             op = input("Seguro que quiere modificar la direccion del alumno?[S/N]").lower()
                             if op == "s":
                                 ConsultasAlumnos.consModificar(nombre, apellidos, 'direccion', nuevaDir)
-                                print("Modificacion realizada correctamente")
+                                verde("Modificacion realizada correctamente")
                             elif op == "n":
                                 salir = True
                                 print("Saliendo sin guardar...")
                             else:
-                                print("Entrada no valida.")
+                                rojo("Entrada no valida.")
                     elif (cont == 5):
-                        print("No puedes fallar mas de 5 veces")
+                        amarillo("No puedes fallar mas de 5 veces")
 
                     else:
                         print("Saliendo...")
@@ -436,11 +435,11 @@ def modificar():
 
                             if (opSalir != '0'):
                                 VerificationExceptions.formatoFecha(aux)
-                                print("Fecha valida")
+                                verde("Fecha valida")
                                 nuevaFech = aux
 
                         except VerificationExceptions.MisExceptions as err:
-                            print(err)
+                            rojo(str(err))
                             cont += 1
 
                     if (cont < 5 and opSalir != '0'):
@@ -449,24 +448,24 @@ def modificar():
                             op = input("Seguro que quiere modificar la fecha de nacimiento del alumno?[S/N]").lower()
                             if op == "s":
                                 ConsultasAlumnos.consModificar(nombre, apellidos, 'fecha_nacimiento', nuevaFech)
-                                print("Modificacion realizada correctamente")
+                                verde("Modificacion realizada correctamente")
                             elif op == "n":
                                 salir = True
                                 print("Saliendo sin guardar...")
                             else:
-                                print("Entrada no valida.")
+                                rojo("Entrada no valida.")
                     elif (cont == 5):
-                        print("No puedes fallar mas de 5 veces")
+                        amarillo("No puedes fallar mas de 5 veces")
 
                     else:
                         print("Saliendo...")
                 elif op == '0':
                     salir = True
                 else:
-                    print("Opcion no valida")
+                    rojo("Opcion no valida")
 
         except VerificationExceptions.MisExceptions as err:
-            print(err)
+            rojo(str(err))
     else:
         print("Saliendo...")
 
@@ -499,14 +498,14 @@ def consultar():
                         VerificationExceptions.hayAlgo(nombre)
                         VerificationExceptions.hayAlgo(apellidos)
                         VerificationExceptions.noExisteAlumno(nombre, apellidos)
-                        print("Nombre y Apellidos validos")
+                        verde("Nombre y Apellidos validos")
                         salir = True
 
                     except VerificationExceptions.MisExceptions as err:
                         cont += 1
-                        print(err)
+                        rojo(str(err))
         else:
-            print("\nHas llegado al limite de intentos.")
+            amarillo("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
 
     if nombre is not None and apellidos is not None and not salir_sin_guardar:
@@ -522,10 +521,10 @@ def consultar():
                                dato.nombre_cursos])
 
                 print()
-                print(x)
+                azul(str(x))
 
         except VerificationExceptions.MisExceptions as err:
-            print(err)
+            rojo(str(err))
 
 
 def mostrarTodos():
@@ -542,4 +541,4 @@ def mostrarTodos():
                    dato.nombre_cursos])
 
     print()
-    print(x)
+    azul(x)
