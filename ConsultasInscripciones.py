@@ -1,5 +1,5 @@
 from Tablas_BBDD import *
-
+from Utiles import *
 
 def matAlu(nomCurso, nomAlu, apeAlu):
     """
@@ -13,7 +13,6 @@ def matAlu(nomCurso, nomAlu, apeAlu):
     id_curso = curso.cod_curso
     alumno = Alumno.select().where((Alumno.nombre == nomAlu) & (Alumno.apellidos == apeAlu)).first()
     id_alumno = alumno.num_expediente
-    print(id_curso, id_alumno)
     AlumnoCurso.create(cod_curso_id=id_curso, num_exp_alu_id=id_alumno)
 
 
@@ -70,7 +69,7 @@ def borrarAluCurso(idAlu, idCurso):
     :return:
     """
     AlumnoCurso.delete().where((AlumnoCurso.num_exp_alu == idAlu) & (AlumnoCurso.cod_curso == idCurso)).execute()
-    print("Alumno desmatriculado correctamente")
+    verde("Alumno desmatriculado correctamente")
 
 
 def borrarProfCurso(idProfe, idCurso):
@@ -81,7 +80,7 @@ def borrarProfCurso(idProfe, idCurso):
     :return:
     """
     Curso.update(id_profesor=None).where(Curso.cod_curso == idCurso and Curso.id_profesor == idProfe).execute()
-    print("Profesor desmatriculado correctamente")
+    verde("Profesor desmatriculado correctamente")
 
 
 def existeAluEnAluCurso(idAlu, idCurso):
@@ -114,7 +113,7 @@ def hayAlumnosMatriculados():
     if AlumnoCurso.select().exists():
         return True
     else:
-        print('Aun no hay alumnos dados de alta en ningun curso')
+        amarillo('Aun no hay alumnos dados de alta en ningun curso')
         return False
 
 
@@ -127,7 +126,7 @@ def hayProfesoresAsignados():
     for curso in cursos:
         if curso.id_profesor is not None:
             return True
-    print('Aun no hay profesores dados de alta en ningun curso')
+    amarillo('Aun no hay profesores dados de alta en ningun curso')
     return False
 
 
