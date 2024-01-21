@@ -1,5 +1,6 @@
 import VerificationExceptions
 import ConsultasAlumnos
+from prettytable import PrettyTable
 
 
 def menu():
@@ -51,7 +52,6 @@ def alta():
     direccion = ""
     telefono = ""
     fecha = ""
-
 
     while not salir and not salir_sin_guardar:
         if not cont == 5:
@@ -254,7 +254,6 @@ def modificar():
         else:
             print("\nHas llegado al limite de intentos.")
             salir_sin_guardar = True
-
 
     if nombre is not None and apellidos is not None and not salir_sin_guardar:
         try:
@@ -516,16 +515,14 @@ def consultar():
             resultados = ConsultasAlumnos.consBuscar(nombre, apellidos)
 
             if resultados is not None:
-                for r in resultados:
-                    print(f'''\n\n\t\t[==== Alumno {r.nombre} ==>
-        [ID: {r.num_expediente}
-        [Nombre: {r.nombre}
-        [Apellidos: {r.apellidos}
-        [Telefono: {r.telefono}
-        [Direccion: {r.direccion}
-        [Fecha de Nacimiento: {r.fecha_nacimiento}
-        [Cursos: {r.nombre_cursos}
-        [===================>''')
+                x = PrettyTable()
+                x.field_names = ["Id", "Nombre", "Apellidos", "telefono", "Direccion", "Fecha de nacimiento", "Cursos"]
+                for dato in resultados:
+                    x.add_row([dato.num_expediente, dato.nombre, dato.apellidos, dato.telefono, dato.direccion, dato.fecha_nacimiento,
+                               dato.nombre_cursos])
+
+                print()
+                print(x)
 
         except VerificationExceptions.MisExceptions as err:
             print(err)
@@ -538,10 +535,11 @@ def mostrarTodos():
     '''
     tabla = ConsultasAlumnos.consMostrarAlumnos()
 
-    print("\n\n\t\t[==== ALUMNOS ====>")
-    for tupla in tabla:
-        print(f"\t\t[-ID: {tupla.num_expediente}  Nombre: {tupla.nombre}  Apellidos: {tupla.apellidos}  Telefono: {tupla.telefono}  Direccion: {tupla.direccion}  Fecha de Nacimiento: {tupla.fecha_nacimiento}\n"
-              f"\t\t[\t Cursos: {tupla.nombre_cursos}")
-    print("\t\t[=================>")
+    x = PrettyTable()
+    x.field_names = ["Id", "Nombre", "Apellidos","telefono", "Direccion", "Fecha de nacimiento", "Cursos"]
+    for dato in tabla:
+        x.add_row([dato.num_expediente, dato.nombre, dato.apellidos,dato.telefono, dato.direccion, dato.fecha_nacimiento,
+                   dato.nombre_cursos])
 
-
+    print()
+    print(x)
