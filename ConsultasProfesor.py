@@ -3,7 +3,7 @@ from ConexionBBDD import conect
 from Tablas_BBDD import Profesor
 from Tablas_BBDD import Curso
 from peewee import *
-
+from Utiles import *
 
 def consAlta(dni, nombre, direccion, telefono):
     """
@@ -26,7 +26,7 @@ def consBaja(dni):
     """
 
     Profesor.delete().where(Profesor.dni == dni).execute()
-    print("Profesor eliminado con exito")
+    verde("Profesor eliminado con exito")
 
 
 def consBusqueda(dni):
@@ -87,5 +87,5 @@ def hayProfesores():
     if query.count() > 0:
         return True
     else:
-        print('\nAun no hay profesores dados de alta')
+        amarillo('\nAun no hay profesores dados de alta')
         return False

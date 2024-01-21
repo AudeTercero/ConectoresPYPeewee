@@ -518,7 +518,7 @@ def consultar():
                 x.field_names = ["Id", "Nombre", "Apellidos", "telefono", "Direccion", "Fecha de nacimiento", "Cursos"]
                 for dato in resultados:
                     x.add_row([dato.num_expediente, dato.nombre, dato.apellidos, dato.telefono, dato.direccion, dato.fecha_nacimiento,
-                               dato.nombre_cursos])
+                               siNone(dato.nombre_cursos)])
 
                 print()
                 azul(str(x))
@@ -538,7 +538,7 @@ def mostrarTodos():
     x.field_names = ["Id", "Nombre", "Apellidos","telefono", "Direccion", "Fecha de nacimiento", "Cursos"]
     for dato in tabla:
         x.add_row([dato.num_expediente, dato.nombre, dato.apellidos,dato.telefono, dato.direccion, dato.fecha_nacimiento,
-                   dato.nombre_cursos])
+                   siNone(dato.nombre_cursos)])
 
     print()
-    azul(x)
+    azul(str(x))

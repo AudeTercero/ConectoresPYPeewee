@@ -1,6 +1,7 @@
 import VerificationExceptions
 import ConsultasProfesor
 from prettytable import PrettyTable
+from Utiles import *
 
 
 def menu():
@@ -36,7 +37,7 @@ def menu():
             print("Saliendo...")
             finMenuProfesores = True
         else:
-            print("Entrada no valida")
+            rojo("Entrada no valida")
 
 
 def alta():
@@ -59,7 +60,7 @@ def alta():
                 if (opcSalir != '0'):
                     VerificationExceptions.dniFormat(aux)
                     VerificationExceptions.existDni(aux)
-                    print("DNI introducido correctamente")
+                    verde("DNI introducido correctamente")
                     dni = aux
                     intentos = 0
             if (nombre is None and opcSalir != '0'):
@@ -67,7 +68,7 @@ def alta():
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
-                    print("Nombre introducido correctamente")
+                    verde("Nombre introducido correctamente")
                     nombre = aux
                     intentos = 0
             if (direccion is None and opcSalir != '0'):
@@ -75,7 +76,7 @@ def alta():
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.hayAlgo(aux)
-                    print("Direccion introducida correctamente")
+                    verde("Direccion introducida correctamente")
                     direccion = aux
                     intentos = 0
             if (telefono is None and opcSalir != '0'):
@@ -83,7 +84,7 @@ def alta():
                 opcSalir = aux
                 if (opcSalir != '0'):
                     VerificationExceptions.validar_telefono(aux)
-                    print("Telefono introducido correctamente")
+                    verde("Telefono introducido correctamente")
                     telefono = aux
                     intentos = 0
                     salir = True
@@ -91,14 +92,14 @@ def alta():
                 salir = True
         except VerificationExceptions.MisExceptions as err:
             intentos += 1
-            print(err)
+            rojo(str(err))
 
     if (intentos < 5 and opcSalir != '0'):
         ConsultasProfesor.consAlta(dni, nombre, direccion, telefono)
     elif (opcSalir == '0'):
         print("Saliendo")
     else:
-        print("Se han superado el maximo de errores.")
+        amarillo("Se han superado el maximo de errores.")
 
 
 def baja():
@@ -121,7 +122,7 @@ def baja():
                 salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
-            print(err)
+            rojo(str(err))
     if (fallos < 5 and opcSalir != '0'):
         salir = False
         while not salir:
@@ -133,9 +134,9 @@ def baja():
                 salir = True
                 print("Saliendo sin guardar...")
             else:
-                print("Entrada no valida.")
+                rojo("Entrada no valida.")
     elif (fallos == 5):
-        print("Has superado el maximos de fallos permitidos que son 5")
+        amarillo("Has superado el maximos de fallos permitidos que son 5")
     else:
         print("Saliendo...")
 
@@ -160,18 +161,18 @@ def consultar():
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
             entrar = False
-            print(err)
+            rojo(str(err))
         if (fallos < 5 and opcSalir != '0' and entrar):
             profesor = ConsultasProfesor.consBusqueda(dni)
             x = PrettyTable()
             x.field_names = ["Id", "DNI", "Nombre", "Direccion", "Telefono", "Cursos"]
             for dato in profesor:
-                x.add_row([dato.id, dato.dni, dato.nombre, dato.direccion, dato.telefono, dato.nombre_curso])
+                x.add_row([dato.id, dato.dni, dato.nombre, dato.direccion, dato.telefono, siNone(dato.nombre_curso)])
 
             print()
-            print(x)
+            azul(str(x))
         elif (fallos == 5):
-            print("Has superado el maximos de fallos permitidos que son 5")
+            amarillo("Has superado el maximos de fallos permitidos que son 5")
         elif (opcSalir == '0'):
             print("Saliendo...")
 
@@ -196,7 +197,7 @@ def modificar():
                 print("Saliendo...")
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
-            print(err)
+            rojo(str(err))
     salir = False
     while (fallos < 5 and not salir and opcSalir != '0'):
         opc = input("\n\t[====== MODIFICACION PROFESOR ======\n"
@@ -217,10 +218,10 @@ def modificar():
                     if (opcSalir != '0'):
                         VerificationExceptions.dniFormat(aux)
                         VerificationExceptions.existDni(aux)
-                        print("DNI introducido correctamente")
+                        verde("DNI introducido correctamente")
                         nuevoDni = aux
                 except VerificationExceptions.MisExceptions as err:
-                    print(err)
+                    rojo(str(err))
                     fallos += 1
             if (fallos < 5 and opcSalir != '0'):
                 op = None
@@ -228,15 +229,15 @@ def modificar():
                     op = input("Seguro que quiere modificar el dni del profesor?[S/N]").lower()
                     if op == "s":
                         ConsultasProfesor.consModificar(dni, 'dni', nuevoDni)
-                        print("Modificacion realizada correctamente")
+                        verde("Modificacion realizada correctamente")
                         dni = nuevoDni
                     elif op == "n":
                         salir = True
                         print("Saliendo sin guardar...")
                     else:
-                        print("Entrada no valida.")
+                        rojo("Entrada no valida.")
             elif (fallos == 5):
-                print("No puedes fallar mas de 5 veces")
+                amarillo("No puedes fallar mas de 5 veces")
 
             else:
                 print("Saliendo...")
@@ -252,10 +253,10 @@ def modificar():
                     opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.hayAlgo(aux)
-                        print("Nombre introducido correctamente")
+                        verde("Nombre introducido correctamente")
                         nuevoNombre = aux
                 except VerificationExceptions.MisExceptions as err:
-                    print(err)
+                    rojo(str(err))
                     fallos += 1
             if (fallos < 5 and opcSalir != '0'):
                 op = None
@@ -263,14 +264,14 @@ def modificar():
                     op = input("Seguro que quiere modificar el nombre del profesor?[S/N]").lower()
                     if op == "s":
                         ConsultasProfesor.consModificar(dni, 'nombre', nuevoNombre)
-                        print("Modificacion realizada correctamente")
+                        verde("Modificacion realizada correctamente")
                     elif op == "n":
                         salir = True;
                         print("Saliendo sin guardar...")
                     else:
-                        print("Entrada no valida.")
+                        rojo("Entrada no valida.")
             elif (fallos == 5):
-                print("No puedes fallar mas de 5 veces")
+                amarillo("No puedes fallar mas de 5 veces")
 
             else:
                 print("Saliendo...")
@@ -285,10 +286,10 @@ def modificar():
                     opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.hayAlgo(aux)
-                        print("Direccion introducida correctamente")
+                        verde("Direccion introducida correctamente")
                         nuevoDirec = aux
                 except VerificationExceptions.MisExceptions as err:
-                    print(err)
+                    rojo(str(err))
                     fallos += 1
             if (fallos < 5 and opcSalir != '0'):
                 op = None
@@ -296,14 +297,14 @@ def modificar():
                     op = input("Seguro que quiere modificar la direccion del profesor?[S/N]").lower()
                     if op == "s":
                         ConsultasProfesor.consModificar(dni, 'direccion', nuevoDirec)
-                        print("Modificacion realizada correctamente")
+                        verde("Modificacion realizada correctamente")
                     elif op == "n":
                         salir = True;
                         print("Saliendo sin guardar...")
                     else:
-                        print("Entrada no valida.")
+                        rojo("Entrada no valida.")
             elif (fallos == 5):
-                print("No puedes fallar mas de 5 veces")
+                amarillo("No puedes fallar mas de 5 veces")
 
             else:
                 print("Saliendo...")
@@ -318,10 +319,10 @@ def modificar():
                     opcSalir = aux
                     if (opcSalir != '0'):
                         VerificationExceptions.validar_telefono(aux)
-                        print("Telefeno introducido correctamente")
+                        verde("Telefeno introducido correctamente")
                         nuevoTel = aux
                 except VerificationExceptions.MisExceptions as err:
-                    print(err)
+                    rojo(str(err))
                     fallos += 1
             if (fallos < 5 and opcSalir != '0'):
                 op = None
@@ -329,14 +330,14 @@ def modificar():
                     op = input("Seguro que quiere modificar el telefono del profesor?[S/N]").lower()
                     if op == "s":
                         ConsultasProfesor.consModificar(dni, 'telefono', nuevoTel)
-                        print("Modificacion realizada correctamente")
+                        verde("Modificacion realizada correctamente")
                     elif op == "n":
                         salir = True;
                         print("Saliendo sin guardar...")
                     else:
-                        print("Entrada no valida.")
+                        rojo("Entrada no valida.")
             elif (fallos == 5):
-                print("No puedes fallar mas de 5 veces")
+                amarillo("No puedes fallar mas de 5 veces")
 
             else:
                 print("Saliendo...")
@@ -345,7 +346,7 @@ def modificar():
             print("Saliendo...")
             salir = True
         else:
-            print("No hay esa opcion")
+            rojo("No hay esa opcion")
 
 
 def mostrarTodos():
@@ -354,12 +355,10 @@ def mostrarTodos():
     :return:
     """
     tabla = ConsultasProfesor.mostrarTabla()
-
-    print("\n\n\t\t[==== PROFESORES ====>")
     x = PrettyTable()
     x.field_names = ["Id", "DNI", "Nombre", "Direccion", "Telefono", "Cursos"]
     for dato in tabla:
-        x.add_row([dato.id, dato.dni, dato.nombre, dato.direccion, dato.telefono, dato.nombre_curso])
+        x.add_row([dato.id, dato.dni, dato.nombre, dato.direccion, dato.telefono, siNone(dato.nombre_curso)])
 
     print()
-    print(x)
+    azul(str(x))
