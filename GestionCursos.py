@@ -37,7 +37,7 @@ def menu():
             print("Saliendo...")
             finMenuCursos = True
         else:
-            print("Entrada no valida")
+            rojo("Entrada no valida")
 
 
 def alta():
@@ -60,7 +60,7 @@ def alta():
                     VerificationExceptions.existNombreCur(aux)
                     nombre = aux
                     intentos = 0
-                    print("Nombre correcto")
+                    verde("Nombre correcto")
             if descripcion is None and opcSalir != '0':
                 aux = input('Introduce la descripcion del curso o 0 para salir:\n')
                 opcSalir = aux
@@ -69,19 +69,19 @@ def alta():
                     descripcion = aux
                     intentos = 0
                     salir = True
-                    print("Descripcion Correcta")
+                    verde("Descripcion Correcta")
             if opcSalir == '0':
                 salir = True
         except VerificationExceptions.MisExceptions as err:
             intentos += 1
-            print(err)
+            rojo(str(err))
 
     if intentos < 5 and opcSalir != '0':
         ConsultasCurso.consAlta(nombre, descripcion)
     elif opcSalir == '0':
         print("Saliendo")
     else:
-        print("Se han superado el maximo de errores.")
+        amarillo("Se han superado el maximo de errores.")
 
 
 def baja():
@@ -104,7 +104,7 @@ def baja():
                 finBaja = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
-            print(err)
+            rojo(str(err))
 
     if fallos < 5 and opcSalir != '0':
         salir = False
@@ -118,10 +118,10 @@ def baja():
                 salir = True
                 print("Saliendo sin guardar...")
             else:
-                print("Entrada no valida.")
+                rojo("Entrada no valida.")
 
     elif fallos == 5:
-        print("Has superado el maximos de fallos permitidos que son 5")
+        amarillo("Has superado el maximos de fallos permitidos que son 5")
     else:
         print("Saliendo...")
 
@@ -146,18 +146,19 @@ def consultar():
                 finConsulta = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
-            print(err)
+            rojo(str(err))
     if fallos < 5 and opcSalir != '0':
         curso = ConsultasCurso.consBusqueda(nombre)
         x = PrettyTable()
         x.field_names = ["Codigo", "Nombre", "Descripcion", "Profesor", "Alumnos"]
         for dato in curso:
-            x.add_row([dato.cod_curso, dato.nombre, dato.descripcion, siNone(dato.nombre_profesor) , siNone(dato.alumnos)])
+            x.add_row(
+                [dato.cod_curso, dato.nombre, dato.descripcion, siNone(dato.nombre_profesor), siNone(dato.alumnos)])
 
         print()
-        print(x)
+        azul(str(x))
     elif fallos == 5:
-        print("Has superado el maximos de fallos permitidos que son 5")
+        amarillo("Has superado el maximos de fallos permitidos que son 5")
     else:
         print("Saliendo...")
 
@@ -182,7 +183,7 @@ def modificar():
                 salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
-            print(err)
+            rojo(str(err))
     salir = False
     while fallos < 5 and not salir and opcSalir != '0':
         opc = input("\n\t[====== MODIFICACION PROFESOR ======\n"
@@ -204,9 +205,9 @@ def modificar():
                         VerificationExceptions.existNombreCur(aux)
                         nuevoNombre = aux
                         salirNombre = True
-                        print("Nombre correcto")
+                        verde("Nombre correcto")
                 except VerificationExceptions.MisExceptions as err:
-                    print(err)
+                    rojo(str(err))
                     fallos += 1
             if fallos < 5 and opcSalir != '0':
                 op = None
@@ -214,15 +215,15 @@ def modificar():
                     op = input("Seguro que quiere modificar el nombre del curso?[S/N]: ").lower()
                     if op == "s":
                         ConsultasCurso.consModificar(nombre, 'nombre', nuevoNombre)
-                        print("Modificacion realizada correctamente")
+                        verde("Modificacion realizada correctamente")
                         nombre = nuevoNombre
                     elif op == "n":
                         salir = True
                         print("Saliendo sin guardar...")
                     else:
-                        print("Entrada no valida.")
+                        rojo("Entrada no valida.")
             elif fallos == 5:
-                print("No puedes fallar mas de 5 veces")
+                amarillo("No puedes fallar mas de 5 veces")
 
             else:
                 print("Saliendo...")
@@ -238,9 +239,9 @@ def modificar():
                     if opcSalir != '0':
                         VerificationExceptions.hayAlgo(aux)
                         nuevaDescripcion = aux
-                        print("Descripcion Correcta")
+                        verde("Descripcion Correcta")
                 except VerificationExceptions.MisExceptions as err:
-                    print(err)
+                    rojo(str(err))
                     fallos += 1
             if fallos < 5 and opcSalir != '0':
                 op = None
@@ -253,9 +254,9 @@ def modificar():
                         salir = True
                         print("Saliendo sin guardar...")
                     else:
-                        print("Entrada no valida.")
+                        rojo("Entrada no valida.")
             elif fallos == 5:
-                print("No puedes fallar mas de 5 veces")
+                amarillo("No puedes fallar mas de 5 veces")
 
             else:
                 print("Saliendo...")
@@ -264,7 +265,7 @@ def modificar():
             print("Saliendo...")
             salir = True
         else:
-            print("No hay esa opcion")
+            rojo("No hay esa opcion")
 
 
 def mostrarTodos():
@@ -279,4 +280,4 @@ def mostrarTodos():
         x.add_row([dato.cod_curso, dato.nombre, dato.descripcion, siNone(dato.nombre_profesor), siNone(dato.alumnos)])
 
     print()
-    print(x)
+    azul(str(x))
