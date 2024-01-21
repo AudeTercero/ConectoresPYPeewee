@@ -20,7 +20,7 @@ def verde(msg):
 
 
 def siNone(str):
-    if str is 'None':
+    if str == 'None':
         return 'Vacio'
     else:
         return str

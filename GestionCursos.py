@@ -1,6 +1,7 @@
 import VerificationExceptions
 import ConsultasCurso
 from prettytable import PrettyTable
+from Utiles import *
 
 
 def menu():
@@ -151,7 +152,7 @@ def consultar():
         x = PrettyTable()
         x.field_names = ["Codigo", "Nombre", "Descripcion", "Profesor", "Alumnos"]
         for dato in curso:
-            x.add_row([dato.cod_curso, dato.nombre, dato.descripcion, dato.nombre_profesor, dato.alumnos])
+            x.add_row([dato.cod_curso, dato.nombre, dato.descripcion, siNone(dato.nombre_profesor) , siNone(dato.alumnos)])
 
         print()
         print(x)
@@ -275,7 +276,7 @@ def mostrarTodos():
     x = PrettyTable()
     x.field_names = ["Codigo", "Nombre", "Descripcion", "Profesor", "Alumnos"]
     for dato in tabla:
-        x.add_row([dato.cod_curso, dato.nombre, dato.descripcion, dato.nombre_profesor, dato.alumnos])
+        x.add_row([dato.cod_curso, dato.nombre, dato.descripcion, siNone(dato.nombre_profesor), siNone(dato.alumnos)])
 
     print()
     print(x)
