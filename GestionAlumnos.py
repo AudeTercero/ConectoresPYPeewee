@@ -449,7 +449,7 @@ def modificar():
                         while not salir and op is None:
                             op = input("Seguro que quiere modificar la fecha de nacimiento del alumno?[S/N]").lower()
                             if op == "s":
-                                ConsultasAlumnos.consModificar(nombre, apellidos, 'fecha_nac', nuevaFech)
+                                ConsultasAlumnos.consModificar(nombre, apellidos, 'fecha_nacimiento', nuevaFech)
                                 print("Modificacion realizada correctamente")
                             elif op == "n":
                                 salir = True
