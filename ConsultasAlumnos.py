@@ -1,17 +1,18 @@
 import pymysql
 from Tablas_BBDD import Alumno, AlumnoCurso, Curso
 from peewee import *
+from Utiles import *
 
 
 def consAlta(nombre, apellidos, telefono, direccion, fecha):
     Alumno.create(nombre=nombre, apellidos=apellidos, telefono=telefono, direccion=direccion,
                   fecha_nacimiento=fecha)
-    print("Alumno creado correctamente")
+    verde("Alumno creado correctamente")
 
 
 def consBaja(nombre, apellidos):
     Alumno.delete().where((Alumno.nombre == nombre) & (Alumno.apellidos == apellidos)).execute()
-    print("Alumno dado de baja correctamente")
+    verde("Alumno dado de baja correctamente")
 
 
 def consModificar(nombre, apellidos, columna, nuevoCampo):
@@ -53,5 +54,5 @@ def hayAlumnos():
     if total_alumnos > 0:
         return True
     else:
-        print('\nAun no hay alumnos dados de alta')
+        amarillo('\nAun no hay alumnos dados de alta')
         return False

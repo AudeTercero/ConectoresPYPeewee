@@ -1,6 +1,6 @@
 from Tablas_BBDD import *
 from peewee import *
-
+from Utiles import *
 
 def consAlta(nombre, descripcion):
     """
@@ -87,5 +87,5 @@ def hayCursos():
     if query.count() > 0:
         return True
     else:
-        print('\nAun no hay cursos dados de alta')
+        amarillo('\nAun no hay cursos dados de alta')
         return False

@@ -3,6 +3,7 @@ import VerificationExceptions
 import ConsultasCurso
 import ConsultasProfesor
 import ConsultasAlumnos
+from Utiles import *
 
 
 def menu():
@@ -35,7 +36,7 @@ def menu():
             print("Saliendo...")
             finMenuInscripciones = True
         else:
-            print("Entrada no valida")
+            rojo("Entrada no valida")
 
 
 def matricularAlumno():
@@ -76,7 +77,7 @@ def matricularAlumno():
                         salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
-            print(err)
+            rojo(str(err))
     if (fallos < 5 and opcSalir != '0'):
         op = None
         salir = False
@@ -85,14 +86,14 @@ def matricularAlumno():
                 f"Seguro que quiere matricular al alumno {nombre, apellido} en el curso {curso}?[S/N]").lower()
             if op == "s":
                 ConsultasInscripciones.matAlu(curso, nombre, apellido)
-                print(f"El alumno {nombre, apellido} ha sido matriculado correctamente en el curso {curso}")
+                verde(f"El alumno {nombre, apellido} ha sido matriculado correctamente en el curso {curso}")
             elif op == "n":
                 salir = True
                 print("Saliendo sin guardar...")
             else:
-                print("Entrada no valida.")
+                rojo("Entrada no valida.")
     elif (fallos == 5):
-        print("Has superado el maximos de fallos permitidos que son 5")
+        amarillo("Has superado el maximos de fallos permitidos que son 5")
     else:
         print("Saliendo...")
 
@@ -138,7 +139,7 @@ def asignarProfesor():
                                 print("Volviendo...\n")
 
                             else:
-                                print("Introduce una respuesta valida.")
+                                amarillo("Introduce una respuesta valida.")
                     else:
                         curso = aux
                         if (dni is None and opcSalir != '0'):
@@ -153,7 +154,7 @@ def asignarProfesor():
                                 salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
-            print(err)
+            rojo(str(err))
     if (fallos < 5 and opcSalir != '0'):
         op = None
         salir = False
@@ -162,14 +163,14 @@ def asignarProfesor():
                 f"Seguro que quiere matricular al profesor {dni} en el curso {curso}?[S/N]").lower()
             if op == "s":
                 ConsultasInscripciones.asigProf(curso, dni)
-                print(f"El profesro con el dni {dni} ha sido asignado correctamente en el curso {curso}")
+                verde(f"El profesor con el dni {dni} ha sido asignado correctamente en el curso {curso}")
             elif op == "n":
                 salir = True
                 print("Saliendo sin guardar...")
             else:
-                print("Entrada no valida.")
+                rojo("Entrada no valida.")
     elif (fallos == 5):
-        print("Has superado el maximos de fallos permitidos que son 5")
+        amarillo("Has superado el maximos de fallos permitidos que son 5")
     else:
         print("Saliendo...")
 
@@ -216,7 +217,7 @@ def desmatricularAlumno():
                         salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
-            print(err)
+            rojo(str(err))
     if (fallos < 5 and opcSalir != '0'):
         op = None
         salir = False
@@ -229,9 +230,9 @@ def desmatricularAlumno():
                 salir = True
                 print("Saliendo sin guardar...")
             else:
-                print("Entrada no valida.")
+                rojo("Entrada no valida.")
     elif (fallos == 5):
-        print("Has superado el maximos de fallos permitidos que son 5")
+        amarillo("Has superado el maximos de fallos permitidos que son 5")
     else:
         print("Saliendo...")
 
@@ -271,7 +272,7 @@ def desasignarProfesor():
                     salir = True
         except VerificationExceptions.MisExceptions as err:
             fallos += 1
-            print(err)
+            rojo(str(err))
     if (fallos < 5 and opcSalir != '0'):
         op = None
         salir = False
@@ -284,8 +285,8 @@ def desasignarProfesor():
                 salir = True
                 print("Saliendo sin guardar...")
             else:
-                print("Entrada no valida.")
+                rojo("Entrada no valida.")
     elif (fallos == 5):
-        print("Has superado el maximos de fallos permitidos que son 5")
+        amarillo("Has superado el maximos de fallos permitidos que son 5")
     else:
         print("Saliendo...")
